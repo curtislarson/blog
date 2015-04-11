@@ -7,9 +7,7 @@ title:            Curtis Larson's Blog
 tagline:          A lot of software talk.
 url:              http://curtismlarson.com/blog
 paginate:         1
-baseurl:          http://quackware.github.io/blog/
-# dev url
-#baseurl: /
+baseurl:          /blog
 author:
   name:           Curtis Larson
   url:            https://twitter.com/quackware
@@ -21,9 +19,8 @@ github:
   repo:           https://github.com/quackware/blog
 
 pages_list:
-  Home: '/'
-  About: './about'
-  Archive: './archive'
-  Feed: './atom.xml'
+  Home: ''
+  Archive: 'archive'
+  Feed: 'atom.xml'
 
-highlighter: true
+highlighter: 'pygments'
