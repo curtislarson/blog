@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Curtis Larson's Blog</title>
+ <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
+ <link href="http://curtismlarson.com/blog/"/>
+ <updated>2015-04-11T12:59:10-04:00</updated>
+ <id>http://curtismlarson.com/blog</id>
+ <author>
+   <name>Curtis Larson</name>
+   <email>curtis@curtismlarson.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Introduction</title>
+   <link href="http://curtismlarson.com/blog//2015/04/11/introduction/"/>
+   <updated>2015-04-11T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2015/04/11/introduction</id>
+   <content type="html">&lt;p&gt;I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>
