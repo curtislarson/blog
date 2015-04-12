@@ -1,6 +1,8 @@
 ---
 layout: post
 title: How to point a domain on Google Domains to GitHub pages
+description: Tutorial on pointing a domain on Google Domains to GitHub pages
+keywords: Google Domains, GitHub, GitHub Pages, Google Domains GitHub pages
 author: curtis_larson
 ---
 
