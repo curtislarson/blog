@@ -2,9 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Curtis Larson's Blog</title>
- <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
- <link href="http://curtismlarson.com/blog"/>
- <updated>2015-04-11T14:08:52-04:00</updated>
+ <link href="http://curtismlarson.com/blog/blog/atom.xml" rel="self"/>
+ <link href="http://curtismlarson.com/blog/blog"/>
+ <updated>2015-04-12T15:15:58-04:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name>Curtis Larson</name>
@@ -13,8 +13,58 @@
 
  
  <entry>
+   <title>How to point a domain on Google Domains to GitHub pages</title>
+   <link href="http://curtismlarson.com/blog/blog/2015/04/12/github-pages-google-domains/"/>
+   <updated>2015-04-12T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2015/04/12/github-pages-google-domains</id>
+   <content type="html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#introduction&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#setup-repository&quot;&gt;Setup repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configure-google-domains&quot;&gt;Configure Google Domains&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#conclusion&quot;&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;When setting up my &lt;a href=&quot;http://www.curtismlarson.com&quot;&gt;website&lt;/a&gt; on Google Domains I had to read through several different guides to figure out all I needed to do to point it to a GitHub pages repository. I wrote up this guide to simplify the processes for anyone else performing this same task.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-repository&quot;&gt;Setup repository&lt;/h2&gt;
+
+&lt;p&gt;Navigate to &lt;a href=&quot;https://github.com/new&quot;&gt;https://github.com/new&lt;/a&gt; and create a repository with the name &lt;strong&gt;USERNAME.github.com&lt;/strong&gt; or &lt;strong&gt;USERNAME.github.io&lt;/strong&gt; and give it a nice description.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/zQ5BxEH.png&quot; alt=&quot;Create a repository&quot; title=&quot;Create a repository&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In your new repository, create a &lt;strong&gt;CNAME&lt;/strong&gt; file in the root directory and add the following two entries (with curtismlarson replaced by your own domain):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/LR37up5.png&quot; alt=&quot;CName&quot; title=&quot;CName&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These two entries tell GitHub to redirect any requests to &lt;strong&gt;USERNAME.github.io&lt;/strong&gt; to the domain specified in the CNAME file. There are two entries to ensure that &lt;strong&gt;curtismlarson.com&lt;/strong&gt; will also redirect to &lt;strong&gt;www.curtismlarson.com&lt;/strong&gt;. If you prefer to have a site without the &lt;strong&gt;www&lt;/strong&gt; prefix, you can switch the order of the domains.&lt;/p&gt;
+
+&lt;p&gt;Now verify that your &lt;strong&gt;USERNAME.github.io&lt;/strong&gt; domain is now pointing to your custom domain by going into the repository settings and verifying your GitHub Pages settings:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/RsA5XUO.png&quot; alt=&quot;Github Pages&quot; title=&quot;GitHub Pages&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;configure-google-domains&quot;&gt;Configure Google Domains&lt;/h2&gt;
+
+&lt;p&gt;Navigate to &lt;a href=&quot;https://domains.google.com/registrar&quot;&gt;https://domains.google.com/registrar&lt;/a&gt; and select the &lt;strong&gt;DNS&lt;/strong&gt; option to configure your DNS records.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/oA40Qkq.png&quot; alt=&quot;Google Domains&quot; title=&quot;Google Domains&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Scroll to the very bottom of the page and add 3 Custom Resource Records. You need to add two “@” type A records that point to the GitHub ips &lt;strong&gt;192.30.252.153&lt;/strong&gt; and &lt;strong&gt;192.30.252.154&lt;/strong&gt; and one “www” CNAME record that points to your &lt;strong&gt;USERNAME.github.io&lt;/strong&gt; url:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/xO3At1V.png&quot; alt=&quot;Custom Resource Records&quot; title=&quot;Custom Resource Records&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;That’s it! DNS records often take more than a day to propagate so you may not see your website immediately. Once the changes have propagated your GitHub page and any project pages should be accessible from your new domain. For example &lt;a href=&quot;https://github.com/quackware/blog&quot;&gt;https://github.com/quackware/blog&lt;/a&gt; is hosting the blog you are reading right now and the domain works without any additional setup.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Introduction</title>
-   <link href="http://curtismlarson.com/blog/2015/04/11/introduction/"/>
+   <link href="http://curtismlarson.com/blog/blog/2015/04/11/introduction/"/>
    <updated>2015-04-11T00:00:00-04:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/11/introduction</id>
    <content type="html">&lt;p&gt;I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!&lt;/p&gt;

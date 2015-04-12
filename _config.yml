@@ -8,10 +8,6 @@ tagline:          A lot of software talk.
 url:              http://curtismlarson.com/blog
 paginate:         1
 baseurl:          /blog
-author:
-  name:           Curtis Larson
-  url:            https://twitter.com/quackware
-  email:          curtis@curtismlarson.com
 
 # Custom vars
 version:          1.0.0
