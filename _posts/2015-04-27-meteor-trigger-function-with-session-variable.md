@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Meteor: How to Trigger a Function when a Session Value Changes
-description: Meteor: How to Trigger a Function when a Session Value Changes
+title: Meteor - How to Trigger a Function when a Session Value Changes
+description: Meteor How to Trigger a Function when a Session Value Changes
 keywords: meteor, session trigger, session, meteor trigger session
 author: curtis_larson
 ---
