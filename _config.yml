@@ -9,6 +9,8 @@ url:              http://curtismlarson.com/blog
 paginate:         1
 baseurl:          /blog
 
+disqusid: 3699097
+
 # Custom vars
 version:          1.0.0
 github:
