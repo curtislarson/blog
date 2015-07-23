@@ -2,9 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Curtis Larson's Blog</title>
- <link href="http://curtismlarson.com/blog/blog/atom.xml" rel="self"/>
- <link href="http://curtismlarson.com/blog/blog"/>
- <updated>2015-04-12T16:22:00-04:00</updated>
+ <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
+ <link href="http://curtismlarson.com/blog"/>
+ <updated>2015-07-23T09:21:10-04:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
@@ -12,9 +12,95 @@
  </author>
 
  
- <entry>
+ <entry>xw
+   <title>Meteor - Windows update cannot convert null to object</title>
+   <link href="http://curtismlarson.com/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/"/>
+   <updated>2015-07-23T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object</id>
+   <content type="html">&lt;h2 id=&quot;cannot-convert-null-to-object&quot;&gt;Cannot Convert Null To Object&lt;/h2&gt;
+
+&lt;p&gt;While attempting to update one of my meteor projects on my windows box, I ran into the following error:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/NvtJjoq.png&quot; alt=&quot;Cannot convert null to object&quot; title=&quot;Cannot convert null to object&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Attempting to update the meteor binary through &lt;code&gt;meteor update&lt;/code&gt; yielded the same error.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-fix&quot;&gt;How to Fix&lt;/h2&gt;
+
+&lt;p&gt;In order to fix the error, I actually had to completely uninstall meteor and reinstall from &lt;a href=&quot;https://win.meteor.com/&quot;&gt;https://win.meteor.com/&lt;/a&gt;. After everything was installed, &lt;code&gt;meteor update&lt;/code&gt; worked fine. Hope this helps anyone encountering the same problem!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
+   <title>Meteor - How to use iron:router waitOn with an Async Server Call</title>
+   <link href="http://curtismlarson.com/blog/2015/05/04/meteor-ironrouter-waitOn-server/"/>
+   <updated>2015-05-04T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2015/05/04/meteor-ironrouter-waitOn-server</id>
+   <content type="html">&lt;h2 id=&quot;how-to-use-ironrouter-waiton-with-an-async-server-call&quot;&gt;How to use iron:router waitOn with an Async Server Call&lt;/h2&gt;
+
+&lt;p&gt;There have been several &lt;a href=&quot;http://stackoverflow.com/questions/29493809/how-to-make-onbeforeaction-call-wait-until-a-function-call-inside-finishes-in-me/&quot;&gt;posts&lt;/a&gt; about utilizing iron:router’s &lt;code&gt;waitOn&lt;/code&gt; functionality for an async server call. After being disatisfied with a lot of the solutions, including my own in the aforementioned stackoverflow post, I decided to write up a simple solution that had a minimal amount of extra code in the routes file. A couple of problems that I (and many others) ran into included the &lt;code&gt;waitOn&lt;/code&gt; function running in an &lt;a href=&quot;http://stackoverflow.com/questions/25136239/meteor-0-8-3-iron-router-infinite-loop-inside-waiton-hook&quot;&gt;infinite loop&lt;/a&gt;, and also &lt;code&gt;waitOn&lt;/code&gt; &lt;a href=&quot;https://github.com/iron-meteor/iron-router/issues/1031&quot;&gt;executing twice&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;client-routes-file&quot;&gt;Client Routes File&lt;/h2&gt;
+
+&lt;p&gt;The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a &lt;code&gt;Util.waitOnServer&lt;/code&gt; call which will call the &lt;code&gt;testWaitOn&lt;/code&gt; Meteor method on the server. You can optionally pass in a second argument to &lt;code&gt;Util.waitOnServer&lt;/code&gt; to pass data to the Meteor method. Once this call returns, we can then access the data through &lt;code&gt;Util.getResponse&lt;/code&gt;.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/71290757e28d7df89540.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;utilwaitonserver&quot;&gt;Util.waitOnServer&lt;/h2&gt;
+
+&lt;p&gt;The Util object contains all the functionality of waiting on &lt;code&gt;Meteor.call&lt;/code&gt;. Functionality such as &lt;code&gt;getResponse&lt;/code&gt; can be easily changed to something more eloquent, and you can also change the &lt;code&gt;Meteor.call&lt;/code&gt; to be any async call. The &lt;code&gt;data&lt;/code&gt; arugment from &lt;code&gt;Util.waitOnServer&lt;/code&gt; is forwarded to the Meteor method here.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/eea7818fde0cda6a35c3.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;server-code&quot;&gt;Server Code&lt;/h2&gt;
+
+&lt;p&gt;The server code is very simple, it just generates a random number and returns it. I also printed out the &lt;code&gt;data&lt;/code&gt; argument passed to us from the client. I just wanted a way to make sure everything was being executed in the correct order.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/703e6cf54c24f7f9b16f.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The full source code is available &lt;a href=&quot;https://github.com/quackware/meteor-waitOnServer&quot;&gt;on my GitHub page&lt;/a&gt;. If you have any questions please post them in the comments!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
+   <title>Meteor - How to Trigger a Function when a Session Value Changes</title>
+   <link href="http://curtismlarson.com/blog/2015/04/27/meteor-trigger-function-with-session-variable/"/>
+   <updated>2015-04-27T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2015/04/27/meteor-trigger-function-with-session-variable</id>
+   <content type="html">&lt;h2 id=&quot;how-to-trigger-a-function-when-a-session-value-changes&quot;&gt;How to Trigger a Function when a Session Value Changes&lt;/h2&gt;
+
+&lt;p&gt;While working on a Meteor project, I wanted to trigger a function whenever I changed the value of a Session variable through &lt;code&gt;Session.set()&lt;/code&gt;. It took me a little bit of experimentation and digging to figure out how to do it, and the result is pretty simple.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-do-it&quot;&gt;How to do it&lt;/h2&gt;
+
+&lt;p&gt;Use the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var doSomething = function() {
+  // Do something when the session value changes
+}
+
+Deps.autorun(function() {
+  var sessionVal = Session.get(&quot;yourSessionVariable&quot;);
+  console.log(&quot;The session value has changed&quot;);
+  doSomething();
+});
+
+var anotherFunction = function() {
+  Session.set(&quot;yourSessionVariable&quot;, &quot;foo&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That’s it! Whenever &lt;code&gt;anotherFunction&lt;/code&gt; is executed, or whenever the session value &lt;code&gt;yourSessionVariable&lt;/code&gt; is changed in any other function, the function in the &lt;code&gt;Deps.autorun()&lt;/code&gt; block will execute. Simple!&lt;/p&gt;
+
+&lt;h2 id=&quot;depsautorun&quot;&gt;Deps.autoRun&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;Deps.autoRun()&lt;/code&gt; is the key here, as it can make arbitrary blocks of code reactive. &lt;code&gt;Session&lt;/code&gt; is already a reactive variable, so we do not need to go through the trouble of using &lt;code&gt;Deps.Dependency&lt;/code&gt;. You can find more information about Deps &lt;a href=&quot;https://manual.meteor.com/#deps&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
    <title>How to point a domain on Google Domains to GitHub pages</title>
-   <link href="http://curtismlarson.com/blog/blog/2015/04/12/github-pages-google-domains/"/>
+   <link href="http://curtismlarson.com/blog/2015/04/12/github-pages-google-domains/"/>
    <updated>2015-04-12T00:00:00-04:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/12/github-pages-google-domains</id>
    <content type="html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
@@ -62,9 +148,9 @@
 </content>
  </entry>
  
- <entry>
+ <entry>xw
    <title>Introduction</title>
-   <link href="http://curtismlarson.com/blog/blog/2015/04/11/introduction/"/>
+   <link href="http://curtismlarson.com/blog/2015/04/11/introduction/"/>
    <updated>2015-04-11T00:00:00-04:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/11/introduction</id>
    <content type="html">&lt;p&gt;I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!&lt;/p&gt;

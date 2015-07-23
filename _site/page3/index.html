@@ -63,24 +63,41 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/">
-        Meteor - Windows update cannot convert null to object
+      <a href="/blog/2015/04/27/meteor-trigger-function-with-session-variable/">
+        Meteor - How to Trigger a Function when a Session Value Changes
       </a>
     </h1>
 
-    <time datetime="2015-07-23T00:00:00-04:00" class="post-date">23 Jul 2015</time>
+    <time datetime="2015-04-27T00:00:00-04:00" class="post-date">27 Apr 2015</time>
 
-    <h2 id="cannot-convert-null-to-object">Cannot Convert Null To Object</h2>
+    <h2 id="how-to-trigger-a-function-when-a-session-value-changes">How to Trigger a Function when a Session Value Changes</h2>
 
-<p>While attempting to update one of my meteor projects on my windows box, I ran into the following error:</p>
+<p>While working on a Meteor project, I wanted to trigger a function whenever I changed the value of a Session variable through <code>Session.set()</code>. It took me a little bit of experimentation and digging to figure out how to do it, and the result is pretty simple.</p>
 
-<p><img src="http://i.imgur.com/NvtJjoq.png" alt="Cannot convert null to object" title="Cannot convert null to object" /></p>
+<h2 id="how-to-do-it">How to do it</h2>
 
-<p>Attempting to update the meteor binary through <code>meteor update</code> yielded the same error.</p>
+<p>Use the following code:</p>
 
-<h2 id="how-to-fix">How to Fix</h2>
+<pre><code>var doSomething = function() {
+  // Do something when the session value changes
+}
 
-<p>In order to fix the error, I actually had to completely uninstall meteor and reinstall from <a href="https://win.meteor.com/">https://win.meteor.com/</a>. After everything was installed, <code>meteor update</code> worked fine. Hope this helps anyone encountering the same problem!</p>
+Deps.autorun(function() {
+  var sessionVal = Session.get("yourSessionVariable");
+  console.log("The session value has changed");
+  doSomething();
+});
+
+var anotherFunction = function() {
+  Session.set("yourSessionVariable", "foo");
+}
+</code></pre>
+
+<p>That’s it! Whenever <code>anotherFunction</code> is executed, or whenever the session value <code>yourSessionVariable</code> is changed in any other function, the function in the <code>Deps.autorun()</code> block will execute. Simple!</p>
+
+<h2 id="depsautorun">Deps.autoRun</h2>
+
+<p><code>Deps.autoRun()</code> is the key here, as it can make arbitrary blocks of code reactive. <code>Session</code> is already a reactive variable, so we do not need to go through the trouble of using <code>Deps.Dependency</code>. You can find more information about Deps <a href="https://manual.meteor.com/#deps">here</a>.</p>
 
     
     
@@ -96,10 +113,12 @@
 
 <div class="pagination">
   
-    <a class="pagination-item older" href="/blogpage2">Older</a>
+    <a class="pagination-item older" href="/blogpage4">Older</a>
   
   
-    <span class="pagination-item newer">Newer</span>
+    
+      <a class="pagination-item newer" href="/blogpage2">Newer</a>
+    
   
 </div>
 

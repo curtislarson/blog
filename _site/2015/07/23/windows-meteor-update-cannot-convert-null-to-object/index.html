@@ -10,12 +10,12 @@
 
   <title>
     
-      Introduction &middot; Curtis Larson's Blog
+      Meteor - Windows update cannot convert null to object &middot; Curtis Larson's Blog
     
   </title>
 
-  
-  
+  <meta name="description" content="Fix windows meteor update cannot convert null to object">
+  <meta name="keywords" content="meteor, windows, meteor update, cannot convert null to object, meteor update windows, meteor update windows error">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/blog/public/css/poole.css">
@@ -62,26 +62,49 @@
         
 
 <article class="post">
-  <h1 class="post-title">Introduction</h1>
-  <time datetime="2015-04-11T00:00:00-04:00" class="page-date">11 Apr 2015</time>
-  <p>I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!</p>
+  <h1 class="post-title">Meteor - Windows update cannot convert null to object</h1>
+  <time datetime="2015-07-23T00:00:00-04:00" class="page-date">23 Jul 2015</time>
+  <h2 id="cannot-convert-null-to-object">Cannot Convert Null To Object</h2>
+
+<p>While attempting to update one of my meteor projects on my windows box, I ran into the following error:</p>
+
+<p><img src="http://i.imgur.com/NvtJjoq.png" alt="Cannot convert null to object" title="Cannot convert null to object" /></p>
+
+<p>Attempting to update the meteor binary through <code>meteor update</code> yielded the same error.</p>
+
+<h2 id="how-to-fix">How to Fix</h2>
+
+<p>In order to fix the error, I actually had to completely uninstall meteor and reinstall from <a href="https://win.meteor.com/">https://win.meteor.com/</a>. After everything was installed, <code>meteor update</code> worked fine. Hope this helps anyone encountering the same problem!</p>
 
 
   
+    <span>
+        <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> |
+        <a href="https://twitter.com/quackware" target="_blank">Twitter</a> |
+        <a href="mailto:curtis@curtismlarson.com" target="_blank">Email</a>
+    </span>
+  
 </article>
+
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'curtismlarson';
+  var disqus_identifier = "3699097/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 <aside class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/">
-            Meteor - Windows update cannot convert null to object
-            <small><time datetime="2015-07-23T00:00:00-04:00">23 Jul 2015</time></small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -97,6 +120,15 @@
           <a href="/blog/2015/04/27/meteor-trigger-function-with-session-variable/">
             Meteor - How to Trigger a Function when a Session Value Changes
             <small><time datetime="2015-04-27T00:00:00-04:00">27 Apr 2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2015/04/12/github-pages-google-domains/">
+            How to point a domain on Google Domains to GitHub pages
+            <small><time datetime="2015-04-12T00:00:00-04:00">12 Apr 2015</time></small>
           </a>
         </h3>
       </li>
