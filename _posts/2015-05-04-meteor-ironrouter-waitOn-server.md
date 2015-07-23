@@ -13,19 +13,19 @@ There have been several [posts](http://stackoverflow.com/questions/29493809/how-
 
 ## Client Routes File
 
-The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a `Util.waitOnServer` call which will call the `testWaitOn` Meteor method on the server. Once this call returns, we can then access the data through `Util.getResponse`.
+The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a `Util.waitOnServer` call which will call the `testWaitOn` Meteor method on the server. You can optionally pass in a second argument to `Util.waitOnServer` to pass data to the Meteor method. Once this call returns, we can then access the data through `Util.getResponse`.
 
 <script src="https://gist.github.com/quackware/71290757e28d7df89540.js"></script>
 
 ## Util.waitOnServer
 
-The Util object contains all the functionality of waiting on `Meteor.call`. Functionality such as `getResponse` can be easily changed to something more eloquent, and you can also change the `Meteor.call` to be any async call.
+The Util object contains all the functionality of waiting on `Meteor.call`. Functionality such as `getResponse` can be easily changed to something more eloquent, and you can also change the `Meteor.call` to be any async call. The `data` arugment from `Util.waitOnServer` is forwarded to the Meteor method here.
 
 <script src="https://gist.github.com/quackware/eea7818fde0cda6a35c3.js"></script>
 
 ## Server Code
 
-The server code is very simple, it just generates a random number and returns it. I just wanted a way to make sure everything was being executed in the correct order.
+The server code is very simple, it just generates a random number and returns it. I also printed out the `data` argument passed to us from the client. I just wanted a way to make sure everything was being executed in the correct order.
 
 <script src="https://gist.github.com/quackware/703e6cf54c24f7f9b16f.js"></script>
 
