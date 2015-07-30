@@ -4,7 +4,7 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2015-07-23T09:26:27-04:00</updated>
+ <updated>2015-07-30T12:19:54-07:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
@@ -13,9 +13,100 @@
 
  
  <entry>xw
+   <title>Meteor - Send Template Emails from the Server with Mailgun</title>
+   <link href="http://curtismlarson.com/blog/2015/07/30/meteor-send-template-emails-from-server-mailgun/"/>
+   <updated>2015-07-30T00:00:00-07:00</updated>
+   <id>http://curtismlarson.com/blog/2015/07/30/meteor-send-template-emails-from-server-mailgun</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In this tutorial I will show you how I have been sending template emails from the server with Mailgun. This is very useful if you want to send transactional or newsletter emails using a pre existing template, but you also want to dynamically populate the email with data from one of your Collections. The full code for this tutorial is available &lt;a href=&quot;https://github.com/quackware/meteor-template-email&quot;&gt;on my GitHub page&lt;/a&gt;. If you have any questions please leave them in the comments!&lt;/p&gt;
+
+&lt;h2 id=&quot;dependencies&quot;&gt;Dependencies&lt;/h2&gt;
+
+&lt;p&gt;This tutorial requires the following dependencies (which will be auto downloaded if you clone the tutorial directly):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;iron:router
+meteorhacks:npm
+meteorhacks:ssr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Additionally you need to specify the following &lt;code&gt;meteorhacks:npm&lt;/code&gt; dependency in a &lt;code&gt;package.json&lt;/code&gt; file in your root directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &quot;mailgun&quot;: &quot;0.5.0&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;the-email-template&quot;&gt;The Email Template&lt;/h2&gt;
+
+&lt;p&gt;For this tutorial I chose a basic email template (modified slightly for Meteor specific stuff) from the mailgun website. It is &lt;strong&gt;IMPORTANT&lt;/strong&gt; that you put the template file in the &lt;code&gt;private/&lt;/code&gt; directory of your project so that it can be accessed by &lt;code&gt;Assets.getText&lt;/code&gt; on the server. I created the following file and placed it at &lt;code&gt;private/email-template.html&lt;/code&gt;. Note the placeholders &lt;code&gt;mainTitle&lt;/code&gt;, &lt;code&gt;tasks&lt;/code&gt;, &lt;code&gt;task.title&lt;/code&gt;, &lt;code&gt;task.url&lt;/code&gt;, and &lt;code&gt;unsubscribe&lt;/code&gt;. You will see how we will replace those placeholders with data from our collection later.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/341cd73d196236f78b31.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;startup-code&quot;&gt;Startup Code&lt;/h2&gt;
+
+&lt;p&gt;Now that we have our email template, we need to add some code to our server that is run on startup. I created a file called &lt;code&gt;startup.js&lt;/code&gt; that will setup our template rendering system and setup our mailgun settings. The code can be seen below:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/4f30b6007e89a45766b9.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Notice the creation of a &lt;code&gt;templates&lt;/code&gt; array, which we push a single name and path to. The name is used when we want to reference a specific template when we send an email and the path references the relative location of the template html file to the &lt;code&gt;private/&lt;/code&gt; directory. This template array is passed to a &lt;code&gt;EmailGenerator&lt;/code&gt; object which we will implement in the next section. Another important thing to note is the various &lt;code&gt;Meteor.settings&lt;/code&gt; variables I use in setting up my stmp &lt;code&gt;MAIL_URL&lt;/code&gt;. These variables are read from a &lt;code&gt;settings.json&lt;/code&gt; file that is loaded when you start meteor like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;meteor --settings settings.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An example settings.json file for this tutorial would look something like this:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/b70c9cf3c43fa0e01c13.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;mailgun&quot;&gt;Mailgun&lt;/h2&gt;
+
+&lt;p&gt;The mailgun code is composed of a single &lt;code&gt;Meteor.method&lt;/code&gt; that takes in basic email information and forwards it to the mailgun api we imported using &lt;code&gt;meteorhacks:npm&lt;/code&gt;.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/41cd6ba173d14a66557a.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Note that we use &lt;code&gt;sendRaw&lt;/code&gt; here to take advantage of html emails, which requires us to format the rest of the email body manually.&lt;/p&gt;
+
+&lt;h2 id=&quot;emailgenerator&quot;&gt;EmailGenerator&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;EmailGenerator&lt;/code&gt; object contains two simple methods, one we saw above that compiles each template html file using &lt;code&gt;meteorhacks:ssr&lt;/code&gt;, and another that generates the html from the compiled template. You can see the code for the &lt;code&gt;EmailGenerator&lt;/code&gt; below:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/820b7cc9f7f5f7ee24ec.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;A few important things to note is the &lt;code&gt;templateName&lt;/code&gt; argument of &lt;code&gt;generateHtml&lt;/code&gt; which is used to referene the template we passed in with &lt;code&gt;addTemplates&lt;/code&gt;, and also the &lt;code&gt;data&lt;/code&gt; parameter of &lt;code&gt;generateHtml&lt;/code&gt;. The &lt;code&gt;data&lt;/code&gt; parameter is what will populate the various handlebar templates in our &lt;code&gt;email-templates.html&lt;/code&gt; file. This data will come from our Meteor collection we set up in the next section.&lt;/p&gt;
+
+&lt;h2 id=&quot;server-code&quot;&gt;Server Code&lt;/h2&gt;
+
+&lt;p&gt;The server code is composed of two very basic &lt;code&gt;Meteor.methods&lt;/code&gt;: &lt;code&gt;addTask&lt;/code&gt; and &lt;code&gt;sendEmail&lt;/code&gt;. Both of these methods will be called from the client code that we implement in the next section.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/1f06550d64a7770a8fad.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;code&gt;addTask&lt;/code&gt; does exactly what it’s name implies, adds a task composed of a title and url to a Mongo.collection we created with&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Tasks = new Mongo.Collection(&quot;tasks&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;specified in a seperate javascript file (You can add that line anywhere in the server code). &lt;code&gt;sendEmail&lt;/code&gt; is slightly more complicated, but basically acts as the glue between all our previously implemented code. It pulls all the tasks from the database, creates that data object that we then pass to &lt;code&gt;EmailGenerator.generateHtml&lt;/code&gt;, and calls the &lt;code&gt;sendMailGunEmail&lt;/code&gt; method with the generated email html which forwards the email to our mailgun api.&lt;/p&gt;
+
+&lt;h2 id=&quot;client-code&quot;&gt;Client Code&lt;/h2&gt;
+
+&lt;p&gt;Finally we need to create some basic client code where the user can enter a title and a url for a “task”. This task data will be sent to the server where we will insert it into the &lt;code&gt;Tasks&lt;/code&gt; collection. We can then pull data from this &lt;code&gt;Tasks&lt;/code&gt; collection and use it to populate our email template that we will create.&lt;/p&gt;
+
+&lt;p&gt;In addition to adding tasks, we will let the user be able to click a button to send an email. This code will just perform a basic &lt;code&gt;Meteor.call&lt;/code&gt; which will call into our template generating and email sending code on the server. You can see the two files, &lt;code&gt;index.html&lt;/code&gt; and &lt;code&gt;index.js&lt;/code&gt; below:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/831b9cb8df0e9c849adb.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/57643c6fe549eab61695.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Hopefully this helps our anyone that was interested in how to send template emails from the server with mailgun. Again the full code for this tutorial is available &lt;a href=&quot;https://github.com/quackware/meteor-template-email&quot;&gt;on my GitHub page&lt;/a&gt;. If you have any questions please leave them in the comments!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
    <title>Meteor - Windows update cannot convert null to object</title>
    <link href="http://curtismlarson.com/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/"/>
-   <updated>2015-07-23T00:00:00-04:00</updated>
+   <updated>2015-07-23T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object</id>
    <content type="html">&lt;h2 id=&quot;cannot-convert-null-to-object&quot;&gt;Cannot Convert Null To Object&lt;/h2&gt;
 
@@ -34,7 +125,7 @@
  <entry>xw
    <title>Meteor - How to use iron:router waitOn with an Async Server Call</title>
    <link href="http://curtismlarson.com/blog/2015/05/04/meteor-ironrouter-waitOn-server/"/>
-   <updated>2015-05-04T00:00:00-04:00</updated>
+   <updated>2015-05-04T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/05/04/meteor-ironrouter-waitOn-server</id>
    <content type="html">&lt;h2 id=&quot;how-to-use-ironrouter-waiton-with-an-async-server-call&quot;&gt;How to use iron:router waitOn with an Async Server Call&lt;/h2&gt;
 
@@ -42,13 +133,13 @@
 
 &lt;h2 id=&quot;client-routes-file&quot;&gt;Client Routes File&lt;/h2&gt;
 
-&lt;p&gt;The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a &lt;code&gt;Util.waitOnServer&lt;/code&gt; call which will call the &lt;code&gt;testWaitOn&lt;/code&gt; Meteor method on the server. You can optionally pass in a second argument to &lt;code&gt;Util.waitOnServer&lt;/code&gt; to pass data to the Meteor method. Once this call returns, we can then access the data through &lt;code&gt;Util.getResponse&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a &lt;code&gt;Util.waitOnServer&lt;/code&gt; call which will call the &lt;code&gt;testWaitOn&lt;/code&gt; Meteor method on the server. You can optionally pass in arguments to &lt;code&gt;Util.waitOnServer&lt;/code&gt; to pass data to the Meteor method. Once this call returns, we can then access the data through &lt;code&gt;Util.getResponse&lt;/code&gt;.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/quackware/71290757e28d7df89540.js&quot;&gt;&lt;/script&gt;
 
 &lt;h2 id=&quot;utilwaitonserver&quot;&gt;Util.waitOnServer&lt;/h2&gt;
 
-&lt;p&gt;The Util object contains all the functionality of waiting on &lt;code&gt;Meteor.call&lt;/code&gt;. Functionality such as &lt;code&gt;getResponse&lt;/code&gt; can be easily changed to something more eloquent, and you can also change the &lt;code&gt;Meteor.call&lt;/code&gt; to be any async call. The &lt;code&gt;data&lt;/code&gt; arugment from &lt;code&gt;Util.waitOnServer&lt;/code&gt; is forwarded to the Meteor method here.&lt;/p&gt;
+&lt;p&gt;The Util object contains all the functionality of waiting on &lt;code&gt;Meteor.call&lt;/code&gt;. Functionality such as &lt;code&gt;getResponse&lt;/code&gt; can be easily changed to something more eloquent, and you can also change the &lt;code&gt;Meteor.call&lt;/code&gt; to be any async call. The arugments from &lt;code&gt;Util.waitOnServer&lt;/code&gt; are forwarded to the Meteor method here.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/quackware/eea7818fde0cda6a35c3.js&quot;&gt;&lt;/script&gt;
 
@@ -65,7 +156,7 @@
  <entry>xw
    <title>Meteor - How to Trigger a Function when a Session Value Changes</title>
    <link href="http://curtismlarson.com/blog/2015/04/27/meteor-trigger-function-with-session-variable/"/>
-   <updated>2015-04-27T00:00:00-04:00</updated>
+   <updated>2015-04-27T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/27/meteor-trigger-function-with-session-variable</id>
    <content type="html">&lt;h2 id=&quot;how-to-trigger-a-function-when-a-session-value-changes&quot;&gt;How to Trigger a Function when a Session Value Changes&lt;/h2&gt;
 
@@ -101,7 +192,7 @@ var anotherFunction = function() {
  <entry>xw
    <title>How to point a domain on Google Domains to GitHub pages</title>
    <link href="http://curtismlarson.com/blog/2015/04/12/github-pages-google-domains/"/>
-   <updated>2015-04-12T00:00:00-04:00</updated>
+   <updated>2015-04-12T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/12/github-pages-google-domains</id>
    <content type="html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
 
@@ -151,7 +242,7 @@ var anotherFunction = function() {
  <entry>xw
    <title>Introduction</title>
    <link href="http://curtismlarson.com/blog/2015/04/11/introduction/"/>
-   <updated>2015-04-11T00:00:00-04:00</updated>
+   <updated>2015-04-11T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/11/introduction</id>
    <content type="html">&lt;p&gt;I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!&lt;/p&gt;
 </content>

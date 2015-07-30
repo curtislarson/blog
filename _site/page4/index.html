@@ -63,55 +63,41 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/04/12/github-pages-google-domains/">
-        How to point a domain on Google Domains to GitHub pages
+      <a href="/blog/2015/04/27/meteor-trigger-function-with-session-variable/">
+        Meteor - How to Trigger a Function when a Session Value Changes
       </a>
     </h1>
 
-    <time datetime="2015-04-12T00:00:00-04:00" class="post-date">12 Apr 2015</time>
+    <time datetime="2015-04-27T00:00:00-07:00" class="post-date">27 Apr 2015</time>
 
-    <h1 id="table-of-contents">Table of Contents</h1>
+    <h2 id="how-to-trigger-a-function-when-a-session-value-changes">How to Trigger a Function when a Session Value Changes</h2>
 
-<ol>
-  <li><a href="#introduction">Introduction</a></li>
-  <li><a href="#setup-repository">Setup repository</a></li>
-  <li><a href="#configure-google-domains">Configure Google Domains</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ol>
+<p>While working on a Meteor project, I wanted to trigger a function whenever I changed the value of a Session variable through <code>Session.set()</code>. It took me a little bit of experimentation and digging to figure out how to do it, and the result is pretty simple.</p>
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="how-to-do-it">How to do it</h2>
 
-<p>When setting up my <a href="http://www.curtismlarson.com">website</a> on Google Domains I had to read through several different guides to figure out all I needed to do to point it to a GitHub pages repository. I wrote up this guide to simplify the processes for anyone else performing this same task.</p>
+<p>Use the following code:</p>
 
-<h2 id="setup-repository">Setup repository</h2>
+<pre><code>var doSomething = function() {
+  // Do something when the session value changes
+}
 
-<p>Navigate to <a href="https://github.com/new">https://github.com/new</a> and create a repository with the name <strong>USERNAME.github.com</strong> or <strong>USERNAME.github.io</strong> and give it a nice description.</p>
+Deps.autorun(function() {
+  var sessionVal = Session.get("yourSessionVariable");
+  console.log("The session value has changed");
+  doSomething();
+});
 
-<p><img src="http://i.imgur.com/zQ5BxEH.png" alt="Create a repository" title="Create a repository" /></p>
+var anotherFunction = function() {
+  Session.set("yourSessionVariable", "foo");
+}
+</code></pre>
 
-<p>In your new repository, create a <strong>CNAME</strong> file in the root directory and add the following two entries (with curtismlarson replaced by your own domain):</p>
+<p>That’s it! Whenever <code>anotherFunction</code> is executed, or whenever the session value <code>yourSessionVariable</code> is changed in any other function, the function in the <code>Deps.autorun()</code> block will execute. Simple!</p>
 
-<p><img src="http://i.imgur.com/LR37up5.png" alt="CName" title="CName" /></p>
+<h2 id="depsautorun">Deps.autoRun</h2>
 
-<p>These two entries tell GitHub to redirect any requests to <strong>USERNAME.github.io</strong> to the domain specified in the CNAME file. There are two entries to ensure that <strong>curtismlarson.com</strong> will also redirect to <strong>www.curtismlarson.com</strong>. If you prefer to have a site without the <strong>www</strong> prefix, you can switch the order of the domains.</p>
-
-<p>Now verify that your <strong>USERNAME.github.io</strong> domain is now pointing to your custom domain by going into the repository settings and verifying your GitHub Pages settings:</p>
-
-<p><img src="http://i.imgur.com/RsA5XUO.png" alt="Github Pages" title="GitHub Pages" /></p>
-
-<h2 id="configure-google-domains">Configure Google Domains</h2>
-
-<p>Navigate to <a href="https://domains.google.com/registrar">https://domains.google.com/registrar</a> and select the <strong>DNS</strong> option to configure your DNS records.</p>
-
-<p><img src="http://i.imgur.com/oA40Qkq.png" alt="Google Domains" title="Google Domains" /></p>
-
-<p>Scroll to the very bottom of the page and add 3 Custom Resource Records. You need to add two “@” type A records that point to the GitHub ips <strong>192.30.252.153</strong> and <strong>192.30.252.154</strong> and one “www” CNAME record that points to your <strong>USERNAME.github.io</strong> url:</p>
-
-<p><img src="http://i.imgur.com/xO3At1V.png" alt="Custom Resource Records" title="Custom Resource Records" /></p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it! DNS records often take more than a day to propagate so you may not see your website immediately. Once the changes have propagated your GitHub page and any project pages should be accessible from your new domain. For example <a href="https://github.com/quackware/blog">https://github.com/quackware/blog</a> is hosting the blog you are reading right now and the domain works without any additional setup.</p>
+<p><code>Deps.autoRun()</code> is the key here, as it can make arbitrary blocks of code reactive. <code>Session</code> is already a reactive variable, so we do not need to go through the trouble of using <code>Deps.Dependency</code>. You can find more information about Deps <a href="https://manual.meteor.com/#deps">here</a>.</p>
 
     
     
@@ -139,7 +125,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-07-23T09:26:27-04:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-07-30T12:19:54-07:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
