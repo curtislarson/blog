@@ -19,7 +19,7 @@ This tutorial requires the following dependencies (which will be auto downloaded
     meteorhacks:npm
     meteorhacks:ssr
 
-Additionally you need to specify the following meteorhacks:npm dependency in a `package.json` file in your root directory:
+Additionally you need to specify the following `meteorhacks:npm` dependency in a `package.json` file in your root directory:
 
     {
         "mailgun": "0.5.0"
@@ -27,7 +27,7 @@ Additionally you need to specify the following meteorhacks:npm dependency in a `
 
 ## The Email Template
 
-For this tutorial I chose a basic email template (modified slightly for Meteor specific stuff) from the mailgun website. It is ***IMPORTANT** that you put the template file in the `private/` directory of your project so that it can be accessed by `Assets.getText` on the server. I created the following file and placed it at `private/email-template.html`. Note the placeholders `mainTitle`, `tasks`, `task.title`, `task.url`, and `unsubscribe`. You will see how we will replace those placeholders with data form our collectino later.
+For this tutorial I chose a basic email template (modified slightly for Meteor specific stuff) from the mailgun website. It is **IMPORTANT** that you put the template file in the `private/` directory of your project so that it can be accessed by `Assets.getText` on the server. I created the following file and placed it at `private/email-template.html`. Note the placeholders `mainTitle`, `tasks`, `task.title`, `task.url`, and `unsubscribe`. You will see how we will replace those placeholders with data from our collection later.
 
 <script src="https://gist.github.com/quackware/341cd73d196236f78b31.js"></script>
 
@@ -37,7 +37,7 @@ Now that we have our email template, we need to add some code to our server that
 
 <script src="https://gist.github.com/quackware/4f30b6007e89a45766b9.js"></script>
 
-Notice the creation of a `templates` array, which we push a single name and path to. The name is used when we want to reference a specific template when we send an email and the path references the relative location of the template html file to the `private/` directory. This template array is passed to a `EmailGenerator` object which we will implement in the next section. Another important thing to note is the various `Meteor.settings...` variables I use in setting up my stmp MAIL_URL. These variables are read from a `settings.json` file that is loaded when you start meteor like so:
+Notice the creation of a `templates` array, which we push a single name and path to. The name is used when we want to reference a specific template when we send an email and the path references the relative location of the template html file to the `private/` directory. This template array is passed to a `EmailGenerator` object which we will implement in the next section. Another important thing to note is the various `Meteor.settings` variables I use in setting up my stmp `MAIL_URL`. These variables are read from a `settings.json` file that is loaded when you start meteor like so:
 
     meteor --settings settings.json
 
@@ -71,7 +71,7 @@ The server code is composed of two very basic `Meteor.methods`: `addTask` and `s
 
     Tasks = new Mongo.Collection("tasks");
 
-specified in a seperate javascript file (You can add that line anywhere in the server code). `sendEmail` is slightly more complicated, but basically acts as the glue between all our previously implemented code. It pulls all the tasks from the database, creates that data object that we then pass to `EmailGenerator.generateHtml`, and calls the `sendMailGunEmail` method which forwards the email to our mailgun api.
+specified in a seperate javascript file (You can add that line anywhere in the server code). `sendEmail` is slightly more complicated, but basically acts as the glue between all our previously implemented code. It pulls all the tasks from the database, creates that data object that we then pass to `EmailGenerator.generateHtml`, and calls the `sendMailGunEmail` method with the generated email html which forwards the email to our mailgun api.
 
 ## Client Code
 
