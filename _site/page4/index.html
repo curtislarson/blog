@@ -63,41 +63,36 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/04/27/meteor-trigger-function-with-session-variable/">
-        Meteor - How to Trigger a Function when a Session Value Changes
+      <a href="/blog/2015/05/04/meteor-ironrouter-waitOn-server/">
+        Meteor - How to use iron:router waitOn with an Async Server Call
       </a>
     </h1>
 
-    <time datetime="2015-04-27T00:00:00-07:00" class="post-date">27 Apr 2015</time>
+    <time datetime="2015-05-04T00:00:00-04:00" class="post-date">04 May 2015</time>
 
-    <h2 id="how-to-trigger-a-function-when-a-session-value-changes">How to Trigger a Function when a Session Value Changes</h2>
+    <h2 id="how-to-use-ironrouter-waiton-with-an-async-server-call">How to use iron:router waitOn with an Async Server Call</h2>
 
-<p>While working on a Meteor project, I wanted to trigger a function whenever I changed the value of a Session variable through <code>Session.set()</code>. It took me a little bit of experimentation and digging to figure out how to do it, and the result is pretty simple.</p>
+<p>There have been several <a href="http://stackoverflow.com/questions/29493809/how-to-make-onbeforeaction-call-wait-until-a-function-call-inside-finishes-in-me/">posts</a> about utilizing iron:router’s <code>waitOn</code> functionality for an async server call. After being disatisfied with a lot of the solutions, including my own in the aforementioned stackoverflow post, I decided to write up a simple solution that had a minimal amount of extra code in the routes file. A couple of problems that I (and many others) ran into included the <code>waitOn</code> function running in an <a href="http://stackoverflow.com/questions/25136239/meteor-0-8-3-iron-router-infinite-loop-inside-waiton-hook">infinite loop</a>, and also <code>waitOn</code> <a href="https://github.com/iron-meteor/iron-router/issues/1031">executing twice</a>.</p>
 
-<h2 id="how-to-do-it">How to do it</h2>
+<h2 id="client-routes-file">Client Routes File</h2>
 
-<p>Use the following code:</p>
+<p>The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a <code>Util.waitOnServer</code> call which will call the <code>testWaitOn</code> Meteor method on the server. You can optionally pass in arguments to <code>Util.waitOnServer</code> to pass data to the Meteor method. Once this call returns, we can then access the data through <code>Util.getResponse</code>.</p>
 
-<pre><code>var doSomething = function() {
-  // Do something when the session value changes
-}
+<script src="https://gist.github.com/quackware/71290757e28d7df89540.js"></script>
 
-Deps.autorun(function() {
-  var sessionVal = Session.get("yourSessionVariable");
-  console.log("The session value has changed");
-  doSomething();
-});
+<h2 id="utilwaitonserver">Util.waitOnServer</h2>
 
-var anotherFunction = function() {
-  Session.set("yourSessionVariable", "foo");
-}
-</code></pre>
+<p>The Util object contains all the functionality of waiting on <code>Meteor.call</code>. Functionality such as <code>getResponse</code> can be easily changed to something more eloquent, and you can also change the <code>Meteor.call</code> to be any async call. The arugments from <code>Util.waitOnServer</code> are forwarded to the Meteor method here.</p>
 
-<p>That’s it! Whenever <code>anotherFunction</code> is executed, or whenever the session value <code>yourSessionVariable</code> is changed in any other function, the function in the <code>Deps.autorun()</code> block will execute. Simple!</p>
+<script src="https://gist.github.com/quackware/eea7818fde0cda6a35c3.js"></script>
 
-<h2 id="depsautorun">Deps.autoRun</h2>
+<h2 id="server-code">Server Code</h2>
 
-<p><code>Deps.autoRun()</code> is the key here, as it can make arbitrary blocks of code reactive. <code>Session</code> is already a reactive variable, so we do not need to go through the trouble of using <code>Deps.Dependency</code>. You can find more information about Deps <a href="https://manual.meteor.com/#deps">here</a>.</p>
+<p>The server code is very simple, it just generates a random number and returns it. I also printed out the <code>data</code> argument passed to us from the client. I just wanted a way to make sure everything was being executed in the correct order.</p>
+
+<script src="https://gist.github.com/quackware/703e6cf54c24f7f9b16f.js"></script>
+
+<p>The full source code is available <a href="https://github.com/quackware/meteor-waitOnServer">on my GitHub page</a>. If you have any questions please post them in the comments!</p>
 
     
     
@@ -125,7 +120,7 @@ var anotherFunction = function() {
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-07-30T12:19:54-07:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-08-08T18:21:31-04:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
