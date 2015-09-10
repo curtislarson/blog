@@ -23,6 +23,7 @@ title: Home
           <a href="mailto:{{ author.email }}" target="_blank">Email</a>
       </span>
     {% endif %}
+    {% include mailchimp_signup.html %}
   </article>
   {% endfor %}
 </div>

@@ -16,6 +16,8 @@ layout: default
         <a href="mailto:{{ author.email }}" target="_blank">Email</a>
     </span>
   {% endif %}
+  <br/>
+  {% include mailchimp_signup.html %}
 </article>
 {% include comments.html %}
 <aside class="related">
