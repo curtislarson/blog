@@ -4,13 +4,42 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2015-09-10T08:45:59-04:00</updated>
+ <updated>2015-09-11T20:18:19-04:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>Meteor - Dynamically Render a PDF with iron:router</title>
+   <link href="http://curtismlarson.com/blog/2015/09/11/meteor-render-pdf-iron-router/"/>
+   <updated>2015-09-11T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2015/09/11/meteor-render-pdf-iron-router</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;A cool trick I found out recently is how to dynamically render a pdf from the server to the client using iron:router. The idea is you have a pdf object stored in a database or external file store and you want to transfer that pdf to the client without directly accessing the pdf file. We are going to accomplish this with a server side iron:router route. You can access the full code for this tutorial on my GitHub page &lt;a href=&quot;https://github.com/quackware/meteor-render-pdf&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-route-file&quot;&gt;The Route File&lt;/h2&gt;
+
+&lt;p&gt;The first method of rendering the pdf from the server involves the wonderful &lt;a href=&quot;https://github.com/CollectionFS/Meteor-CollectionFS&quot;&gt;CollectionFS&lt;/a&gt; package which can be used to store files in a variety of different data stores including mongoDB, dropbox, and Amazon S3. We can accomplish this with the below code:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/c13931a2e2c9b4216b88.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Some important thigns to note include the creation of a readable object through &lt;code&gt;file.createReadStream(&quot;tmp&quot;)&lt;/code&gt; which we then read into the &lt;code&gt;buffer&lt;/code&gt; object. Once we have completely read from the &lt;code&gt;FS.File&lt;/code&gt; object we can write the response to the client through the node &lt;code&gt;this.response.write(buffer);&lt;/code&gt; statement. Also make sure to include the &lt;code&gt;where: &quot;server&quot;&lt;/code&gt; in the route to ensure that it only executes as a server side route.&lt;/p&gt;
+
+&lt;p&gt;An additional way to render a pdf from the server to the client is to read the pdf from the file system, read it into a buffer using the node.js &lt;code&gt;fs&lt;/code&gt; package, and feed it to the client. Make sure you install the &lt;code&gt;meteorhacks:npm&lt;/code&gt; package so you can include the &lt;code&gt;fs&lt;/code&gt; node.js package. You can accomplish all this with the below code:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/52d139c978bb05535cff.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Pretty straight forward and similar to the above gist.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;That’s it for this tutorial, hopefully it helps out anyone who wants to dynamically render a pdf from the server without directly accessing the file. Again the full code for this tutorial is available &lt;a href=&quot;https://github.com/quackware/meteor-render-pdf&quot;&gt;on my GitHub page&lt;/a&gt;. If you have any questions please leave them in the comments!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>Meteor - MongoDB Object Array Property Selector</title>
