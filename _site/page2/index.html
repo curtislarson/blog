@@ -71,75 +71,34 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/08/08/meteor-mongodb-array-property-selector/">
-        Meteor - MongoDB Object Array Property Selector
+      <a href="/blog/2015/09/11/meteor-render-pdf-iron-router/">
+        Meteor - Dynamically Render a PDF with iron:router
       </a>
     </h1>
 
-    <time datetime="2015-08-08T00:00:00-04:00" class="post-date">08 Aug 2015</time>
+    <time datetime="2015-09-11T00:00:00-04:00" class="post-date">11 Sep 2015</time>
 
     <h2 id="introduction">Introduction</h2>
 
-<p>One slightly confusing question that I get asked sometimes and I see around the internet is how to select a document from a collection based on a property in an array of objects.</p>
+<p>A cool trick I found out recently is how to dynamically render a pdf from the server to the client using iron:router. The idea is you have a pdf object stored in a database or external file store and you want to transfer that pdf to the client without directly accessing the pdf file. We are going to accomplish this with a server side iron:router route. You can access the full code for this tutorial on my GitHub page <a href="https://github.com/quackware/meteor-render-pdf">here</a>.</p>
 
-<p>Suppose we have a <code>SimpleSchema</code> like so:</p>
+<h2 id="the-route-file">The Route File</h2>
 
-<pre><code>Schema = {};
+<p>The first method of rendering the pdf from the server involves the wonderful <a href="https://github.com/CollectionFS/Meteor-CollectionFS">CollectionFS</a> package which can be used to store files in a variety of different data stores including mongoDB, dropbox, and Amazon S3. We can accomplish this with the below code:</p>
 
-Schema.Task = new SimpleSchema({
-  name: {
-    type: String,
-    label: "Task Name"
-  },
-  tags: {
-    type: [Object],
-    label: "Tags",
-  },
-  "tags.$.name": {
-    type: String
-  },
-  "tags.$.rank": {
-    type: Number
-  }
-});
+<script src="https://gist.github.com/quackware/c13931a2e2c9b4216b88.js"></script>
 
-Tasks.attachSchema(Schema.Task);
-</code></pre>
+<p>Some important thigns to note include the creation of a readable object through <code>file.createReadStream("tmp")</code> which we then read into the <code>buffer</code> object. Once we have completely read from the <code>FS.File</code> object we can write the response to the client through the node <code>this.response.write(buffer);</code> statement. Also make sure to include the <code>where: "server"</code> in the route to ensure that it only executes as a server side route.</p>
 
-<p>And we have inserted the following document:</p>
+<p>An additional way to render a pdf from the server to the client is to read the pdf from the file system, read it into a buffer using the node.js <code>fs</code> package, and feed it to the client. Make sure you install the <code>meteorhacks:npm</code> package so you can include the <code>fs</code> node.js package. You can accomplish all this with the below code:</p>
 
-<pre><code>Tasks.insert({
-  name: "Write Meteor Tutorial",
-  tags: [
-    {
-      "name": "Meteor",
-      "rank": 0
-    },
-    {
-      "name": "Tutorial",
-      "rank": 1
-    }
-  ]
-});
-</code></pre>
+<script src="https://gist.github.com/quackware/52d139c978bb05535cff.js"></script>
 
-<p>And we want to select all the tasks that have a tag with the name “Meteor”. We can use the following syntax to perform this task:</p>
+<p>Pretty straight forward and similar to the above gist.</p>
 
-<pre><code>Tasks.find({
-  "tags.name": "Meteor"
-});
-</code></pre>
+<h2 id="conclusion">Conclusion</h2>
 
-<p>Notice how we did not include the <code>$</code> symbol that we used when specifying our <code>SimpleSchema</code>. Additionally if we only want to select the tags and not the entire <code>Tasks</code> object we can use a <code>fields</code> option.</p>
-
-<pre><code>Tasks.find({
-  "tags.name": "Meteor"
-}, {
-  fields: { "tags.$": 1}
-});
-</code></pre>
-
-<p>The differing syntax may seem a bit confusing, but once you get the hang of it you can create some pretty powerful and complex schemas and selectors. Hope this helps anyone running into this problem!</p>
+<p>That’s it for this tutorial, hopefully it helps out anyone who wants to dynamically render a pdf from the server without directly accessing the file. Again the full code for this tutorial is available <a href="https://github.com/quackware/meteor-render-pdf">on my GitHub page</a>. If you have any questions please leave them in the comments!</p>
 
     
     
@@ -178,7 +137,7 @@ Tasks.attachSchema(Schema.Task);
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-09-11T20:18:19-04:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-11-03T09:26:08-05:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

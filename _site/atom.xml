@@ -4,13 +4,153 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2015-09-11T20:18:19-04:00</updated>
+ <updated>2015-11-03T09:26:08-05:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>How to Deploy a Meteor project to AWS EC2</title>
+   <link href="http://curtismlarson.com/blog/2015/11/03/deploy-meteor-to-aws/"/>
+   <updated>2015-11-03T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/11/03/deploy-meteor-to-aws</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;This is a step by step guide on how to deploy a Meteor project to Amazon Web Services (AWS). This guide assumes you have little to no technical knowledge of AWS or Meteor and you start out with a zipped file containing your Meteor project. It also assumes you have knowledge of basic unix commands like cd, ls, and mkdir. I am also assuming you are using a mac / linux based computer. Let’s get started!&lt;/p&gt;
+
+&lt;h2 id=&quot;the-tools&quot;&gt;The Tools&lt;/h2&gt;
+
+&lt;p&gt;The first tool you need is Node.js which is available &lt;a href=&quot;https://nodejs.org/en/&quot;&gt;here&lt;/a&gt;. After you have node installed you can bring up your terminal and type &lt;code&gt;npm&lt;/code&gt; to make sure you have the Node package manager installed correctly (See below image).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/HAQGTua.png&quot; alt=&quot;npm&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you verify that npm is installed you need to install &lt;a href=&quot;https://github.com/arunoda/meteor-up&quot;&gt;Meteor Up&lt;/a&gt; through npm which will help us deploy the project to an ec2 server. You can install it by typing the following command in your terminal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npm install -g mup
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/pylYMVS.png&quot; alt=&quot;Install mup npm&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You also need to install meteor&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;npm install -g meteor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You now need to navigate to your project directory via the terminal. If you are familiar with the &lt;code&gt;ls&lt;/code&gt; and &lt;code&gt;cd&lt;/code&gt; unix commands it should be pretty straightforward.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /path/to/project/directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are unfamiliar with unix commands you can navigate to System Preferences -&amp;gt; Keyboard -&amp;gt; Services (Left Hand Side) -&amp;gt; Scroll down and check the &lt;code&gt;New Terminal at Folder&lt;/code&gt; checkbox.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/1EsrGt2.png&quot; alt=&quot;New Terminal At Folder&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you can right click your project folder in Finder -&amp;gt; Services -&amp;gt; New Terminal at Folder which will open a terminal in your project directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/SbQ6z6w.png&quot; alt=&quot;New Terminal At Folder&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now that you are in your deployment directory you must create a new file named &lt;code&gt;mup.json&lt;/code&gt; and copy and paste the below code and save the file (You can do this either through the Terminal or Finder).&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/4aad8874a59ec2624e4c.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;We will be changing some of these values later on in the tutorial once we have setup our server.&lt;/p&gt;
+
+&lt;h2 id=&quot;aws-management-console&quot;&gt;AWS Management Console&lt;/h2&gt;
+
+&lt;p&gt;Login to your &lt;a href=&quot;https://aws.amazon.com/console/&quot;&gt;AWS Management Console&lt;/a&gt; and you should see a screen similar to below (If you don’t have an AWS account, they are very straightforward to create and is not covered by this tutorial)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/RThAxXC.png&quot; alt=&quot;AWS Console&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click on the &lt;code&gt;EC2&lt;/code&gt; option in the top left and select the blue &lt;code&gt;Launch Instance&lt;/code&gt; option. On the next screen you should see a selection of different server types. You will want to pick the &lt;code&gt;Ubuntu Server SSD Volume Type&lt;/code&gt; since it works best with &lt;code&gt;mup&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/u6kwg7w.png&quot; alt=&quot;Ubunutu AMI&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You will now be greeted with a selection of different instance types. For my simple project I will be using a free tier option, but you should do your research or &lt;a href=&quot;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#116;&amp;#111;:&amp;#099;&amp;#117;&amp;#114;&amp;#116;&amp;#105;&amp;#115;&amp;#064;&amp;#099;&amp;#117;&amp;#114;&amp;#116;&amp;#105;&amp;#115;&amp;#109;&amp;#108;&amp;#097;&amp;#114;&amp;#115;&amp;#111;&amp;#110;&amp;#046;&amp;#099;&amp;#111;&amp;#109;&amp;#063;&amp;#115;&amp;#117;&amp;#098;&amp;#106;&amp;#101;&amp;#099;&amp;#116;&amp;#061;&amp;#073;&amp;#032;&amp;#110;&amp;#101;&amp;#101;&amp;#100;&amp;#032;&amp;#104;&amp;#101;&amp;#108;&amp;#112;&amp;#032;&amp;#115;&amp;#101;&amp;#116;&amp;#116;&amp;#105;&amp;#110;&amp;#103;&amp;#032;&amp;#117;&amp;#112;&amp;#032;&amp;#109;&amp;#121;&amp;#032;&amp;#077;&amp;#101;&amp;#116;&amp;#101;&amp;#111;&amp;#114;&amp;#032;&amp;#112;&amp;#114;&amp;#111;&amp;#106;&amp;#101;&amp;#099;&amp;#116;&amp;#033;&quot;&gt;ask a meteor expert&lt;/a&gt; if you are unsure on what tier option to use. Go ahead and select &lt;code&gt;Next: Configure Instance Details&lt;/code&gt; to continue.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-server-options&quot;&gt;Setting up Server Options&lt;/h2&gt;
+
+&lt;p&gt;The next steps will be based on what type of app you have. Most people will not need to change anything on the &lt;code&gt;Configure Instance Details&lt;/code&gt; page, so go ahead and select &lt;code&gt;Next: Add Storage&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you think your app requires additional storage (most will not as long as you chose the correct server in the above app) you can add volumes in this screen. If anyone is curious on how to add additional volumes for their Meteor app just leave a comment and I will update the guide&lt;/p&gt;
+
+&lt;p&gt;On Step 5: Tag Instance, just give your server a useful name that reflects your meteor project and proceed to the next step&lt;/p&gt;
+
+&lt;h2 id=&quot;configure-security-groups&quot;&gt;Configure Security Groups&lt;/h2&gt;
+
+&lt;p&gt;Setting up correct security groups is important for any app you host on AWS. You want to allow ssh traffic for mup and if you want to ssh into your server in the future, and http/https traffic for people visiting your website. You can also specify ssh rules for only your IP address as an additional security precaution. Using the below configuration should work for most people&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/2M7BaiE.png&quot; alt=&quot;Configure Security Group&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now that you have added your security groups you can go ahead and click &lt;code&gt;Review and Launch&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;keypair--launching-your-instance&quot;&gt;Keypair &amp;amp; Launching Your Instance&lt;/h2&gt;
+
+&lt;p&gt;After reviewing your instance information you can go ahead and click &lt;code&gt;Launch&lt;/code&gt;. This will launch a popup asking you to use an existing or create a new keypair. We are going to create a new one and download it. It is very important that you keep the keypair in a secure location, this file will be used by &lt;code&gt;mup&lt;/code&gt; and anyone else that wants to ssh into your server (As long as they are added to the ssh rules for your instance). Once the file is downloaded click &lt;code&gt;Launch Instance&lt;/code&gt; again. Go ahead and click &lt;code&gt;View Instance&lt;/code&gt; and you will be directed to your instance dashboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/fEXcJ50.png&quot; alt=&quot;Creating keypair&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-instance-information&quot;&gt;Getting instance information&lt;/h2&gt;
+
+&lt;p&gt;Now that we have successfully launched our instance we need to get some information from the instance dashboard so that mup can deploy the meteor project. Once the instance is running select it from the list and record the &lt;code&gt;Public IP&lt;/code&gt; value.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/0S5c3hl.png&quot; alt=&quot;Public IP&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now navigate to where you saved your .pem file via the terminal (either through unix commands or the New Terminal at Folder method). Type the following command into the terminal:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chmod 400 name-of-pem.pem
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/2WVjf2g.png&quot; alt=&quot;chmod&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This will allow ssh and mup access to your pem file. You can now test to see if you can ssh into your server with the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ssh -i /path/to/pem.pem ubuntu@public-ip-address
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/TZLBgqW.png&quot; alt=&quot;SSH amazon&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you have successfully connected to your server, Congratulations! Now all you need to do is edit your &lt;code&gt;mup.json&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;h2 id=&quot;editing-the-mupjson-file&quot;&gt;Editing the mup.json file&lt;/h2&gt;
+
+&lt;p&gt;Once your &lt;code&gt;mup.json&lt;/code&gt; file is open, you need to change the following values:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;host&quot;: &quot;hostname&quot; -&amp;gt; &quot;host&quot;: &quot;PUBLIC_IP_ADDRESS&quot;
+&quot;username&quot;:&quot;root&quot; -&amp;gt; &quot;username&quot;:&quot;ubuntu&quot;
+&quot;password&quot;:&quot;password&quot; -&amp;gt; //&quot;password&quot;:&quot;password&quot;
+//&quot;pem&quot;:&quot;~/.ssh/id_rsa&quot; -&amp;gt; &quot;pem&quot;:&quot;path/to/your/pemfile.pem&quot;
+&quot;app&quot;: &quot;/path/to/the/app&quot; -&amp;gt; &quot;app&quot;: &quot;[the local path of your app]&quot;,
+&quot;appName&quot;:&quot;meteor&quot; -&amp;gt; &quot;appName&quot;:&quot;[your-app-name]&quot;
+&quot;ROOT_URL&quot;:&quot;http://myapp.com&quot; -&amp;gt; &quot;ROOT_URL&quot;:&quot;[whatever your url is]&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save and exit your text editor.&lt;/p&gt;
+
+&lt;h2 id=&quot;deploying-with-mup&quot;&gt;Deploying with Mup&lt;/h2&gt;
+
+&lt;p&gt;Navigate to your project directory in a terminal and run the following commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mup setup
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If all goes well you should see the following output. If something bad happens double check all your values in your mup.json file&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/GNONEGV.png&quot; alt=&quot;mup setup&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now that mup has installed all the necessary requirements for Meteor on your server. You can type the following command to upload your project to the server.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mup deploy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://imgur.com/4uGXf6s.png&quot; alt=&quot;mup deploy&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;That’s it! You can now check out your app either directly through your public ip address or through the ROOT_URL you set (as long as your DNS records are set up correctly). If you have any questions or requests for additions to this guide, just leave them in the comments!&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>xw
    <title>Meteor - Dynamically Render a PDF with iron:router</title>
