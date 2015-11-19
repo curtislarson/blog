@@ -71,75 +71,22 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/08/08/meteor-mongodb-array-property-selector/">
-        Meteor - MongoDB Object Array Property Selector
+      <a href="/blog/2015/11/17/random-power-hour/">
+        RandomPowerHour.com built in Meteor
       </a>
     </h1>
 
-    <time datetime="2015-08-08T00:00:00-04:00" class="post-date">08 Aug 2015</time>
+    <time datetime="2015-11-17T00:00:00-05:00" class="post-date">17 Nov 2015</time>
 
-    <h2 id="introduction">Introduction</h2>
+    <h2 id="random-power-hour">Random Power Hour</h2>
 
-<p>One slightly confusing question that I get asked sometimes and I see around the internet is how to select a document from a collection based on a property in an array of objects.</p>
+<p>I recently just wrapped up a small one day project. Building a random power hour creator in Meteor. It pulls YouTube videos from a selected playlist, mixes them up, and plays random clips from them, creating the perfect drinking game! You can visit the site below:</p>
 
-<p>Suppose we have a <code>SimpleSchema</code> like so:</p>
+<p><a href="http://www.randompowerhour.com">Random Power Hour</a></p>
 
-<pre><code>Schema = {};
+<h2 id="the-code">The Code</h2>
 
-Schema.Task = new SimpleSchema({
-  name: {
-    type: String,
-    label: "Task Name"
-  },
-  tags: {
-    type: [Object],
-    label: "Tags",
-  },
-  "tags.$.name": {
-    type: String
-  },
-  "tags.$.rank": {
-    type: Number
-  }
-});
-
-Tasks.attachSchema(Schema.Task);
-</code></pre>
-
-<p>And we have inserted the following document:</p>
-
-<pre><code>Tasks.insert({
-  name: "Write Meteor Tutorial",
-  tags: [
-    {
-      "name": "Meteor",
-      "rank": 0
-    },
-    {
-      "name": "Tutorial",
-      "rank": 1
-    }
-  ]
-});
-</code></pre>
-
-<p>And we want to select all the tasks that have a tag with the name “Meteor”. We can use the following syntax to perform this task:</p>
-
-<pre><code>Tasks.find({
-  "tags.name": "Meteor"
-});
-</code></pre>
-
-<p>Notice how we did not include the <code>$</code> symbol that we used when specifying our <code>SimpleSchema</code>. Additionally if we only want to select the tags and not the entire <code>Tasks</code> object we can use a <code>fields</code> option.</p>
-
-<pre><code>Tasks.find({
-  "tags.name": "Meteor"
-}, {
-  fields: { "tags.$": 1}
-});
-</code></pre>
-
-<p>The differing syntax may seem a bit confusing, but once you get the hang of it you can create some pretty powerful and complex schemas and selectors. Hope this helps anyone running into this problem!</p>
+<p>The entire website is open source and available on my github <a href="https://github.com/quackware/meteor-randomhour">here</a>. Make sure to leave any comments or suggestions you have.</p>
 
     
     
@@ -178,7 +125,7 @@ Tasks.attachSchema(Schema.Task);
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-11-03T09:26:08-05:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-11-19T15:19:34-05:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

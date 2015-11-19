@@ -4,13 +4,119 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2015-11-03T09:26:08-05:00</updated>
+ <updated>2015-11-19T15:19:34-05:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>MobileVideoDownloader.com built in Meteor</title>
+   <link href="http://curtismlarson.com/blog/2015/11/19/mobile-video-downloader/"/>
+   <updated>2015-11-19T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/11/19/mobile-video-downloader</id>
+   <content type="html">&lt;h2 id=&quot;mobile-video-downloader&quot;&gt;Mobile Video Downloader&lt;/h2&gt;
+
+&lt;p&gt;Just finished the first round of another simple website &lt;a href=&quot;http://www.mobilevideodownloader.com&quot;&gt;Mobile Video Downloader&lt;/a&gt;. It’s just a basic video downloader (with search) that is optimized for mobile devices. Building it in Meteor enabled me to finish this site ultra fast.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-code&quot;&gt;The Code&lt;/h2&gt;
+
+&lt;p&gt;The entire website is open source and available on my github &lt;a href=&quot;https://github.com/quackware/mobilevideodownloader&quot;&gt;here&lt;/a&gt;. Make sure to leave any comments or suggestions you have!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
+   <title>Meteor - How to Create a Package</title>
+   <link href="http://curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package/"/>
+   <updated>2015-11-19T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;I usually always have to google the steps to create a Meteor package, so I figured I would do a write up for myself that I can reference. I hope this helps anyone else that has trouble creating a meteor package&lt;/p&gt;
+
+&lt;h2 id=&quot;the-steps&quot;&gt;The Steps&lt;/h2&gt;
+
+&lt;h3 id=&quot;create-the-package&quot;&gt;1. Create the package&lt;/h3&gt;
+
+&lt;p&gt;Open a terminal and navigate to the directory you want to store the package in. Type&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;meteor --create package atmosphereusername:packagename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;create-the-test-application&quot;&gt;2. Create the test application&lt;/h3&gt;
+
+&lt;p&gt;Enter the following commands. This will create a test app you can use to test your package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd packagename
+meteor create test-app
+cd test-app
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;create-a-packages-folder-for-test-app&quot;&gt;3. Create a packages folder for test-app&lt;/h3&gt;
+
+&lt;p&gt;We need a place to store our new package in our test app&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;symlink-your-package-to-the-test-app&quot;&gt;4. Symlink your package to the test-app&lt;/h3&gt;
+
+&lt;p&gt;Now we can link our new package into our test-app, so that any modifications we make to the package will show up in our app.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd packages
+ln -s ../../../packagename ./packagename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;add-the-package&quot;&gt;5. Add the package&lt;/h3&gt;
+
+&lt;p&gt;All that’s left is to add the package to our test-app&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;meteor add atmosphereusername:packagename
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;That’s it. Now when you run &lt;code&gt;meteor list&lt;/code&gt; in your test-app you should see the packagename show up. Now go write the next awesome meteor package!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
+   <title>RandomPowerHour.com built in Meteor</title>
+   <link href="http://curtismlarson.com/blog/2015/11/17/random-power-hour/"/>
+   <updated>2015-11-17T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/11/17/random-power-hour</id>
+   <content type="html">&lt;h2 id=&quot;random-power-hour&quot;&gt;Random Power Hour&lt;/h2&gt;
+
+&lt;p&gt;I recently just wrapped up a small one day project. Building a random power hour creator in Meteor. It pulls YouTube videos from a selected playlist, mixes them up, and plays random clips from them, creating the perfect drinking game! You can visit the site below:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.randompowerhour.com&quot;&gt;Random Power Hour&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-code&quot;&gt;The Code&lt;/h2&gt;
+
+&lt;p&gt;The entire website is open source and available on my github &lt;a href=&quot;https://github.com/quackware/meteor-randomhour&quot;&gt;here&lt;/a&gt;. Make sure to leave any comments or suggestions you have.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
+   <title>Meteor - iron:router Scroll to Top</title>
+   <link href="http://curtismlarson.com/blog/2015/11/11/iron-router-scroll-to-top/"/>
+   <updated>2015-11-11T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/11/11/iron-router-scroll-to-top</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;I use the awesome &lt;a href=&quot;https://github.com/iron-meteor/iron-router&quot;&gt;iron:router&lt;/a&gt; package in all my Meteor projects. One problem I run into in almost all packages is if you use &lt;code&gt;Router.go()&lt;/code&gt; while scrolled down onto the page, your next page will rendered still scrolled at the same point. Here is some code that will fix that and scroll to the top of the page on each route.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-code&quot;&gt;The Code&lt;/h2&gt;
+
+&lt;p&gt;We are just going to use a simple &lt;code&gt;autorun&lt;/code&gt; function that depends on the reactive &lt;code&gt;Router.current()&lt;/code&gt; object. Check out the code below&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/a66c39297edd0c139446.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;That’s it! Very simple, but something I always include in my boilerplate code when I first create an application. Make sure to leave any questions or comments you have.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>How to Deploy a Meteor project to AWS EC2</title>

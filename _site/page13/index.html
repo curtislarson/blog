@@ -71,42 +71,16 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/09/11/meteor-render-pdf-iron-router/">
-        Meteor - Dynamically Render a PDF with iron:router
+      <a href="/blog/2015/04/11/introduction/">
+        Introduction
       </a>
     </h1>
 
-    <time datetime="2015-09-11T00:00:00-04:00" class="post-date">11 Sep 2015</time>
+    <time datetime="2015-04-11T00:00:00-04:00" class="post-date">11 Apr 2015</time>
 
-    <h2 id="introduction">Introduction</h2>
-
-<p>A cool trick I found out recently is how to dynamically render a pdf from the server to the client using iron:router. The idea is you have a pdf object stored in a database or external file store and you want to transfer that pdf to the client without directly accessing the pdf file. We are going to accomplish this with a server side iron:router route. You can access the full code for this tutorial on my GitHub page <a href="https://github.com/quackware/meteor-render-pdf">here</a>.</p>
-
-<h2 id="the-route-file">The Route File</h2>
-
-<p>The first method of rendering the pdf from the server involves the wonderful <a href="https://github.com/CollectionFS/Meteor-CollectionFS">CollectionFS</a> package which can be used to store files in a variety of different data stores including mongoDB, dropbox, and Amazon S3. We can accomplish this with the below code:</p>
-
-<script src="https://gist.github.com/quackware/c13931a2e2c9b4216b88.js"></script>
-
-<p>Some important thigns to note include the creation of a readable object through <code>file.createReadStream("tmp")</code> which we then read into the <code>buffer</code> object. Once we have completely read from the <code>FS.File</code> object we can write the response to the client through the node <code>this.response.write(buffer);</code> statement. Also make sure to include the <code>where: "server"</code> in the route to ensure that it only executes as a server side route.</p>
-
-<p>An additional way to render a pdf from the server to the client is to read the pdf from the file system, read it into a buffer using the node.js <code>fs</code> package, and feed it to the client. Make sure you install the <code>meteorhacks:npm</code> package so you can include the <code>fs</code> node.js package. You can accomplish all this with the below code:</p>
-
-<script src="https://gist.github.com/quackware/52d139c978bb05535cff.js"></script>
-
-<p>Pretty straight forward and similar to the above gist.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it for this tutorial, hopefully it helps out anyone who wants to dynamically render a pdf from the server without directly accessing the file. Again the full code for this tutorial is available <a href="https://github.com/quackware/meteor-render-pdf">on my GitHub page</a>. If you have any questions please leave them in the comments!</p>
+    <p>I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!</p>
 
     
-    
-      <span>
-          <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> |
-          <a href="https://twitter.com/quackware" target="_blank">Twitter</a> |
-          <a href="mailto:curtis@curtismlarson.com" target="_blank">Email</a>
-      </span>
     
     <div id="mc_embed_signup">
 <form action="//curtismlarson.us11.list-manage.com/subscribe/post?u=1c8750215658512459a679f1e&amp;id=29a072ab9b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -125,11 +99,11 @@
 
 <div class="pagination">
   
-    <a class="pagination-item older" href="/blog/page7">Older</a>
+    <span class="pagination-item older">Older</span>
   
   
     
-      <a class="pagination-item newer" href="/blog/page5">Newer</a>
+      <a class="pagination-item newer" href="/blog/page12">Newer</a>
     
   
 </div>

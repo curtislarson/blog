@@ -71,16 +71,32 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/04/11/introduction/">
-        Introduction
+      <a href="/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/">
+        Meteor - Windows update cannot convert null to object
       </a>
     </h1>
 
-    <time datetime="2015-04-11T00:00:00-04:00" class="post-date">11 Apr 2015</time>
+    <time datetime="2015-07-23T00:00:00-04:00" class="post-date">23 Jul 2015</time>
 
-    <p>I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!</p>
+    <h2 id="cannot-convert-null-to-object">Cannot Convert Null To Object</h2>
+
+<p>While attempting to update one of my meteor projects on my windows box, I ran into the following error:</p>
+
+<p><img src="http://i.imgur.com/NvtJjoq.png" alt="Cannot convert null to object" title="Cannot convert null to object" /></p>
+
+<p>Attempting to update the meteor binary through <code>meteor update</code> yielded the same error.</p>
+
+<h2 id="how-to-fix">How to Fix</h2>
+
+<p>In order to fix the error, I actually had to completely uninstall meteor and reinstall from <a href="https://win.meteor.com/">https://win.meteor.com/</a>. After everything was installed, <code>meteor update</code> worked fine. Hope this helps anyone encountering the same problem!</p>
 
     
+    
+      <span>
+          <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> |
+          <a href="https://twitter.com/quackware" target="_blank">Twitter</a> |
+          <a href="mailto:curtis@curtismlarson.com" target="_blank">Email</a>
+      </span>
     
     <div id="mc_embed_signup">
 <form action="//curtismlarson.us11.list-manage.com/subscribe/post?u=1c8750215658512459a679f1e&amp;id=29a072ab9b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -99,7 +115,7 @@
 
 <div class="pagination">
   
-    <span class="pagination-item older">Older</span>
+    <a class="pagination-item older" href="/blog/page10">Older</a>
   
   
     
@@ -111,7 +127,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-11-03T09:26:08-05:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-11-19T15:19:34-05:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

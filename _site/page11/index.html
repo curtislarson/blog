@@ -71,34 +71,41 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/09/11/meteor-render-pdf-iron-router/">
-        Meteor - Dynamically Render a PDF with iron:router
+      <a href="/blog/2015/04/27/meteor-trigger-function-with-session-variable/">
+        Meteor - How to Trigger a Function when a Session Value Changes
       </a>
     </h1>
 
-    <time datetime="2015-09-11T00:00:00-04:00" class="post-date">11 Sep 2015</time>
+    <time datetime="2015-04-27T00:00:00-04:00" class="post-date">27 Apr 2015</time>
 
-    <h2 id="introduction">Introduction</h2>
+    <h2 id="how-to-trigger-a-function-when-a-session-value-changes">How to Trigger a Function when a Session Value Changes</h2>
 
-<p>A cool trick I found out recently is how to dynamically render a pdf from the server to the client using iron:router. The idea is you have a pdf object stored in a database or external file store and you want to transfer that pdf to the client without directly accessing the pdf file. We are going to accomplish this with a server side iron:router route. You can access the full code for this tutorial on my GitHub page <a href="https://github.com/quackware/meteor-render-pdf">here</a>.</p>
+<p>While working on a Meteor project, I wanted to trigger a function whenever I changed the value of a Session variable through <code>Session.set()</code>. It took me a little bit of experimentation and digging to figure out how to do it, and the result is pretty simple.</p>
 
-<h2 id="the-route-file">The Route File</h2>
+<h2 id="how-to-do-it">How to do it</h2>
 
-<p>The first method of rendering the pdf from the server involves the wonderful <a href="https://github.com/CollectionFS/Meteor-CollectionFS">CollectionFS</a> package which can be used to store files in a variety of different data stores including mongoDB, dropbox, and Amazon S3. We can accomplish this with the below code:</p>
+<p>Use the following code:</p>
 
-<script src="https://gist.github.com/quackware/c13931a2e2c9b4216b88.js"></script>
+<pre><code>var doSomething = function() {
+  // Do something when the session value changes
+}
 
-<p>Some important thigns to note include the creation of a readable object through <code>file.createReadStream("tmp")</code> which we then read into the <code>buffer</code> object. Once we have completely read from the <code>FS.File</code> object we can write the response to the client through the node <code>this.response.write(buffer);</code> statement. Also make sure to include the <code>where: "server"</code> in the route to ensure that it only executes as a server side route.</p>
+Deps.autorun(function() {
+  var sessionVal = Session.get("yourSessionVariable");
+  console.log("The session value has changed");
+  doSomething();
+});
 
-<p>An additional way to render a pdf from the server to the client is to read the pdf from the file system, read it into a buffer using the node.js <code>fs</code> package, and feed it to the client. Make sure you install the <code>meteorhacks:npm</code> package so you can include the <code>fs</code> node.js package. You can accomplish all this with the below code:</p>
+var anotherFunction = function() {
+  Session.set("yourSessionVariable", "foo");
+}
+</code></pre>
 
-<script src="https://gist.github.com/quackware/52d139c978bb05535cff.js"></script>
+<p>That’s it! Whenever <code>anotherFunction</code> is executed, or whenever the session value <code>yourSessionVariable</code> is changed in any other function, the function in the <code>Deps.autorun()</code> block will execute. Simple!</p>
 
-<p>Pretty straight forward and similar to the above gist.</p>
+<h2 id="depsautorun">Deps.autoRun</h2>
 
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it for this tutorial, hopefully it helps out anyone who wants to dynamically render a pdf from the server without directly accessing the file. Again the full code for this tutorial is available <a href="https://github.com/quackware/meteor-render-pdf">on my GitHub page</a>. If you have any questions please leave them in the comments!</p>
+<p><code>Deps.autoRun()</code> is the key here, as it can make arbitrary blocks of code reactive. <code>Session</code> is already a reactive variable, so we do not need to go through the trouble of using <code>Deps.Dependency</code>. You can find more information about Deps <a href="https://manual.meteor.com/#deps">here</a>.</p>
 
     
     
@@ -125,11 +132,11 @@
 
 <div class="pagination">
   
-    <a class="pagination-item older" href="/blog/page7">Older</a>
+    <a class="pagination-item older" href="/blog/page12">Older</a>
   
   
     
-      <a class="pagination-item newer" href="/blog/page5">Newer</a>
+      <a class="pagination-item newer" href="/blog/page10">Newer</a>
     
   
 </div>
