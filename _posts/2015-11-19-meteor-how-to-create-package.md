@@ -18,7 +18,7 @@ I usually always have to google the steps to create a Meteor package, so I figur
 
 Open a terminal and navigate to the directory you want to store the package in. Type
 
-    meteor --create package atmosphereusername:packagename
+    meteor create --package atmosphereusername:packagename
 
 ### 2. Create the test application
 
