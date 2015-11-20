@@ -50,4 +50,4 @@ All that's left is to add the package to our test-app
 
 ## Conclusion
 
-That's it. Now when you run `meteor list` in your test-app you should see the packagename show up. Now go write the next awesome meteor package!
+That's it. Now when you run `meteor list` in your test-app you should see the packagename show up. If you are interested in wrapping a npm package in a Meteor package you can also check out my new tutorial, [Meteor - Wrap and Publish a NPM package](http://www.curtismlarson.com/blog/2015/11/20/meteor-wrap-publish-npm-package/). Now go write the next awesome meteor package!
