@@ -4,13 +4,81 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2015-11-20T11:45:42-05:00</updated>
+ <updated>2015-12-06T12:44:05-05:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>Meteor - How to Create and Send an iCal Invitation Email</title>
+   <link href="http://curtismlarson.com/blog/2015/12/06/meteor-send-ical-email-invitation/"/>
+   <updated>2015-12-06T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/12/06/meteor-send-ical-email-invitation</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In this tutorial I will show you how to send an iCal invitation email using basic Meteor packages and an iCal generator smart package. iCal files are useful because they allow the email recipient to instantly add the invitation or event to their calendar program directly form their email client. If you send emails with any sort of event information you should be sending an iCal file! The full source code for this tutorial is available on my &lt;a href=&quot;https://github.com/quackware/meteor-send-invitation&quot;&gt;GitHub page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;There are a few packages you need to get started&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;meteor add email
+meteor add quackware:ical-generator
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The email package is pretty straightforward, it’s the basic email package provided by Meteor. The ical-generator is the npm package &lt;a href=&quot;https://www.npmjs.com/package/ical-generator&quot;&gt;ical-generator&lt;/a&gt; that has been &lt;a href=&quot;http://www.curtismlarson.com/blog/2015/11/20/meteor-wrap-publish-npm-package/&quot;&gt;wrapped as a meteor smart package&lt;/a&gt;. You can check out the source code of the smart package &lt;a href=&quot;https://github.com/quackware/meteor-ical-generator&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You also need to sign up for some sort of 3rd party email service (sendgrid, mandrill, etc) so that you can set your &lt;code&gt;MAIL_URL&lt;/code&gt; variable in the server, allowing you to send emails. For this tutorial I used a mandrill account, but they are all very similar to use.&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side&quot;&gt;Client Side&lt;/h2&gt;
+
+&lt;p&gt;The client side code for this tutorial is very basic. We just need to have a few fields in a form that we can submit to the server. You can see the &lt;code&gt;send-invitation.html&lt;/code&gt; and &lt;code&gt;send-invitation.js&lt;/code&gt; files below:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/bdb509817ef76af80efa.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/de8d369ff3f979989573.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;These fields are just a sample of what you can include in an ical file. You can check out the documentation for ical-generator &lt;a href=&quot;https://www.npmjs.com/package/ical-generator&quot;&gt;here&lt;/a&gt; which should give you a good idea of additional fields you might want to add.&lt;/p&gt;
+
+&lt;h2 id=&quot;server-side&quot;&gt;Server Side&lt;/h2&gt;
+
+&lt;p&gt;The first part of the server side code is setting up the &lt;code&gt;MAIL_URL&lt;/code&gt; variable. I am setting it based on the user and password variables I have stored in my &lt;code&gt;settings.json&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/30ce2c9b9a96440098a3.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;You can read a more in depth discussion of setting up the &lt;code&gt;MAIL_URL&lt;/code&gt; variable and the &lt;code&gt;settings.json&lt;/code&gt; file in my &lt;a href=&quot;http://www.curtismlarson.com/blog/2015/07/30/meteor-send-template-emails-from-server-mailgun/&quot;&gt;send template emails from the server tutorial&lt;/a&gt;. That tutorial uses mailgun, but mandrill works the exact same way.&lt;/p&gt;
+
+&lt;p&gt;We also need to implement the &lt;code&gt;sendInvitation&lt;/code&gt; Meteor method we referenced in the client side code. This code uses our &lt;code&gt;quackware:ical-generator&lt;/code&gt; package we already added.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/34c8c0dab4d4de680ecd.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;As you can see we create an empty ical object and then add an event to the calendar object populated with the data from the client side. We can then use &lt;code&gt;cal.toString()&lt;/code&gt; to attach the ical file as an attachment using the built in &lt;code&gt;Email.send&lt;/code&gt; function provided by Meteor. That’s it! Once you test it out and send an email you should see an email similar to the one below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/s4uACyM.png&quot; alt=&quot;Example Ical Email&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Thats it! Meteor makes it very easy to both send emails and include additional packages like the ical-generator to add additional functionality to our application. Again the full source code for this tutorial is available on my &lt;a href=&quot;https://github.com/quackware/meteor-send-invitation&quot;&gt;GitHub page&lt;/a&gt;. If you have any improvements or suggestions make sure to leave a comment!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
+   <title>Meteor - Video Tutorial - Build a Reddit Clone</title>
+   <link href="http://curtismlarson.com/blog/2015/12/03/meteor-video-tutorial-reddit-clone/"/>
+   <updated>2015-12-03T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/12/03/meteor-video-tutorial-reddit-clone</id>
+   <content type="html">&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
+
+&lt;p&gt;I just published my first Meteor video class on the Udemy platform! Pretty excited about it since I put a lot of work into it. The tutorial is a beginner level tutorial on how to build a Reddit Clone and runs about 3 hours. If you interested you can check out the tutorial below:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.udemy.com/beginner-meteor-development-build-a-basic-reddit-clone/learn&quot;&gt;https://www.udemy.com/beginner-meteor-development-build-a-basic-reddit-clone/learn&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Use coupon code ‘website’ for 20% off!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>Meteor - Wrap and Publish a NPM package</title>

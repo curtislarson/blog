@@ -46,6 +46,7 @@
   ga('send', 'pageview');
 
 </script>
+  <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us11.list-manage.com","uuid":"1c8750215658512459a679f1e","lid":"29a072ab9b"}) })</script>
 </head>
 
 
@@ -71,96 +72,58 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/11/20/meteor-wrap-publish-npm-package/">
-        Meteor - Wrap and Publish a NPM package
+      <a href="/blog/2015/12/06/meteor-send-ical-email-invitation/">
+        Meteor - How to Create and Send an iCal Invitation Email
       </a>
     </h1>
 
-    <time datetime="2015-11-20T00:00:00-05:00" class="post-date">20 Nov 2015</time>
+    <time datetime="2015-12-06T00:00:00-05:00" class="post-date">06 Dec 2015</time>
 
     <h2 id="introduction">Introduction</h2>
 
-<p>Building off of my previous tutorial on <a href="www.curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package/">how to create a package in Meteor</a> I decided to create another tutorial on how to wrap and publish a NPM package. There are thousands of useful npm packages that can be used through <code>meteorhacks:npm</code>, but sometimes it’s nice to create a meteor smart package and add some extra functionality to make it even easier to include in your project.</p>
+<p>In this tutorial I will show you how to send an iCal invitation email using basic Meteor packages and an iCal generator smart package. iCal files are useful because they allow the email recipient to instantly add the invitation or event to their calendar program directly form their email client. If you send emails with any sort of event information you should be sending an iCal file! The full source code for this tutorial is available on my <a href="https://github.com/quackware/meteor-send-invitation">GitHub page</a>.</p>
 
-<p>For this tutorial I will be wrapping the <a href="https://github.com/t3chnoboy/amazon-product-api">Amazon Product Api</a> Node.js client. The full source code for the Meteor package is available on my GitHub <a href="https://github.com/quackware/meteor-amazon-product-api">here</a>.</p>
+<h2 id="setup">Setup</h2>
 
-<h2 id="the-steps">The Steps</h2>
+<p>There are a few packages you need to get started</p>
 
-<h3 id="create-a-package">1. Create a package</h3>
-
-<p>Similar to the <a href="www.curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package/">how to create a package</a> tutorial, we need to create a new package.</p>
-
-<pre><code>meteor create --package atmosphereusername:packagename
+<pre><code>meteor add email
+meteor add quackware:ical-generator
 </code></pre>
 
-<h3 id="edit-the-packagejs-file">2. Edit the package.js file</h3>
+<p>The email package is pretty straightforward, it’s the basic email package provided by Meteor. The ical-generator is the npm package <a href="https://www.npmjs.com/package/ical-generator">ical-generator</a> that has been <a href="http://www.curtismlarson.com/blog/2015/11/20/meteor-wrap-publish-npm-package/">wrapped as a meteor smart package</a>. You can check out the source code of the smart package <a href="https://github.com/quackware/meteor-ical-generator">here</a>.</p>
 
-<p>Now we need to make some edits to the <code>package.js</code> file to specify our Npm dependency and point the package to our server file where we will be making some Meteor specific customizations. First we add the following Npm dependency</p>
+<p>You also need to sign up for some sort of 3rd party email service (sendgrid, mandrill, etc) so that you can set your <code>MAIL_URL</code> variable in the server, allowing you to send emails. For this tutorial I used a mandrill account, but they are all very similar to use.</p>
 
-<pre><code>Npm.depends({
-  "amazon-product-api": "0.3.5"
-});
-</code></pre>
+<h2 id="client-side">Client Side</h2>
 
-<p>And we also need to add an export in the <code>Package.onUse</code> block, we’re going to choose <code>AmazonProductApi</code> as our export.</p>
+<p>The client side code for this tutorial is very basic. We just need to have a few fields in a form that we can submit to the server. You can see the <code>send-invitation.html</code> and <code>send-invitation.js</code> files below:</p>
 
-<pre><code>Package.onUse(function(api) {
-  api.versionsFrom('1.2.1');
-  api.export("AmazonProductApi");
-});
-</code></pre>
+<script src="https://gist.github.com/quackware/bdb509817ef76af80efa.js"></script>
 
-<p>Finally we need to reference the javascript file in <code>package.js</code> that will glue together the Npm package with Meteor.</p>
+<script src="https://gist.github.com/quackware/de8d369ff3f979989573.js"></script>
 
-<pre><code>Package.onUse(function(api) {
-  api.versionsFrom('1.2.1');
-  api.export("AmazonProductApi");
-  api.addFiles(["server/amazon-product-api.js"], "server");
-});
-</code></pre>
+<p>These fields are just a sample of what you can include in an ical file. You can check out the documentation for ical-generator <a href="https://www.npmjs.com/package/ical-generator">here</a> which should give you a good idea of additional fields you might want to add.</p>
 
-<h3 id="the-glue-file">3. The Glue File</h3>
+<h2 id="server-side">Server Side</h2>
 
-<p>Go ahead and create the <code>amazon-product-api.js</code> file.</p>
+<p>The first part of the server side code is setting up the <code>MAIL_URL</code> variable. I am setting it based on the user and password variables I have stored in my <code>settings.json</code> file:</p>
 
-<pre><code>mkdir server
-touch server/amazon-product-api.js
-</code></pre>
+<script src="https://gist.github.com/quackware/30ce2c9b9a96440098a3.js"></script>
 
-<p>In this file we can add our <code>Npm.require</code> and setup the object we need to export.</p>
+<p>You can read a more in depth discussion of setting up the <code>MAIL_URL</code> variable and the <code>settings.json</code> file in my <a href="http://www.curtismlarson.com/blog/2015/07/30/meteor-send-template-emails-from-server-mailgun/">send template emails from the server tutorial</a>. That tutorial uses mailgun, but mandrill works the exact same way.</p>
 
-<pre><code>var amazon = Npm.require("amazon-product-api");
+<p>We also need to implement the <code>sendInvitation</code> Meteor method we referenced in the client side code. This code uses our <code>quackware:ical-generator</code> package we already added.</p>
 
-AmazonProductApi = {};
-</code></pre>
+<script src="https://gist.github.com/quackware/34c8c0dab4d4de680ecd.js"></script>
 
-<p>Now the amazon product api package has three functions: <code>itemSearch</code>, <code>itemLookup</code>, and <code>browseNode</code> that are exposed in the <code>createClient</code> function. These functions have a future usage and a callback usage. Let’s go ahead and add a syncronous usage to better use it in our Meteor projects. To do this we just need to add the <code>createClient</code> function to our exported object and wrap the functions using <code>Meteor.wrapAsync</code>. Below is the full code:</p>
+<p>As you can see we create an empty ical object and then add an event to the calendar object populated with the data from the client side. We can then use <code>cal.toString()</code> to attach the ical file as an attachment using the built in <code>Email.send</code> function provided by Meteor. That’s it! Once you test it out and send an email you should see an email similar to the one below:</p>
 
-<pre><code>var amazon = Npm.require("amazon-product-api");
-
-AmazonProductApi = {};
-
-AmazonProductApi.createClient = function(credentials) {
-  var client = amazon.createClient(credentials);
-  client.itemSearchSync = Meteor.wrapAsync(client.itemSearch);
-  client.itemLookupSync = Meteor.wrapAsync(client.itemLookup);
-  client.browseNodeSync = Meteor.wrapAsync(client.browseNode);
-  return client;
-};
-</code></pre>
-
-<h3 id="publishing-to-atmosphere">4. Publishing to Atmosphere</h3>
-
-<p>Now that our package is complete, we can publish it to atmosphere so that other people can use it. Make sure you are in your package directory and type the following command:</p>
-
-<pre><code>meteor publish --create
-</code></pre>
-
-<p>Your package should now be built and uploaded to atmosphere.</p>
+<p><img src="http://i.imgur.com/s4uACyM.png" alt="Example Ical Email" /></p>
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>That’s it! Now whenever someone wants to use the awesome <a href="https://github.com/t3chnoboy/amazon-product-api">Amazon Product Api</a> npm package, they can just type <code>meteor add quackware:amazon-product-api</code>. They can also take advantage of our new syncronous functions we added. Again, the full source code for the Meteor package is available on my GitHub <a href="https://github.com/quackware/meteor-amazon-product-api">here</a>. Leave a message if you have any questions or comments!</p>
+<p>Thats it! Meteor makes it very easy to both send emails and include additional packages like the ical-generator to add additional functionality to our application. Again the full source code for this tutorial is available on my <a href="https://github.com/quackware/meteor-send-invitation">GitHub page</a>. If you have any improvements or suggestions make sure to leave a comment!</p>
 
     
     
@@ -197,7 +160,7 @@ AmazonProductApi.createClient = function(credentials) {
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-11-20T11:45:42-05:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-12-06T12:44:05-05:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

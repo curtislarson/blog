@@ -46,6 +46,7 @@
   ga('send', 'pageview');
 
 </script>
+  <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us11.list-manage.com","uuid":"1c8750215658512459a679f1e","lid":"29a072ab9b"}) })</script>
 </head>
 
 
@@ -71,55 +72,36 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/04/12/github-pages-google-domains/">
-        How to point a domain on Google Domains to GitHub pages
+      <a href="/blog/2015/05/04/meteor-ironrouter-waitOn-server/">
+        Meteor - How to use iron:router waitOn with an Async Server Call
       </a>
     </h1>
 
-    <time datetime="2015-04-12T00:00:00-04:00" class="post-date">12 Apr 2015</time>
+    <time datetime="2015-05-04T00:00:00-04:00" class="post-date">04 May 2015</time>
 
-    <h1 id="table-of-contents">Table of Contents</h1>
+    <h2 id="how-to-use-ironrouter-waiton-with-an-async-server-call">How to use iron:router waitOn with an Async Server Call</h2>
 
-<ol>
-  <li><a href="#introduction">Introduction</a></li>
-  <li><a href="#setup-repository">Setup repository</a></li>
-  <li><a href="#configure-google-domains">Configure Google Domains</a></li>
-  <li><a href="#conclusion">Conclusion</a></li>
-</ol>
+<p>There have been several <a href="http://stackoverflow.com/questions/29493809/how-to-make-onbeforeaction-call-wait-until-a-function-call-inside-finishes-in-me/">posts</a> about utilizing iron:router’s <code>waitOn</code> functionality for an async server call. After being disatisfied with a lot of the solutions, including my own in the aforementioned stackoverflow post, I decided to write up a simple solution that had a minimal amount of extra code in the routes file. A couple of problems that I (and many others) ran into included the <code>waitOn</code> function running in an <a href="http://stackoverflow.com/questions/25136239/meteor-0-8-3-iron-router-infinite-loop-inside-waiton-hook">infinite loop</a>, and also <code>waitOn</code> <a href="https://github.com/iron-meteor/iron-router/issues/1031">executing twice</a>.</p>
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="client-routes-file">Client Routes File</h2>
 
-<p>When setting up my <a href="http://www.curtismlarson.com">website</a> on Google Domains I had to read through several different guides to figure out all I needed to do to point it to a GitHub pages repository. I wrote up this guide to simplify the processes for anyone else performing this same task.</p>
+<p>The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a <code>Util.waitOnServer</code> call which will call the <code>testWaitOn</code> Meteor method on the server. You can optionally pass in arguments to <code>Util.waitOnServer</code> to pass data to the Meteor method. Once this call returns, we can then access the data through <code>Util.getResponse</code>.</p>
 
-<h2 id="setup-repository">Setup repository</h2>
+<script src="https://gist.github.com/quackware/71290757e28d7df89540.js"></script>
 
-<p>Navigate to <a href="https://github.com/new">https://github.com/new</a> and create a repository with the name <strong>USERNAME.github.com</strong> or <strong>USERNAME.github.io</strong> and give it a nice description.</p>
+<h2 id="utilwaitonserver">Util.waitOnServer</h2>
 
-<p><img src="http://i.imgur.com/zQ5BxEH.png" alt="Create a repository" title="Create a repository" /></p>
+<p>The Util object contains all the functionality of waiting on <code>Meteor.call</code>. Functionality such as <code>getResponse</code> can be easily changed to something more eloquent, and you can also change the <code>Meteor.call</code> to be any async call. The arugments from <code>Util.waitOnServer</code> are forwarded to the Meteor method here.</p>
 
-<p>In your new repository, create a <strong>CNAME</strong> file in the root directory and add the following two entries (with curtismlarson replaced by your own domain):</p>
+<script src="https://gist.github.com/quackware/eea7818fde0cda6a35c3.js"></script>
 
-<p><img src="http://i.imgur.com/LR37up5.png" alt="CName" title="CName" /></p>
+<h2 id="server-code">Server Code</h2>
 
-<p>These two entries tell GitHub to redirect any requests to <strong>USERNAME.github.io</strong> to the domain specified in the CNAME file. There are two entries to ensure that <strong>curtismlarson.com</strong> will also redirect to <strong>www.curtismlarson.com</strong>. If you prefer to have a site without the <strong>www</strong> prefix, you can switch the order of the domains.</p>
+<p>The server code is very simple, it just generates a random number and returns it. I also printed out the <code>data</code> argument passed to us from the client. I just wanted a way to make sure everything was being executed in the correct order.</p>
 
-<p>Now verify that your <strong>USERNAME.github.io</strong> domain is now pointing to your custom domain by going into the repository settings and verifying your GitHub Pages settings:</p>
+<script src="https://gist.github.com/quackware/703e6cf54c24f7f9b16f.js"></script>
 
-<p><img src="http://i.imgur.com/RsA5XUO.png" alt="Github Pages" title="GitHub Pages" /></p>
-
-<h2 id="configure-google-domains">Configure Google Domains</h2>
-
-<p>Navigate to <a href="https://domains.google.com/registrar">https://domains.google.com/registrar</a> and select the <strong>DNS</strong> option to configure your DNS records.</p>
-
-<p><img src="http://i.imgur.com/oA40Qkq.png" alt="Google Domains" title="Google Domains" /></p>
-
-<p>Scroll to the very bottom of the page and add 3 Custom Resource Records. You need to add two “@” type A records that point to the GitHub ips <strong>192.30.252.153</strong> and <strong>192.30.252.154</strong> and one “www” CNAME record that points to your <strong>USERNAME.github.io</strong> url:</p>
-
-<p><img src="http://i.imgur.com/xO3At1V.png" alt="Custom Resource Records" title="Custom Resource Records" /></p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it! DNS records often take more than a day to propagate so you may not see your website immediately. Once the changes have propagated your GitHub page and any project pages should be accessible from your new domain. For example <a href="https://github.com/quackware/blog">https://github.com/quackware/blog</a> is hosting the blog you are reading right now and the domain works without any additional setup.</p>
+<p>The full source code is available <a href="https://github.com/quackware/meteor-waitOnServer">on my GitHub page</a>. If you have any questions please post them in the comments!</p>
 
     
     
@@ -158,7 +140,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-11-20T11:45:42-05:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-12-06T12:44:05-05:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

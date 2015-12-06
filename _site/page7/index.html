@@ -46,6 +46,7 @@
   ga('send', 'pageview');
 
 </script>
+  <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/signup-forms/popup/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script><script type="text/javascript">require(["mojo/signup-forms/Loader"], function(L) { L.start({"baseUrl":"mc.us11.list-manage.com","uuid":"1c8750215658512459a679f1e","lid":"29a072ab9b"}) })</script>
 </head>
 
 
@@ -71,34 +72,24 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/09/11/meteor-render-pdf-iron-router/">
-        Meteor - Dynamically Render a PDF with iron:router
+      <a href="/blog/2015/11/11/iron-router-scroll-to-top/">
+        Meteor - iron:router Scroll to Top
       </a>
     </h1>
 
-    <time datetime="2015-09-11T00:00:00-04:00" class="post-date">11 Sep 2015</time>
+    <time datetime="2015-11-11T00:00:00-05:00" class="post-date">11 Nov 2015</time>
 
     <h2 id="introduction">Introduction</h2>
 
-<p>A cool trick I found out recently is how to dynamically render a pdf from the server to the client using iron:router. The idea is you have a pdf object stored in a database or external file store and you want to transfer that pdf to the client without directly accessing the pdf file. We are going to accomplish this with a server side iron:router route. You can access the full code for this tutorial on my GitHub page <a href="https://github.com/quackware/meteor-render-pdf">here</a>.</p>
+<p>I use the awesome <a href="https://github.com/iron-meteor/iron-router">iron:router</a> package in all my Meteor projects. One problem I run into in almost all packages is if you use <code>Router.go()</code> while scrolled down onto the page, your next page will rendered still scrolled at the same point. Here is some code that will fix that and scroll to the top of the page on each route.</p>
 
-<h2 id="the-route-file">The Route File</h2>
+<h2 id="the-code">The Code</h2>
 
-<p>The first method of rendering the pdf from the server involves the wonderful <a href="https://github.com/CollectionFS/Meteor-CollectionFS">CollectionFS</a> package which can be used to store files in a variety of different data stores including mongoDB, dropbox, and Amazon S3. We can accomplish this with the below code:</p>
+<p>We are just going to use a simple <code>autorun</code> function that depends on the reactive <code>Router.current()</code> object. Check out the code below</p>
 
-<script src="https://gist.github.com/quackware/c13931a2e2c9b4216b88.js"></script>
+<script src="https://gist.github.com/quackware/a66c39297edd0c139446.js"></script>
 
-<p>Some important thigns to note include the creation of a readable object through <code>file.createReadStream("tmp")</code> which we then read into the <code>buffer</code> object. Once we have completely read from the <code>FS.File</code> object we can write the response to the client through the node <code>this.response.write(buffer);</code> statement. Also make sure to include the <code>where: "server"</code> in the route to ensure that it only executes as a server side route.</p>
-
-<p>An additional way to render a pdf from the server to the client is to read the pdf from the file system, read it into a buffer using the node.js <code>fs</code> package, and feed it to the client. Make sure you install the <code>meteorhacks:npm</code> package so you can include the <code>fs</code> node.js package. You can accomplish all this with the below code:</p>
-
-<script src="https://gist.github.com/quackware/52d139c978bb05535cff.js"></script>
-
-<p>Pretty straight forward and similar to the above gist.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it for this tutorial, hopefully it helps out anyone who wants to dynamically render a pdf from the server without directly accessing the file. Again the full code for this tutorial is available <a href="https://github.com/quackware/meteor-render-pdf">on my GitHub page</a>. If you have any questions please leave them in the comments!</p>
+<p>That’s it! Very simple, but something I always include in my boilerplate code when I first create an application. Make sure to leave any questions or comments you have.</p>
 
     
     
@@ -137,7 +128,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-11-20T11:45:42-05:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2015-12-06T12:44:05-05:00">2015</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
