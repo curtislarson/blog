@@ -4,13 +4,155 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2015-12-06T12:44:05-05:00</updated>
+ <updated>2015-12-11T10:30:42-05:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>Meteor - Reactive Location Search Engine with MongoDB and Google Maps</title>
+   <link href="http://curtismlarson.com/blog/2015/12/11/meteor-location-search-engine-mongodb-google-maps/"/>
+   <updated>2015-12-11T00:00:00-05:00</updated>
+   <id>http://curtismlarson.com/blog/2015/12/11/meteor-location-search-engine-mongodb-google-maps</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;One cool feature that I have been adding a lot recently to my client’s websites is the ability to search for jobs, users, etc and have the search results display reactively in Google Maps. This is relatively easy to accomplish in Meteor if we combine a few useful packages and use MongoDB’s location searching functionality. In this tutorial we are going to create a simple website that allows us to add jobs with a title and location and then search for those jobs and have them display on an embedded Google Map. The full source code for this tutorial is available on &lt;a href=&quot;https://github.com/quackware/meteor-location-search&quot;&gt;My GitHub Page&lt;/a&gt;. Let’s get started!&lt;/p&gt;
+
+&lt;h2 id=&quot;dependencies&quot;&gt;Dependencies&lt;/h2&gt;
+
+&lt;p&gt;This tutorial requires quite a few Meteor packages that make our life easier. Below are the required ones that I will be referencing throughout the tutorial:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;meteor add aldeed:autoform
+meteor add aldeed:collection2
+meteor add dburles:google-maps
+meteor add ejson
+meteor add iron:router
+meteor add lukemadera:autoform-googleplace
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also include these optional dependencies. They are not 100% necessary to get your app working, but make your life easier and I will be using them throughout this tutorial.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;meteor add less
+meteor add nemo64:bootstrap
+meteor add reactive-var
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/aldeed/meteor-autoform&quot;&gt;aldeed:autoform&lt;/a&gt; and &lt;a href=&quot;https://github.com/aldeed/meteor-collection2&quot;&gt;aldeed:collection2&lt;/a&gt; are used primarily to make it easy to create forms on the client and submit data to the server. Additionally they are required if we want to take advantage of the awesome &lt;a href=&quot;https://github.com/lukemadera/meteor-autoform-googleplace/&quot;&gt;lukemadera:autoform-googleplace&lt;/a&gt; package which adds a Google places search input for autoform. autoform-googleplace requires &lt;code&gt;ejson&lt;/code&gt; so we need to add that package also. &lt;a href=&quot;https://github.com/dburles/meteor-google-maps&quot;&gt;dburles:google-maps&lt;/a&gt; is a great wrapper of the &lt;a href=&quot;https://developers.google.com/maps/documentation/javascript/tutorial&quot;&gt;Google Maps JavaScript API&lt;/a&gt; that allows us to embed a live Google Maps display in our website. The final required dependency is &lt;a href=&quot;https://github.com/iron-meteor/iron-router&quot;&gt;iron:router&lt;/a&gt; which allows us to set up our routes and configure when we want to load in the Google Maps code.&lt;/p&gt;
+
+&lt;p&gt;The optional dependencies are &lt;code&gt;bootstrap&lt;/code&gt;, &lt;code&gt;less&lt;/code&gt;, and &lt;code&gt;reactive-var&lt;/code&gt; which allow us to style our website very easily and take advantage of &lt;code&gt;ReactiveVars&lt;/code&gt; so we can organize our JavaScript code in a clean manner.&lt;/p&gt;
+
+&lt;h2 id=&quot;additional-setup&quot;&gt;Additional Setup&lt;/h2&gt;
+
+&lt;p&gt;Besides the various packages we need to install we also need to obtain a &lt;a href=&quot;https://developers.google.com/maps/signup?hl=en&quot;&gt;Google Maps Key&lt;/a&gt; that has been enabled for the &lt;code&gt;Google Maps JavaScript API&lt;/code&gt; and &lt;code&gt;Google Places API Web Service&lt;/code&gt;. This will allow us to access Google’s apis for location search and map embedding. You can setup your key in your settings.json file like below:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/67fe8dcc60d9286f30e4.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;setting-up-our-database-schema&quot;&gt;Setting up our Database Schema&lt;/h2&gt;
+
+&lt;p&gt;The first thing we need to do is setup our MongoDB and AutoForm schemas so that we can create our AutoForms and do location searches. The docs for &lt;a href=&quot;https://github.com/lukemadera/meteor-autoform-googleplace/&quot;&gt;lukemadera:autoform-googleplace&lt;/a&gt; show the structure of the Google Places data that is returned from the search input, so we can use that to create our &lt;code&gt;Address&lt;/code&gt; schema. Additionally we are going to create a &lt;code&gt;Job&lt;/code&gt; schema that will hold our job title and the location of the job. Finally we need to create a &lt;code&gt;Search&lt;/code&gt; schema for our search autoform. You can view the code for all the schemas below (Note: All this code should be included in a lib/ folder so it can be accessed from both the client and the server):&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/3d70789fa05556b80cec.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Some important things to note include the &lt;code&gt;geometry&lt;/code&gt; object in our &lt;code&gt;Address&lt;/code&gt; schema. This object will hold the geometry type and coordinates (lat and lon) that will be used by MongoDB for location searches. We also define our &lt;code&gt;Jobs&lt;/code&gt; collection and attach it to our schema. This is the collection we will be inserting job data into and searching for jobs with.&lt;/p&gt;
+
+&lt;p&gt;One additional step to ensure our schema works correctly with MongoDB location search is to define the correct index on our geometry data. This can be accomplished with an &lt;code&gt;_ensureIndex&lt;/code&gt; call like below:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/0a3e7750b74e21d5ad56.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;publisher-code&quot;&gt;Publisher Code&lt;/h2&gt;
+
+&lt;p&gt;Now that we have correctly defined our schemas we can implement the code that will perform the location search. We need to create a simple publisher that recieves search data from the client and uses a &lt;a href=&quot;https://docs.mongodb.org/v3.0/reference/operator/query/near/&quot;&gt;MongoDB $near query&lt;/a&gt; on our &lt;code&gt;geometry&lt;/code&gt; object we mentioned above. You can see the code for the publisher below (Note: This code should be included in the server/ folder):&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/667f8619b1dae4c99eed.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;code&gt;searchData&lt;/code&gt; just contains the data we defined in our &lt;code&gt;Schemas.Search&lt;/code&gt; SimpleSchema. Now whenever we subscribe to our &lt;code&gt;jobSearch&lt;/code&gt; publisher with correct data we will receive location based results.&lt;/p&gt;
+
+&lt;h2 id=&quot;database-insert-code&quot;&gt;Database Insert Code&lt;/h2&gt;
+
+&lt;p&gt;Thanks to the simplicity of AutoForm, our code for inserting a new job into the database is very simple (Note: This code should be included in the server/ folder).&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/f701543e946f40155a44.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;All we need to do is check the data passed into our &lt;code&gt;Meteor.method&lt;/code&gt; with our &lt;code&gt;Schemas.Job&lt;/code&gt; we defined above. If that data passes the check then we insert it into our &lt;code&gt;Jobs&lt;/code&gt; collection so it can be searched for.&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side-route&quot;&gt;Client Side Route&lt;/h2&gt;
+
+&lt;p&gt;Now that our server side code is complete, we need to add the client side code that will send job and location information to the server. To start out, we need to create a simple route in &lt;code&gt;iron:router&lt;/code&gt; that will load our &lt;code&gt;index&lt;/code&gt; template. Additionally we want to make sure that we load the &lt;code&gt;GoogleMaps&lt;/code&gt; api exposed by &lt;a href=&quot;https://github.com/dburles/meteor-google-maps&quot;&gt;dburles:google-maps&lt;/a&gt; so that we can render an embeded map in our template (Note: This code and the rest of the code in the tutorial should be included in the client/ folder).&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/742264d5b0f8644e7dcd.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The route code is pretty straightforward. The most complicated part is the &lt;code&gt;onBeforeAction&lt;/code&gt; hook where we check to see if the &lt;code&gt;GoogleMaps&lt;/code&gt; api has already been loaded, and if it has not then we load it using our Google maps api key we defined in our &lt;code&gt;settings.json&lt;/code&gt; file. Additionally make sure to specify the correct &lt;code&gt;geometry&lt;/code&gt; and &lt;code&gt;places&lt;/code&gt; library so that we can both search for locations and embed our Google Map.&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side-templates-add-job&quot;&gt;Client Side Templates (Add Job)&lt;/h2&gt;
+
+&lt;p&gt;Our client side html template will be composed of four parts. The first part is a simple AutoForm that allows us to submit a job title and location to the database.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/2e9316fc2b2a6f9b8fa5.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The first thing to notice is our AutoForm schema &lt;code&gt;jobSchema&lt;/code&gt; which is just a helper that returns &lt;code&gt;Schemas.Job&lt;/code&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/878c1fa83be337bcd714.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;This will allow us to specify our &lt;code&gt;title&lt;/code&gt; and &lt;code&gt;location&lt;/code&gt; quickfields. Also notice the &lt;code&gt;addJob&lt;/code&gt; meteormethod which maps to our &lt;code&gt;addJob&lt;/code&gt; database insert code we defined above. No extra code is needed to connect this form to that Meteor method, it’s all handled automatically by AutoForm. We also define a global template helper called &lt;code&gt;googleMapsReady&lt;/code&gt; which ensures that the Google api is correctly loaded before we attempt to render our &lt;code&gt;googleplace&lt;/code&gt; input.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/a438b443ef483baf8c49.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Don’t forget to specify &lt;code&gt;type=&quot;googleplace&quot;&lt;/code&gt; for the location quickfield, or else the google places api will not be loaded!&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side-templates-search&quot;&gt;Client Side Templates (Search)&lt;/h2&gt;
+
+&lt;p&gt;The second part of our client side template is another simple autoform that will perform the location search using another &lt;code&gt;googleplace&lt;/code&gt; input along with a radius field.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/3946d1a6540e84b4669f.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Notice these fields match the &lt;code&gt;Schemas.Search&lt;/code&gt; SimpleSchema we defined earlier in the tutorial, and the &lt;code&gt;searchSchema&lt;/code&gt; template helper should return that SimpleSchema object (similar to how the &lt;code&gt;jobSchema&lt;/code&gt; template helper did above). This AutoForm template does not use &lt;code&gt;meteormethod&lt;/code&gt; and instead uses &lt;code&gt;normal&lt;/code&gt; which means we will be treating it as a normal form submit. Why we do that will be explained when we move on to the JavaScript portion of the client side templates.&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side-templates-display&quot;&gt;Client Side Templates (Display)&lt;/h2&gt;
+
+&lt;p&gt;The third and fourth part of our client side templates is just to display the search results.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/8e62f53ebcb045def220.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Notice for the first row we iterate over a &lt;code&gt;jobs&lt;/code&gt; template helper and display the title of the job and the address where the job is located. In the second row we just add a div with id &lt;code&gt;searchMapContainer&lt;/code&gt;. This is where we will be rendering our embedded Google Map. Adding all the html together produces the following template:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/fc073273309b64abcfc3.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;We also need to add a small css file to ensure our &lt;code&gt;searchMapContainer&lt;/code&gt; is correctly sized&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/0f48399bb59294f9e966.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;That’s it for the html/css code. We can now move on to the JavaScript portion of the client side code!&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side-javascript-rendering-our-google-map&quot;&gt;Client Side JavaScript (Rendering our Google Map)&lt;/h2&gt;
+
+&lt;p&gt;The first part of our &lt;code&gt;index.js&lt;/code&gt; file will focus on rendering the Google Map in our website so that we can later add markers to it based on the job location. We can accomplish this with the following code:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/9e0f664259dd7da3e957.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;In our &lt;code&gt;onRendered&lt;/code&gt; function we create a simple &lt;code&gt;autorun&lt;/code&gt; function that waits until the &lt;code&gt;GoogleMaps&lt;/code&gt; api has been loaded before calling our &lt;code&gt;createMap&lt;/code&gt; function. The &lt;code&gt;createMap&lt;/code&gt; function just creates a &lt;code&gt;latlng&lt;/code&gt; object using some default coordinates and renders a map to our &lt;code&gt;searchMapContainer&lt;/code&gt; div we created in our template html code. Once this code has been added to your &lt;code&gt;index.js&lt;/code&gt; you should see a page similar to below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/JOC8bWu.png&quot; alt=&quot;Google Maps embedded&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side-javascript-search-code&quot;&gt;Client side JavaScript (Search Code)&lt;/h2&gt;
+
+&lt;p&gt;Now that our Google Map is rendered on our website we can add the code that will subscribe to our &lt;code&gt;jobSearch&lt;/code&gt; pubication and render markers on our map and populate our &lt;code&gt;jobs&lt;/code&gt; template helper.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/quackware/4e2dbb0d16de90fbb489.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Starting from our &lt;code&gt;onRendered&lt;/code&gt; function we see that we have added two new &lt;code&gt;autorun&lt;/code&gt; functions. The first one waits on the reactive-var &lt;code&gt;SearchData&lt;/code&gt; and subscribes to our &lt;code&gt;jobSearch&lt;/code&gt; publisher we created before. The second one waits on the reactive &lt;code&gt;Jobs.find({})&lt;/code&gt; which when populated with data (which will occur when our &lt;code&gt;jobSearch&lt;/code&gt; subscription completes) will call our &lt;code&gt;addMarkersToMap&lt;/code&gt; function to render markers in the location where the job was specified.&lt;/p&gt;
+
+&lt;p&gt;Our &lt;code&gt;addMarkersToMap&lt;/code&gt; function simply removes the existing markers that were added and iterates through the passed in jobs, added a new marker for each job based on the job’s lat and lon values. We also added a &lt;code&gt;click&lt;/code&gt; listener for when you click on one of the markers. You could do something like open a popup with job information or highlight the job in a list, but for now we simply output the job to the console.&lt;/p&gt;
+
+&lt;p&gt;Additionally we add our &lt;code&gt;searchJob&lt;/code&gt; AutoForm hook that sets the &lt;code&gt;SearchData&lt;/code&gt; reactive-var with data from our search form. This way when someone performs a search the &lt;code&gt;SearchData&lt;/code&gt; variable is changed which triggers a new search subscription, returning our search data. That subscription then triggers the new &lt;code&gt;Jobs.find({})&lt;/code&gt; which populates both the template helper and our map markers.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;That’s it for the tutorial. We accomplished a lot in this long tutorial. The end goal is that we were able to reactively update an embeded Google Map widget based on a locaiton search we performed. If you have any questions or suggestions make sure to leave a comment! Again the full source code for this tutorial is available on &lt;a href=&quot;https://github.com/quackware/meteor-location-search&quot;&gt;My GitHub Page&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>Meteor - How to Create and Send an iCal Invitation Email</title>
