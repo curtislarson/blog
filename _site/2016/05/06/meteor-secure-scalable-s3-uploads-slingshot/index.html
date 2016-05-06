@@ -10,12 +10,12 @@
 
   <title>
     
-      Introduction &middot; Curtis Larson's Blog
+      Meteor - Secure, Scalable Uploading to S3 with Slingshot (Video Presentation) &middot; Curtis Larson's Blog
     
   </title>
 
-  
-  
+  <meta name="description" content="A video presentation on how to build secure, scalable uploading to Amazon S3 with Slingshot and Meteor">
+  <meta name="keywords" content="meteor, meteor slingshot, meteor s3, meteor s3 tutorial, meteor upload s3, meteor amazon s3, meteor s3 upload, meteor slingshot tutorial, meteor upload slingshot">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/blog/public/css/poole.css">
@@ -71,11 +71,29 @@
         
 
 <article class="post">
-  <h1 class="post-title">Introduction</h1>
-  <time datetime="2015-04-11T00:00:00-04:00" class="page-date">11 Apr 2015</time>
-  <p>I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!</p>
+  <h1 class="post-title">Meteor - Secure, Scalable Uploading to S3 with Slingshot (Video Presentation)</h1>
+  <time datetime="2016-05-06T00:00:00-04:00" class="page-date">06 May 2016</time>
+  <h2 id="introduction">Introduction</h2>
+
+<p>Often times when you first build a file upload tool in Meteor you look towards using a package like <a href="https://atmospherejs.com/cfs/gridfs">CollectionFS GridFS</a> to store files directly in MongoDB. However as more and more files are uploaded it can reduce your database speed to a crawl. A much better solution is a completely client side file upload implementation powered by <a href="https://github.com/CulturalMe/meteor-slingshot">Slingshot</a> and <a href="https://aws.amazon.com/s3/">Amazon S3</a>.</p>
+
+<p>I recently gave a presentation at the <a href="http://www.meetup.com/Meteor-NY">Meteor NYC Meetup</a> with my co-presenter <a href="https://github.com/alanning">Adrian Lanning</a> where we gave a short demo and talked about the functionality of building a secure, scalable uploading tool with Slingshot and S3. Luckily the presentation was recorded so you can watch it below! As always the full source code of the presentation can be found on <a href="https://github.com/quackware/meteor-slingshot-example">My Github</a>. Enjoy!</p>
+
+<h2 id="video-presentation">Video Presentation</h2>
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/9VAldOPkqqs" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Those with an existing GridFS implementation or that just want to add a great file upload tool to their Meteor website can contact me below to start a discussion and receive a quote.</p>
 
 
+  
+    <span>
+        <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> |
+        <a href="https://twitter.com/quackware" target="_blank">Twitter</a> |
+        <a href="mailto:curtis@curtismlarson.com" target="_blank">Email</a>
+    </span>
   
   <br/>
   <div id="mc_embed_signup">
@@ -91,18 +109,25 @@
 </div>
 </article>
 
+<!-- Add Disqus comments. -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'curtismlarson';
+  var disqus_identifier = "3699097/2016/05/06/meteor-secure-scalable-s3-uploads-slingshot/";
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
 <aside class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
-    
-      <li>
-        <h3>
-          <a href="/blog/2016/05/06/meteor-secure-scalable-s3-uploads-slingshot/">
-            Meteor - Secure, Scalable Uploading to S3 with Slingshot (Video Presentation)
-            <small><time datetime="2016-05-06T00:00:00-04:00">06 May 2016</time></small>
-          </a>
-        </h3>
-      </li>
     
       <li>
         <h3>
@@ -118,6 +143,15 @@
           <a href="/blog/2015/12/06/meteor-send-ical-email-invitation/">
             Meteor - How to Create and Send an iCal Invitation Email
             <small><time datetime="2015-12-06T00:00:00-05:00">06 Dec 2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog/2015/12/03/meteor-video-tutorial-reddit-clone/">
+            Meteor - Video Tutorial - Build a Reddit Clone
+            <small><time datetime="2015-12-03T00:00:00-05:00">03 Dec 2015</time></small>
           </a>
         </h3>
       </li>

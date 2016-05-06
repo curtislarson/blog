@@ -72,60 +72,20 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/11/19/meteor-how-to-create-package/">
-        Meteor - How to Create a Package
+      <a href="/blog/2015/11/19/mobile-video-downloader/">
+        MobileVideoDownloader.com built in Meteor
       </a>
     </h1>
 
     <time datetime="2015-11-19T00:00:00-05:00" class="post-date">19 Nov 2015</time>
 
-    <h2 id="introduction">Introduction</h2>
+    <h2 id="mobile-video-downloader">Mobile Video Downloader</h2>
 
-<p>I usually always have to google the steps to create a Meteor package, so I figured I would do a write up for myself that I can reference. I hope this helps anyone else that has trouble creating a meteor package</p>
+<p>Just finished the first round of another simple website <a href="http://www.mobilevideodownloader.com">Mobile Video Downloader</a>. It’s just a basic video downloader (with search) that is optimized for mobile devices. Building it in Meteor enabled me to finish this site ultra fast.</p>
 
-<h2 id="the-steps">The Steps</h2>
+<h2 id="the-code">The Code</h2>
 
-<h3 id="create-the-package">1. Create the package</h3>
-
-<p>Open a terminal and navigate to the directory you want to store the package in. Type</p>
-
-<pre><code>meteor create --package atmosphereusername:packagename
-</code></pre>
-
-<h3 id="create-the-test-application">2. Create the test application</h3>
-
-<p>Enter the following commands. This will create a test app you can use to test your package.</p>
-
-<pre><code>cd packagename
-meteor create test-app
-cd test-app
-</code></pre>
-
-<h3 id="create-a-packages-folder-for-test-app">3. Create a packages folder for test-app</h3>
-
-<p>We need a place to store our new package in our test app</p>
-
-<pre><code>mkdir packages
-</code></pre>
-
-<h3 id="symlink-your-package-to-the-test-app">4. Symlink your package to the test-app</h3>
-
-<p>Now we can link our new package into our test-app, so that any modifications we make to the package will show up in our app.</p>
-
-<pre><code>cd packages
-ln -s ../../../packagename ./packagename
-</code></pre>
-
-<h3 id="add-the-package">5. Add the package</h3>
-
-<p>All that’s left is to add the package to our test-app</p>
-
-<pre><code>meteor add atmosphereusername:packagename
-</code></pre>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it. Now when you run <code>meteor list</code> in your test-app you should see the packagename show up. If you are interested in wrapping a npm package in a Meteor package you can also check out my new tutorial, <a href="http://www.curtismlarson.com/blog/2015/11/20/meteor-wrap-publish-npm-package/">Meteor - Wrap and Publish a NPM package</a>. Now go write the next awesome meteor package!</p>
+<p>The entire website is open source and available on my github <a href="https://github.com/quackware/mobilevideodownloader">here</a>. Make sure to leave any comments or suggestions you have!</p>
 
     
     
@@ -164,7 +124,7 @@ ln -s ../../../packagename ./packagename
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-12-11T10:30:42-05:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2016-05-06T09:29:23-04:00">2016</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

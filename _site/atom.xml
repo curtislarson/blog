@@ -4,13 +4,34 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2015-12-11T10:30:42-05:00</updated>
+ <updated>2016-05-06T09:29:23-04:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>Meteor - Secure, Scalable Uploading to S3 with Slingshot (Video Presentation)</title>
+   <link href="http://curtismlarson.com/blog/2016/05/06/meteor-secure-scalable-s3-uploads-slingshot/"/>
+   <updated>2016-05-06T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2016/05/06/meteor-secure-scalable-s3-uploads-slingshot</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Often times when you first build a file upload tool in Meteor you look towards using a package like &lt;a href=&quot;https://atmospherejs.com/cfs/gridfs&quot;&gt;CollectionFS GridFS&lt;/a&gt; to store files directly in MongoDB. However as more and more files are uploaded it can reduce your database speed to a crawl. A much better solution is a completely client side file upload implementation powered by &lt;a href=&quot;https://github.com/CulturalMe/meteor-slingshot&quot;&gt;Slingshot&lt;/a&gt; and &lt;a href=&quot;https://aws.amazon.com/s3/&quot;&gt;Amazon S3&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I recently gave a presentation at the &lt;a href=&quot;http://www.meetup.com/Meteor-NY&quot;&gt;Meteor NYC Meetup&lt;/a&gt; with my co-presenter &lt;a href=&quot;https://github.com/alanning&quot;&gt;Adrian Lanning&lt;/a&gt; where we gave a short demo and talked about the functionality of building a secure, scalable uploading tool with Slingshot and S3. Luckily the presentation was recorded so you can watch it below! As always the full source code of the presentation can be found on &lt;a href=&quot;https://github.com/quackware/meteor-slingshot-example&quot;&gt;My Github&lt;/a&gt;. Enjoy!&lt;/p&gt;
+
+&lt;h2 id=&quot;video-presentation&quot;&gt;Video Presentation&lt;/h2&gt;
+
+&lt;iframe width=&quot;640&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/9VAldOPkqqs&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Those with an existing GridFS implementation or that just want to add a great file upload tool to their Meteor website can contact me below to start a discussion and receive a quote.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>Meteor - Reactive Location Search Engine with MongoDB and Google Maps</title>

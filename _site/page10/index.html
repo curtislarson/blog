@@ -72,34 +72,145 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/09/11/meteor-render-pdf-iron-router/">
-        Meteor - Dynamically Render a PDF with iron:router
+      <a href="/blog/2015/11/03/deploy-meteor-to-aws/">
+        How to Deploy a Meteor project to AWS EC2
       </a>
     </h1>
 
-    <time datetime="2015-09-11T00:00:00-04:00" class="post-date">11 Sep 2015</time>
+    <time datetime="2015-11-03T00:00:00-05:00" class="post-date">03 Nov 2015</time>
 
     <h2 id="introduction">Introduction</h2>
 
-<p>A cool trick I found out recently is how to dynamically render a pdf from the server to the client using iron:router. The idea is you have a pdf object stored in a database or external file store and you want to transfer that pdf to the client without directly accessing the pdf file. We are going to accomplish this with a server side iron:router route. You can access the full code for this tutorial on my GitHub page <a href="https://github.com/quackware/meteor-render-pdf">here</a>.</p>
+<p>This is a step by step guide on how to deploy a Meteor project to Amazon Web Services (AWS). This guide assumes you have little to no technical knowledge of AWS or Meteor and you start out with a zipped file containing your Meteor project. It also assumes you have knowledge of basic unix commands like cd, ls, and mkdir. I am also assuming you are using a mac / linux based computer. Let’s get started!</p>
 
-<h2 id="the-route-file">The Route File</h2>
+<h2 id="the-tools">The Tools</h2>
 
-<p>The first method of rendering the pdf from the server involves the wonderful <a href="https://github.com/CollectionFS/Meteor-CollectionFS">CollectionFS</a> package which can be used to store files in a variety of different data stores including mongoDB, dropbox, and Amazon S3. We can accomplish this with the below code:</p>
+<p>The first tool you need is Node.js which is available <a href="https://nodejs.org/en/">here</a>. After you have node installed you can bring up your terminal and type <code>npm</code> to make sure you have the Node package manager installed correctly (See below image).</p>
 
-<script src="https://gist.github.com/quackware/c13931a2e2c9b4216b88.js"></script>
+<p><img src="http://imgur.com/HAQGTua.png" alt="npm" /></p>
 
-<p>Some important thigns to note include the creation of a readable object through <code>file.createReadStream("tmp")</code> which we then read into the <code>buffer</code> object. Once we have completely read from the <code>FS.File</code> object we can write the response to the client through the node <code>this.response.write(buffer);</code> statement. Also make sure to include the <code>where: "server"</code> in the route to ensure that it only executes as a server side route.</p>
+<p>Once you verify that npm is installed you need to install <a href="https://github.com/arunoda/meteor-up">Meteor Up</a> through npm which will help us deploy the project to an ec2 server. You can install it by typing the following command in your terminal.</p>
 
-<p>An additional way to render a pdf from the server to the client is to read the pdf from the file system, read it into a buffer using the node.js <code>fs</code> package, and feed it to the client. Make sure you install the <code>meteorhacks:npm</code> package so you can include the <code>fs</code> node.js package. You can accomplish all this with the below code:</p>
+<pre><code>npm install -g mup
+</code></pre>
 
-<script src="https://gist.github.com/quackware/52d139c978bb05535cff.js"></script>
+<p><img src="http://imgur.com/pylYMVS.png" alt="Install mup npm" /></p>
 
-<p>Pretty straight forward and similar to the above gist.</p>
+<p>You also need to install meteor</p>
 
-<h2 id="conclusion">Conclusion</h2>
+<pre><code>npm install -g meteor
+</code></pre>
 
-<p>That’s it for this tutorial, hopefully it helps out anyone who wants to dynamically render a pdf from the server without directly accessing the file. Again the full code for this tutorial is available <a href="https://github.com/quackware/meteor-render-pdf">on my GitHub page</a>. If you have any questions please leave them in the comments!</p>
+<p>You now need to navigate to your project directory via the terminal. If you are familiar with the <code>ls</code> and <code>cd</code> unix commands it should be pretty straightforward.</p>
+
+<pre><code>cd /path/to/project/directory
+</code></pre>
+
+<p>If you are unfamiliar with unix commands you can navigate to System Preferences -&gt; Keyboard -&gt; Services (Left Hand Side) -&gt; Scroll down and check the <code>New Terminal at Folder</code> checkbox.</p>
+
+<p><img src="http://imgur.com/1EsrGt2.png" alt="New Terminal At Folder" /></p>
+
+<p>Now you can right click your project folder in Finder -&gt; Services -&gt; New Terminal at Folder which will open a terminal in your project directory.</p>
+
+<p><img src="http://imgur.com/SbQ6z6w.png" alt="New Terminal At Folder" /></p>
+
+<p>Now that you are in your deployment directory you must create a new file named <code>mup.json</code> and copy and paste the below code and save the file (You can do this either through the Terminal or Finder).</p>
+
+<script src="https://gist.github.com/quackware/4aad8874a59ec2624e4c.js"></script>
+
+<p>We will be changing some of these values later on in the tutorial once we have setup our server.</p>
+
+<h2 id="aws-management-console">AWS Management Console</h2>
+
+<p>Login to your <a href="https://aws.amazon.com/console/">AWS Management Console</a> and you should see a screen similar to below (If you don’t have an AWS account, they are very straightforward to create and is not covered by this tutorial)</p>
+
+<p><img src="http://imgur.com/RThAxXC.png" alt="AWS Console" /></p>
+
+<p>Click on the <code>EC2</code> option in the top left and select the blue <code>Launch Instance</code> option. On the next screen you should see a selection of different server types. You will want to pick the <code>Ubuntu Server SSD Volume Type</code> since it works best with <code>mup</code>.</p>
+
+<p><img src="http://imgur.com/u6kwg7w.png" alt="Ubunutu AMI" /></p>
+
+<p>You will now be greeted with a selection of different instance types. For my simple project I will be using a free tier option, but you should do your research or <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#099;&#117;&#114;&#116;&#105;&#115;&#064;&#099;&#117;&#114;&#116;&#105;&#115;&#109;&#108;&#097;&#114;&#115;&#111;&#110;&#046;&#099;&#111;&#109;&#063;&#115;&#117;&#098;&#106;&#101;&#099;&#116;&#061;&#073;&#032;&#110;&#101;&#101;&#100;&#032;&#104;&#101;&#108;&#112;&#032;&#115;&#101;&#116;&#116;&#105;&#110;&#103;&#032;&#117;&#112;&#032;&#109;&#121;&#032;&#077;&#101;&#116;&#101;&#111;&#114;&#032;&#112;&#114;&#111;&#106;&#101;&#099;&#116;&#033;">ask a meteor expert</a> if you are unsure on what tier option to use. Go ahead and select <code>Next: Configure Instance Details</code> to continue.</p>
+
+<h2 id="setting-up-server-options">Setting up Server Options</h2>
+
+<p>The next steps will be based on what type of app you have. Most people will not need to change anything on the <code>Configure Instance Details</code> page, so go ahead and select <code>Next: Add Storage</code>.</p>
+
+<p>If you think your app requires additional storage (most will not as long as you chose the correct server in the above app) you can add volumes in this screen. If anyone is curious on how to add additional volumes for their Meteor app just leave a comment and I will update the guide</p>
+
+<p>On Step 5: Tag Instance, just give your server a useful name that reflects your meteor project and proceed to the next step</p>
+
+<h2 id="configure-security-groups">Configure Security Groups</h2>
+
+<p>Setting up correct security groups is important for any app you host on AWS. You want to allow ssh traffic for mup and if you want to ssh into your server in the future, and http/https traffic for people visiting your website. You can also specify ssh rules for only your IP address as an additional security precaution. Using the below configuration should work for most people</p>
+
+<p><img src="http://imgur.com/2M7BaiE.png" alt="Configure Security Group" /></p>
+
+<p>Now that you have added your security groups you can go ahead and click <code>Review and Launch</code>.</p>
+
+<h2 id="keypair--launching-your-instance">Keypair &amp; Launching Your Instance</h2>
+
+<p>After reviewing your instance information you can go ahead and click <code>Launch</code>. This will launch a popup asking you to use an existing or create a new keypair. We are going to create a new one and download it. It is very important that you keep the keypair in a secure location, this file will be used by <code>mup</code> and anyone else that wants to ssh into your server (As long as they are added to the ssh rules for your instance). Once the file is downloaded click <code>Launch Instance</code> again. Go ahead and click <code>View Instance</code> and you will be directed to your instance dashboard.</p>
+
+<p><img src="http://imgur.com/fEXcJ50.png" alt="Creating keypair" /></p>
+
+<h2 id="getting-instance-information">Getting instance information</h2>
+
+<p>Now that we have successfully launched our instance we need to get some information from the instance dashboard so that mup can deploy the meteor project. Once the instance is running select it from the list and record the <code>Public IP</code> value.</p>
+
+<p><img src="http://imgur.com/0S5c3hl.png" alt="Public IP" /></p>
+
+<p>Now navigate to where you saved your .pem file via the terminal (either through unix commands or the New Terminal at Folder method). Type the following command into the terminal:</p>
+
+<pre><code>chmod 400 name-of-pem.pem
+</code></pre>
+
+<p><img src="http://imgur.com/2WVjf2g.png" alt="chmod" /></p>
+
+<p>This will allow ssh and mup access to your pem file. You can now test to see if you can ssh into your server with the following command:</p>
+
+<pre><code>ssh -i /path/to/pem.pem ubuntu@public-ip-address
+</code></pre>
+
+<p><img src="http://imgur.com/TZLBgqW.png" alt="SSH amazon" /></p>
+
+<p>If you have successfully connected to your server, Congratulations! Now all you need to do is edit your <code>mup.json</code> file.</p>
+
+<h2 id="editing-the-mupjson-file">Editing the mup.json file</h2>
+
+<p>Once your <code>mup.json</code> file is open, you need to change the following values:</p>
+
+<pre><code>"host": "hostname" -&gt; "host": "PUBLIC_IP_ADDRESS"
+"username":"root" -&gt; "username":"ubuntu"
+"password":"password" -&gt; //"password":"password"
+//"pem":"~/.ssh/id_rsa" -&gt; "pem":"path/to/your/pemfile.pem"
+"app": "/path/to/the/app" -&gt; "app": "[the local path of your app]",
+"appName":"meteor" -&gt; "appName":"[your-app-name]"
+"ROOT_URL":"http://myapp.com" -&gt; "ROOT_URL":"[whatever your url is]"
+</code></pre>
+
+<p>Save and exit your text editor.</p>
+
+<h2 id="deploying-with-mup">Deploying with Mup</h2>
+
+<p>Navigate to your project directory in a terminal and run the following commands:</p>
+
+<pre><code>mup setup
+</code></pre>
+
+<p>If all goes well you should see the following output. If something bad happens double check all your values in your mup.json file</p>
+
+<p><img src="http://imgur.com/GNONEGV.png" alt="mup setup" /></p>
+
+<p>Now that mup has installed all the necessary requirements for Meteor on your server. You can type the following command to upload your project to the server.</p>
+
+<pre><code>mup deploy
+</code></pre>
+
+<p><img src="http://imgur.com/4uGXf6s.png" alt="mup deploy" /></p>
+
+<p>That’s it! You can now check out your app either directly through your public ip address or through the ROOT_URL you set (as long as your DNS records are set up correctly). If you have any questions or requests for additions to this guide, just leave them in the comments!</p>
+
 
     
     
@@ -138,7 +249,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2015-12-11T10:30:42-05:00">2015</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2016-05-06T09:29:23-04:00">2016</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
