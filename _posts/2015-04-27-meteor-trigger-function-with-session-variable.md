@@ -19,7 +19,7 @@ Use the following code:
       // Do something when the session value changes
     }
 
-    Deps.autorun(function() {
+    Tracker.autorun(function() {
       var sessionVal = Session.get("yourSessionVariable");
       console.log("The session value has changed");
       doSomething();
@@ -29,8 +29,8 @@ Use the following code:
       Session.set("yourSessionVariable", "foo");
     }
 
-That's it! Whenever `anotherFunction` is executed, or whenever the session value `yourSessionVariable` is changed in any other function, the function in the `Deps.autorun()` block will execute. Simple!
+That's it! Whenever `anotherFunction` is executed, or whenever the session value `yourSessionVariable` is changed in any other function, the function in the `Tracker.autorun()` block will execute. Simple!
 
-## Deps.autoRun
+## Tracker.autoRun
 
-`Deps.autoRun()` is the key here, as it can make arbitrary blocks of code reactive. `Session` is already a reactive variable, so we do not need to go through the trouble of using `Deps.Dependency`. You can find more information about Deps [here](https://manual.meteor.com/#deps).
+`Tracker.autoRun()` is the key here, as it can make arbitrary blocks of code reactive. `Session` is already a reactive variable, so we do not need to go through the trouble of using `Tracker.Dependency`. You can find more information about Tracker [here](http://docs.meteor.com/#/full/tracker_autorun).
