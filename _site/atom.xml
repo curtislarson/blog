@@ -4,13 +4,75 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2016-05-06T09:32:17-04:00</updated>
+ <updated>2016-05-11T08:17:28-04:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>Node - Exclude fields from select with Mongoose/MongoDB</title>
+   <link href="http://curtismlarson.com/blog/2016/05/11/mongoose-mongodb-exclude-select-fields/"/>
+   <updated>2016-05-11T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2016/05/11/mongoose-mongodb-exclude-select-fields</id>
+   <content type="html">&lt;h2 id=&quot;excluding-a-field&quot;&gt;Excluding a Field&lt;/h2&gt;
+
+&lt;p&gt;Say you have a mongoose schema for a user as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var userSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+var User = mongoose.model(&quot;User&quot;, userSchema);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But you don’t want to send the &lt;code&gt;password&lt;/code&gt; field to the client when you perform a &lt;code&gt;User.find&lt;/code&gt;. Rather than directly deleting the &lt;code&gt;password&lt;/code&gt; field from the user object before you send it to the client, mongoose provides some easy to use functionality to exclude your &lt;code&gt;password&lt;/code&gt; field. There are two ways you can accomplish this.&lt;/p&gt;
+
+&lt;h3 id=&quot;individually&quot;&gt;Individually&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;User.findOne({_id: userId}).select(&quot;-password&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;in-the-schema&quot;&gt;In the Schema&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;var userSchema = mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false,
+  },
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice the new &lt;code&gt;select: false&lt;/code&gt; field in the password field of the User schema. Now whenever you perform a find with either method, the password field will not be included in the response.&lt;/p&gt;
+
+&lt;h2 id=&quot;including-the-excluded-field&quot;&gt;Including the Excluded Field&lt;/h2&gt;
+
+&lt;p&gt;But what if you need to check the password with a value (Such as in the login method)? You can explictly allow the password field to be returned in your find call as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User.findOne({_id: userId}).select(&quot;+password&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;That’s it for this tutorial. This is very common functionality in any Node/MongoDB/Mongoose related application, and avoiding publishings fields that can compromise your application is always a good idea!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>Meteor - Secure, Scalable Uploading to S3 with Slingshot (Video Presentation)</title>
@@ -837,7 +899,7 @@ meteorhacks:ssr
   // Do something when the session value changes
 }
 
-Deps.autorun(function() {
+Tracker.autorun(function() {
   var sessionVal = Session.get(&quot;yourSessionVariable&quot;);
   console.log(&quot;The session value has changed&quot;);
   doSomething();
@@ -848,11 +910,11 @@ var anotherFunction = function() {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;That’s it! Whenever &lt;code&gt;anotherFunction&lt;/code&gt; is executed, or whenever the session value &lt;code&gt;yourSessionVariable&lt;/code&gt; is changed in any other function, the function in the &lt;code&gt;Deps.autorun()&lt;/code&gt; block will execute. Simple!&lt;/p&gt;
+&lt;p&gt;That’s it! Whenever &lt;code&gt;anotherFunction&lt;/code&gt; is executed, or whenever the session value &lt;code&gt;yourSessionVariable&lt;/code&gt; is changed in any other function, the function in the &lt;code&gt;Tracker.autorun()&lt;/code&gt; block will execute. Simple!&lt;/p&gt;
 
-&lt;h2 id=&quot;depsautorun&quot;&gt;Deps.autoRun&lt;/h2&gt;
+&lt;h2 id=&quot;trackerautorun&quot;&gt;Tracker.autoRun&lt;/h2&gt;
 
-&lt;p&gt;&lt;code&gt;Deps.autoRun()&lt;/code&gt; is the key here, as it can make arbitrary blocks of code reactive. &lt;code&gt;Session&lt;/code&gt; is already a reactive variable, so we do not need to go through the trouble of using &lt;code&gt;Deps.Dependency&lt;/code&gt;. You can find more information about Deps &lt;a href=&quot;https://manual.meteor.com/#deps&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Tracker.autoRun()&lt;/code&gt; is the key here, as it can make arbitrary blocks of code reactive. &lt;code&gt;Session&lt;/code&gt; is already a reactive variable, so we do not need to go through the trouble of using &lt;code&gt;Tracker.Dependency&lt;/code&gt;. You can find more information about Tracker &lt;a href=&quot;http://docs.meteor.com/#/full/tracker_autorun&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  

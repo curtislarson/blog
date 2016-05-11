@@ -72,24 +72,22 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/11/11/iron-router-scroll-to-top/">
-        Meteor - iron:router Scroll to Top
+      <a href="/blog/2015/11/17/random-power-hour/">
+        RandomPowerHour.com built in Meteor
       </a>
     </h1>
 
-    <time datetime="2015-11-11T00:00:00-05:00" class="post-date">11 Nov 2015</time>
+    <time datetime="2015-11-17T00:00:00-05:00" class="post-date">17 Nov 2015</time>
 
-    <h2 id="introduction">Introduction</h2>
+    <h2 id="random-power-hour">Random Power Hour</h2>
 
-<p>I use the awesome <a href="https://github.com/iron-meteor/iron-router">iron:router</a> package in all my Meteor projects. One problem I run into in almost all packages is if you use <code>Router.go()</code> while scrolled down onto the page, your next page will rendered still scrolled at the same point. Here is some code that will fix that and scroll to the top of the page on each route.</p>
+<p>I recently just wrapped up a small one day project. Building a random power hour creator in Meteor. It pulls YouTube videos from a selected playlist, mixes them up, and plays random clips from them, creating the perfect drinking game! You can visit the site below:</p>
+
+<p><a href="http://www.randompowerhour.com">Random Power Hour</a></p>
 
 <h2 id="the-code">The Code</h2>
 
-<p>We are just going to use a simple <code>autorun</code> function that depends on the reactive <code>Router.current()</code> object. Check out the code below</p>
-
-<script src="https://gist.github.com/quackware/a66c39297edd0c139446.js"></script>
-
-<p>That’s it! Very simple, but something I always include in my boilerplate code when I first create an application. Make sure to leave any questions or comments you have.</p>
+<p>The entire website is open source and available on my github <a href="https://github.com/quackware/meteor-randomhour">here</a>. Make sure to leave any comments or suggestions you have.</p>
 
     
     
@@ -128,7 +126,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2016-05-06T09:32:17-04:00">2016</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2016-05-11T08:17:28-04:00">2016</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

@@ -72,36 +72,24 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/05/04/meteor-ironrouter-waitOn-server/">
-        Meteor - How to use iron:router waitOn with an Async Server Call
+      <a href="/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/">
+        Meteor - Windows update cannot convert null to object
       </a>
     </h1>
 
-    <time datetime="2015-05-04T00:00:00-04:00" class="post-date">04 May 2015</time>
+    <time datetime="2015-07-23T00:00:00-04:00" class="post-date">23 Jul 2015</time>
 
-    <h2 id="how-to-use-ironrouter-waiton-with-an-async-server-call">How to use iron:router waitOn with an Async Server Call</h2>
+    <h2 id="cannot-convert-null-to-object">Cannot Convert Null To Object</h2>
 
-<p>There have been several <a href="http://stackoverflow.com/questions/29493809/how-to-make-onbeforeaction-call-wait-until-a-function-call-inside-finishes-in-me/">posts</a> about utilizing iron:router’s <code>waitOn</code> functionality for an async server call. After being disatisfied with a lot of the solutions, including my own in the aforementioned stackoverflow post, I decided to write up a simple solution that had a minimal amount of extra code in the routes file. A couple of problems that I (and many others) ran into included the <code>waitOn</code> function running in an <a href="http://stackoverflow.com/questions/25136239/meteor-0-8-3-iron-router-infinite-loop-inside-waiton-hook">infinite loop</a>, and also <code>waitOn</code> <a href="https://github.com/iron-meteor/iron-router/issues/1031">executing twice</a>.</p>
+<p>While attempting to update one of my meteor projects on my windows box, I ran into the following error:</p>
 
-<h2 id="client-routes-file">Client Routes File</h2>
+<p><img src="http://i.imgur.com/NvtJjoq.png" alt="Cannot convert null to object" title="Cannot convert null to object" /></p>
 
-<p>The client routes.js file is very simple, as the core functionality is contained in a different file. Basically what I am doing is returning a <code>Util.waitOnServer</code> call which will call the <code>testWaitOn</code> Meteor method on the server. You can optionally pass in arguments to <code>Util.waitOnServer</code> to pass data to the Meteor method. Once this call returns, we can then access the data through <code>Util.getResponse</code>.</p>
+<p>Attempting to update the meteor binary through <code>meteor update</code> yielded the same error.</p>
 
-<script src="https://gist.github.com/quackware/71290757e28d7df89540.js"></script>
+<h2 id="how-to-fix">How to Fix</h2>
 
-<h2 id="utilwaitonserver">Util.waitOnServer</h2>
-
-<p>The Util object contains all the functionality of waiting on <code>Meteor.call</code>. Functionality such as <code>getResponse</code> can be easily changed to something more eloquent, and you can also change the <code>Meteor.call</code> to be any async call. The arugments from <code>Util.waitOnServer</code> are forwarded to the Meteor method here.</p>
-
-<script src="https://gist.github.com/quackware/eea7818fde0cda6a35c3.js"></script>
-
-<h2 id="server-code">Server Code</h2>
-
-<p>The server code is very simple, it just generates a random number and returns it. I also printed out the <code>data</code> argument passed to us from the client. I just wanted a way to make sure everything was being executed in the correct order.</p>
-
-<script src="https://gist.github.com/quackware/703e6cf54c24f7f9b16f.js"></script>
-
-<p>The full source code is available <a href="https://github.com/quackware/meteor-waitOnServer">on my GitHub page</a>. If you have any questions please post them in the comments!</p>
+<p>In order to fix the error, I actually had to completely uninstall meteor and reinstall from <a href="https://win.meteor.com/">https://win.meteor.com/</a>. After everything was installed, <code>meteor update</code> worked fine. Hope this helps anyone encountering the same problem!</p>
 
     
     
@@ -140,7 +128,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2016-05-06T09:32:17-04:00">2016</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2016-05-11T08:17:28-04:00">2016</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
