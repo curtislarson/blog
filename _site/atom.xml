@@ -4,13 +4,35 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2016-05-11T08:17:28-04:00</updated>
+ <updated>2016-05-12T11:23:27-04:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>Webpack - ERROR in Cannot find module '../modules/web.dom.iterable' @ multi main</title>
+   <link href="http://curtismlarson.com/blog/2016/05/12/webpack-cannot-find-module-web-dom-iterable/"/>
+   <updated>2016-05-12T00:00:00-04:00</updated>
+   <id>http://curtismlarson.com/blog/2016/05/12/webpack-cannot-find-module-web-dom-iterable</id>
+   <content type="html">&lt;h2 id=&quot;the-error&quot;&gt;The error&lt;/h2&gt;
+
+&lt;p&gt;I started up a new webpack/react project recently and immediately ran into this error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ERROR in Cannot find module '../modules/web.dom.iterable'
+ @ multi main
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After reinstalling &lt;code&gt;node&lt;/code&gt;, &lt;code&gt;npm&lt;/code&gt;, adding various modules such as &lt;code&gt;core-js&lt;/code&gt; I was still unable to fix the problem. The solution that finally fixed it was actually the simplest&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;rm -rf node_modules &amp;amp;&amp;amp; npm install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After I completely reinstalled my local &lt;code&gt;node_modules&lt;/code&gt;, everything worked! I hope this saves someone else a few hours of time.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>Node - Exclude fields from select with Mongoose/MongoDB</title>
