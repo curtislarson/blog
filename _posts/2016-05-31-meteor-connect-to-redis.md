@@ -2,6 +2,7 @@
 layout: post
 title: Meteor 1.3+ - Connect to Redis on the Server
 keywords: meteor, meteor redis, redis, meteor connect to redis, meteor redis server, apollo, meteor apollo, meteor apollo redis, meteor 1.3, meteor 1.3 redis, node redis, node redis tutorial, meteor redis tutorial, redis tutorial
+author: curtis_larson
 comments: true
 ---
 
