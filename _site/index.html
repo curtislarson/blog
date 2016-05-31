@@ -72,35 +72,65 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2016/05/12/webpack-cannot-find-module-web-dom-iterable/">
-        Webpack - ERROR in Cannot find module '../modules/web.dom.iterable' @ multi main
+      <a href="/blog/2016/05/31/meteor-connect-to-redis/">
+        Meteor 1.3+ - Connect to Redis on the Server
       </a>
     </h1>
 
-    <time datetime="2016-05-12T00:00:00-04:00" class="post-date">12 May 2016</time>
+    <time datetime="2016-05-31T00:00:00-04:00" class="post-date">31 May 2016</time>
 
-    <h2 id="the-error">The error</h2>
+    <h2 id="introduction">Introduction</h2>
 
-<p>I started up a new webpack/react project recently and immediately ran into this error:</p>
+<p>While doing research on backend connectors for the new <a href="http://www.apollostack.com">Apollo Stack</a> by the Meteor team I wanted to easily connect to a redis server from my own Meteor server. The following is a writeup of the steps to set this up. As always the full source code for this tutorial is available on <a href="https://github.com/quackware/meteor-redis-tutorial">my GitHub</a>.</p>
 
-<pre><code>ERROR in Cannot find module '../modules/web.dom.iterable'
- @ multi main
+<h2 id="install-redis">Install Redis</h2>
+
+<p>We can download redis onto your computer from their <a href="http://redis.io/download">download page</a>. Mac users that have homebrew can also easily install it via <code>brew install redis</code>. The rest of this tutorial will assume you are running redis on a Mac.</p>
+
+<p>Once redis is installed you can start it by just typing <code>redis-server</code> which should give you the following prompt:</p>
+
+<p><img src="http://i.imgur.com/KvxiYaw.png" alt="Redis Prompt" /></p>
+
+<p>Notice that it is using the default port of <code>6379</code>. If you want to change this port from the default you will also need to change the way your redis package connects to the server. You can also play around with the server by typing <code>redis-cli</code> and manually enter in commands in the cli.</p>
+
+<h2 id="install-packages">Install Packages</h2>
+
+<p>We also need to install the following packages to get redis setup. The most notable is <a href="https://github.com/NodeRedis/node_redis">node_redis</a> which allows us to communicate with the redis server we installed in the previous step.</p>
+
+<pre><code>meteor npm install --save redis
+meteor npm install --save hiredis
 </code></pre>
 
-<p>After reinstalling <code>node</code>, <code>npm</code>, adding various modules such as <code>core-js</code> I was still unable to fix the problem. The solution that finally fixed it was actually the simplest</p>
+<h2 id="server-side-redis">Server Side Redis</h2>
 
-<pre><code>rm -rf node_modules &amp;&amp; npm install
-</code></pre>
+<p>Setting up redis on the server is fairly simple, as you just need the following code:</p>
 
-<p>After I completely reinstalled my local <code>node_modules</code>, everything worked! I hope this saves someone else a few hours of time.</p>
+<script src="https://gist.github.com/quackware/2b06110fa475ac6080a3f5f1c69e7789.js"></script>
+
+<p>We require the redis package, create a client from it, and wrap the <code>get</code> and <code>set</code> functions so that they can easily be used with <code>Meteor.methods</code>. We then export the client so it can be used in any other modules by just calling <code>require("redis.js")</code>. If you want to change the default port you can pass in additional options to <code>createClient</code>. A full overview of the api is available on the <a href="https://github.com/NodeRedis/node_redis">node_redis GitHub page</a>.</p>
+
+<h2 id="meteor-methods">Meteor Methods</h2>
+
+<p>The meteor methods are very basic for testing purposes. We just have a simple <code>setRedis</code> and <code>getRedis</code> method that use our wrapped redis functions. This allows us to test the redis functionality from the client.</p>
+
+<script src="https://gist.github.com/quackware/42058d667822fcd7cf4e5c39ddafcf45.js"></script>
+
+<h2 id="client-side-code">Client Side Code</h2>
+
+<p>The client side code is composed of a few input fields and buttons that are hooked up to <code>Meteor.call</code> code. This allows us to test our simple <code>get</code> and <code>set</code> functions.</p>
+
+<script src="https://gist.github.com/quackware/2b9919c242942ee71af74e6f312e8a41.js"></script>
+
+<script src="https://gist.github.com/quackware/4b3ba350013f346fddd38460a3db8f5f.js"></script>
+
+<p>Clicking <code>set</code> will add the key/value pair to the redis server. You can then retrieve the value by clicking <code>get</code> which will populate the <code>Get Value</code> label.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>That’s it for this short tutorial with the bulk of the content being installing and setting up redis on the server. As you can see it’s very straightforward to add data stores other than MongoDB to your Meteor application, all thanks to the new npm support provided in Meteor 1.3+. As always the full source code for this tutorial is available on <a href="https://github.com/quackware/meteor-redis-tutorial">my GitHub</a>.</p>
+
 
     
-    
-      <span>
-          <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> |
-          <a href="https://twitter.com/quackware" target="_blank">Twitter</a> |
-          <a href="mailto:curtis@curtismlarson.com" target="_blank">Email</a>
-      </span>
     
     <div id="mc_embed_signup">
 <form action="//curtismlarson.us11.list-manage.com/subscribe/post?u=1c8750215658512459a679f1e&amp;id=29a072ab9b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -129,7 +159,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2016-05-12T11:23:27-04:00">2016</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2016-05-31T10:22:52-04:00">2016</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
