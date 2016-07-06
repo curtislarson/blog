@@ -73,67 +73,27 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2016/05/11/mongoose-mongodb-exclude-select-fields/">
-        Node - Exclude fields from select with Mongoose/MongoDB
+      <a href="/blog/2016/05/12/webpack-cannot-find-module-web-dom-iterable/">
+        Webpack - ERROR in Cannot find module '../modules/web.dom.iterable' @ multi main
       </a>
     </h1>
 
-    <time datetime="2016-05-11T00:00:00-04:00" class="post-date">11 May 2016</time>
+    <time datetime="2016-05-12T00:00:00-04:00" class="post-date">12 May 2016</time>
 
-    <h2 id="excluding-a-field">Excluding a Field</h2>
+    <h2 id="the-error">The error</h2>
 
-<p>Say you have a mongoose schema for a user as follows:</p>
+<p>I started up a new webpack/react project recently and immediately ran into this error:</p>
 
-<pre><code>var userSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
-
-var User = mongoose.model("User", userSchema);
+<pre><code>ERROR in Cannot find module '../modules/web.dom.iterable'
+ @ multi main
 </code></pre>
 
-<p>But you don’t want to send the <code>password</code> field to the client when you perform a <code>User.find</code>. Rather than directly deleting the <code>password</code> field from the user object before you send it to the client, mongoose provides some easy to use functionality to exclude your <code>password</code> field. There are two ways you can accomplish this.</p>
+<p>After reinstalling <code>node</code>, <code>npm</code>, adding various modules such as <code>core-js</code> I was still unable to fix the problem. The solution that finally fixed it was actually the simplest</p>
 
-<h3 id="individually">Individually</h3>
-
-<pre><code>User.findOne({_id: userId}).select("-password")
+<pre><code>rm -rf node_modules &amp;&amp; npm install
 </code></pre>
 
-<h3 id="in-the-schema">In the Schema</h3>
-
-<pre><code>var userSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    select: false,
-  },
-});
-</code></pre>
-
-<p>Notice the new <code>select: false</code> field in the password field of the User schema. Now whenever you perform a find with either method, the password field will not be included in the response.</p>
-
-<h2 id="including-the-excluded-field">Including the Excluded Field</h2>
-
-<p>But what if you need to check the password with a value (Such as in the login method)? You can explictly allow the password field to be returned in your find call as follows:</p>
-
-<pre><code>User.findOne({_id: userId}).select("+password")
-</code></pre>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it for this tutorial. This is very common functionality in any Node/MongoDB/Mongoose related application, and avoiding publishings fields that can compromise your application is always a good idea!</p>
+<p>After I completely reinstalled my local <code>node_modules</code>, everything worked! I hope this saves someone else a few hours of time.</p>
 
     
     <hr/>
@@ -171,7 +131,7 @@ var User = mongoose.model("User", userSchema);
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2016-05-31T16:57:26-04:00">2016</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2016-07-06T14:05:28-04:00">2016</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
