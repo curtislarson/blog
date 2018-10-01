@@ -4,7 +4,7 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2016-07-06T14:05:28-04:00</updated>
+ <updated>2018-10-01T09:00:13-07:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
@@ -13,9 +13,78 @@
 
  
  <entry>xw
+   <title>Remote Software Developer Freelance Sites</title>
+   <link href="http://curtismlarson.com/blog/2018/10/01/remote-software-developer-freelance-site-list/"/>
+   <updated>2018-10-01T00:00:00-07:00</updated>
+   <id>http://curtismlarson.com/blog/2018/10/01/remote-software-developer-freelance-site-list</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Periodically I find that my normal freelance client sourcing techniques have run dry. Whenever that happens I usually turn to one of the many freelance job boards or agencies that are available online. This is an easy way to add a supplemental stream of work during slow periods. I decided to collect my entire list here both as a reference for myself and as a helpful guide for others that want to know the various sites that are out there. I will periodically update this page when I find more resources.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-sites&quot;&gt;The sites&lt;/h2&gt;
+
+&lt;h3 id=&quot;online-freelancing-platforms&quot;&gt;Online Freelancing Platforms&lt;/h3&gt;
+
+&lt;p&gt;These freelancing platforms are websites where you have to go through some sort of interview process in order to be accepted into their platform. Often times they market themselves as “Top N%” or “Elite Freelancers” who can command a higher rate. I’ve found this to be generally true although if you work for them you do not capture your full effective rate, as they often take a significant cut from your hourly rate. Nevertheless if you’re efficient enough it’s a great way to find work.&lt;/p&gt;
+
+&lt;h4 id=&quot;gigsterhttpsgigstercom&quot;&gt;1. &lt;a href=&quot;https://gigster.com/&quot;&gt;Gigster&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Gigster has marketed itself as an invite-only network of world class developers, designers, and product managers. The interview process is known to be pretty thorough and extensive, but once you’re in you have access to a large amount of projects. Personally the best part of this platform is the other people you work with. Often times you are paired with a Product Manager and/or a Designer so you can focus solely on the development work and maximize your hourly rate. Gigster is currently transitioning into more of an “AI” based freelancing platform, using technologies that their internal developers create to better match freelancers with projects.&lt;/p&gt;
+
+&lt;h4 id=&quot;toptalhttpswwwtoptalcom&quot;&gt;2. &lt;a href=&quot;https://www.toptal.com/&quot;&gt;Toptal&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Similar to Gigster, Toptal markets itself as an exclusive network of the top freelance software developers, designers, finance experts, and project managers in the world. They proudly say they only hire the top 3% of freelance talent, although whether that is due to the skill barrier or the extensive interview process is unknown. Developers are expected to go through multiple levels of code interviews and sample projects before they are accepted into the platform. All projects are 1099, and they are hourly, part-time (20 hrs/week), and full-time (40 hours/week). They can range anywhere from a few months long to 1+ years.&lt;/p&gt;
+
+&lt;h4 id=&quot;moonlightworkhttpswwwmoonlightworkcom&quot;&gt;3. &lt;a href=&quot;https://www.moonlightwork.com/&quot;&gt;MoonlightWork&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;This is a newer freelancing platform with a much lower bar for entry. You are vetted by the website owners but do not have to go through any sort of formal interview process. Once you are accepted you setup your profile and submit applications to various job postings based on your skill set. After applying the clients will reach out for further information/vetting. The amount of jobs on this platform is much less than the other platforms mentioned, most likely due ot it’s newer presence.&lt;/p&gt;
+
+&lt;h3 id=&quot;online-bidding-freelance-platforms&quot;&gt;Online Bidding Freelance Platforms&lt;/h3&gt;
+
+&lt;p&gt;I think of these platforms as more of a “Race to the bottom” mentality as you’re often competing with thousands of other developers who will likely offer to work for much less than your hourly rate. These platforms can be a good way to get some initial work and build up your experience, but unless you have a ton of completed projects on them it often is a waste of time. If you do end up using these platforms, I suggest finding a solid client and attempting to move them off the platform in order for you to secure a better hourly rate.&lt;/p&gt;
+
+&lt;h4 id=&quot;upworkhttpswwwupworkcom&quot;&gt;&lt;a href=&quot;https://www.upwork.com/&quot;&gt;Upwork&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Upwork is perhaps the best known of the online freelance bidding platforms. With it’s popularity comes a caveat that there is a large amount of underqualified freelancers that will often underbid you for projects. Starting out with no rating or feedback from clients will often make it difficult to find your first client who is willing to take a chance on you. It’s usually recommended to lower your rates originally to attract a client and then continuously raise them until you are able to have a steady flow of work at the rate that you want. Another thing to mention is that Upwork may charge upwards of a 20% on any payment you receive from clients. That’s quite a large fee to just act as the intermediary between you and a client, which is why it’s often recommended to get steady clients off of the platform as quickly as possible.&lt;/p&gt;
+
+&lt;h4 id=&quot;freelancercomhttpswwwfreelancercom&quot;&gt;&lt;a href=&quot;https://www.freelancer.com/&quot;&gt;Freelancer.com&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Freelancer.com is another popular freelance platform similar to Upwork. The fee structure is similar, ranging from 10-20% depending on the type of project. One limiting factor is that freelancers can only submit a max of 8 proposals before they have to upgrade to a paid account. This monthly fee is not very common on these online platforms and freelancer.com seems to sneak in other fees like “inactive” fees and currency conversion fees. All this adds up and has created quite a lot of negative reviews for the platform.&lt;/p&gt;
+
+&lt;h4 id=&quot;fiverrhttpswwwfiverrcom&quot;&gt;&lt;a href=&quot;https://www.fiverr.com/&quot;&gt;Fiverr&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Yet another online bidding platform that markets itself more for quick $5 jobs. However $5 jobs doesn’t lend itself well to software development and creates a “race to the bottom” mentality. The ease of creating a free account with no membership fees just exacerbates this issue. There have also been many reports of fiverr taking the side of companies rather than freelancers on disputes. I’d recommend sticking to one of the more software development friendly platforms as the time investment here is most likely not going to be worth it.&lt;/p&gt;
+
+&lt;h3 id=&quot;online-job-boards&quot;&gt;Online Job Boards&lt;/h3&gt;
+
+&lt;p&gt;Online job boards allow a client to post an opening for a freelance position that you can apply to directly. The quality is often less than a freelancing platform but if you’re able to find a good client the payoff may be much greater in the end as you can negotiate your rate to whatever you want.&lt;/p&gt;
+
+&lt;h4 id=&quot;reddit-rforhirehttpswwwredditcomrforhire&quot;&gt;1. &lt;a href=&quot;https://www.reddit.com/r/forhire/&quot;&gt;Reddit /r/forhire&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Reddit is an amazing collection of thousands of sub-communities based on any interest you might have. The /r/forhire board is a constantly updating place where people can create either [Hiring] or [For Hire] postings. Alongside the /r/jobbit subreddit, this is a great place to post your portfolio every once and awhile which should yield some responses along with checking daily for new postings. The demand for work seems to outpace the demand for freelancers though, so make sure you reply quickly or else you may miss out on many opportunities.&lt;/p&gt;
+
+&lt;h4 id=&quot;craigslisthttpscraigslistorg&quot;&gt;2. &lt;a href=&quot;https://craigslist.org&quot;&gt;Craigslist&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;The Craigslist computer gigs section is more often than not a wasteland of people paying next to nothing or not knowing what they are looking for in a freelance developer. It’s worth a quick scan every now and again to maybe find the diamond in the rough, but most of the time it’s not worth the effort.&lt;/p&gt;
+
+&lt;h4 id=&quot;we-work-remotelyhttpsweworkremotelycomcategoriesremote-programming-jobs&quot;&gt;3. &lt;a href=&quot;https://weworkremotely.com/categories/remote-programming-jobs&quot;&gt;We Work Remotely&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;We Work Remotely is the largest community on the web to find and list jobs that aren’t restricted by commutes or a specific location. Companies will post full time or freelance jobs that are fully remote across many different skill sets. The quality of job postings is often quite high, as a company needs to pay $299 a month to have a job posted. The subscription function makes it easy to have new jobs delivered to your inbox daily.&lt;/p&gt;
+
+&lt;h4 id=&quot;we-work-meteorhttpswwwweworkmeteorcom&quot;&gt;4. &lt;a href=&quot;https://www.weworkmeteor.com/&quot;&gt;We Work Meteor&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Similar to We Work Remotely, We Work Meteor is a job posting board that is specific to the Meteor programming language. It used to be quite popular in the past but has slowly been dying out as Meteor loses its popularity.&lt;/p&gt;
+
+&lt;h4 id=&quot;freelancermaphttpswwwfreelancermapcom&quot;&gt;5. &lt;a href=&quot;https://www.freelancermap.com/&quot;&gt;Freelancermap&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Freelancer map allows you to sign up, create a profile, and apply to programming jobs all in one place. With the ability to filter based on remote positions, keywords, and type of work and have jobs delivered to your email daily using their “Project Agents”, it’s another good website to sign up for and forget.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>xw
    <title>Webpack & Heroku - Build failure with no error message</title>
    <link href="http://curtismlarson.com/blog/2016/07/06/webpack-heroku-build-fails-no-error/"/>
-   <updated>2016-07-06T00:00:00-04:00</updated>
+   <updated>2016-07-06T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2016/07/06/webpack-heroku-build-fails-no-error</id>
    <content type="html">&lt;h2 id=&quot;the-error&quot;&gt;The error&lt;/h2&gt;
 
@@ -38,7 +107,7 @@
  <entry>xw
    <title>Meteor 1.3+ - Connect to Redis on the Server</title>
    <link href="http://curtismlarson.com/blog/2016/05/31/meteor-connect-to-redis/"/>
-   <updated>2016-05-31T00:00:00-04:00</updated>
+   <updated>2016-05-31T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2016/05/31/meteor-connect-to-redis</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -96,7 +165,7 @@ meteor npm install --save hiredis
  <entry>xw
    <title>Webpack - ERROR in Cannot find module '../modules/web.dom.iterable' @ multi main</title>
    <link href="http://curtismlarson.com/blog/2016/05/12/webpack-cannot-find-module-web-dom-iterable/"/>
-   <updated>2016-05-12T00:00:00-04:00</updated>
+   <updated>2016-05-12T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2016/05/12/webpack-cannot-find-module-web-dom-iterable</id>
    <content type="html">&lt;h2 id=&quot;the-error&quot;&gt;The error&lt;/h2&gt;
 
@@ -118,7 +187,7 @@ meteor npm install --save hiredis
  <entry>xw
    <title>Node - Exclude fields from select with Mongoose/MongoDB</title>
    <link href="http://curtismlarson.com/blog/2016/05/11/mongoose-mongodb-exclude-select-fields/"/>
-   <updated>2016-05-11T00:00:00-04:00</updated>
+   <updated>2016-05-11T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2016/05/11/mongoose-mongodb-exclude-select-fields</id>
    <content type="html">&lt;h2 id=&quot;excluding-a-field&quot;&gt;Excluding a Field&lt;/h2&gt;
 
@@ -180,7 +249,7 @@ var User = mongoose.model(&quot;User&quot;, userSchema);
  <entry>xw
    <title>Meteor - Secure, Scalable Uploading to S3 with Slingshot (Video Presentation)</title>
    <link href="http://curtismlarson.com/blog/2016/05/06/meteor-secure-scalable-s3-uploads-slingshot/"/>
-   <updated>2016-05-06T00:00:00-04:00</updated>
+   <updated>2016-05-06T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2016/05/06/meteor-secure-scalable-s3-uploads-slingshot</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -201,7 +270,7 @@ var User = mongoose.model(&quot;User&quot;, userSchema);
  <entry>xw
    <title>Meteor - Reactive Location Search Engine with MongoDB and Google Maps</title>
    <link href="http://curtismlarson.com/blog/2015/12/11/meteor-location-search-engine-mongodb-google-maps/"/>
-   <updated>2015-12-11T00:00:00-05:00</updated>
+   <updated>2015-12-11T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/12/11/meteor-location-search-engine-mongodb-google-maps</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -343,7 +412,7 @@ meteor add reactive-var
  <entry>xw
    <title>Meteor - How to Create and Send an iCal Invitation Email</title>
    <link href="http://curtismlarson.com/blog/2015/12/06/meteor-send-ical-email-invitation/"/>
-   <updated>2015-12-06T00:00:00-05:00</updated>
+   <updated>2015-12-06T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/12/06/meteor-send-ical-email-invitation</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -396,7 +465,7 @@ meteor add quackware:ical-generator
  <entry>xw
    <title>Meteor - Video Tutorial - Build a Reddit Clone</title>
    <link href="http://curtismlarson.com/blog/2015/12/03/meteor-video-tutorial-reddit-clone/"/>
-   <updated>2015-12-03T00:00:00-05:00</updated>
+   <updated>2015-12-03T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/12/03/meteor-video-tutorial-reddit-clone</id>
    <content type="html">&lt;h2 id=&quot;tutorial&quot;&gt;Tutorial&lt;/h2&gt;
 
@@ -411,7 +480,7 @@ meteor add quackware:ical-generator
  <entry>xw
    <title>Meteor - Wrap and Publish a NPM package</title>
    <link href="http://curtismlarson.com/blog/2015/11/20/meteor-wrap-publish-npm-package/"/>
-   <updated>2015-11-20T00:00:00-05:00</updated>
+   <updated>2015-11-20T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/11/20/meteor-wrap-publish-npm-package</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -502,7 +571,7 @@ AmazonProductApi.createClient = function(credentials) {
  <entry>xw
    <title>MobileVideoDownloader.com built in Meteor</title>
    <link href="http://curtismlarson.com/blog/2015/11/19/mobile-video-downloader/"/>
-   <updated>2015-11-19T00:00:00-05:00</updated>
+   <updated>2015-11-19T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/11/19/mobile-video-downloader</id>
    <content type="html">&lt;h2 id=&quot;mobile-video-downloader&quot;&gt;Mobile Video Downloader&lt;/h2&gt;
 
@@ -517,7 +586,7 @@ AmazonProductApi.createClient = function(credentials) {
  <entry>xw
    <title>Meteor - How to Create a Package</title>
    <link href="http://curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package/"/>
-   <updated>2015-11-19T00:00:00-05:00</updated>
+   <updated>2015-11-19T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -572,7 +641,7 @@ ln -s ../../../packagename ./packagename
  <entry>xw
    <title>RandomPowerHour.com built in Meteor</title>
    <link href="http://curtismlarson.com/blog/2015/11/17/random-power-hour/"/>
-   <updated>2015-11-17T00:00:00-05:00</updated>
+   <updated>2015-11-17T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/11/17/random-power-hour</id>
    <content type="html">&lt;h2 id=&quot;random-power-hour&quot;&gt;Random Power Hour&lt;/h2&gt;
 
@@ -589,7 +658,7 @@ ln -s ../../../packagename ./packagename
  <entry>xw
    <title>Meteor - iron:router Scroll to Top</title>
    <link href="http://curtismlarson.com/blog/2015/11/11/iron-router-scroll-to-top/"/>
-   <updated>2015-11-11T00:00:00-05:00</updated>
+   <updated>2015-11-11T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/11/11/iron-router-scroll-to-top</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -608,7 +677,7 @@ ln -s ../../../packagename ./packagename
  <entry>xw
    <title>How to Deploy a Meteor project to AWS EC2</title>
    <link href="http://curtismlarson.com/blog/2015/11/03/deploy-meteor-to-aws/"/>
-   <updated>2015-11-03T00:00:00-05:00</updated>
+   <updated>2015-11-03T00:00:00-08:00</updated>
    <id>http://curtismlarson.com/blog/2015/11/03/deploy-meteor-to-aws</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -748,7 +817,7 @@ ln -s ../../../packagename ./packagename
  <entry>xw
    <title>Meteor - Dynamically Render a PDF with iron:router</title>
    <link href="http://curtismlarson.com/blog/2015/09/11/meteor-render-pdf-iron-router/"/>
-   <updated>2015-09-11T00:00:00-04:00</updated>
+   <updated>2015-09-11T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/09/11/meteor-render-pdf-iron-router</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -777,7 +846,7 @@ ln -s ../../../packagename ./packagename
  <entry>xw
    <title>Meteor - MongoDB Object Array Property Selector</title>
    <link href="http://curtismlarson.com/blog/2015/08/08/meteor-mongodb-array-property-selector/"/>
-   <updated>2015-08-08T00:00:00-04:00</updated>
+   <updated>2015-08-08T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/08/08/meteor-mongodb-array-property-selector</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -847,7 +916,7 @@ Tasks.attachSchema(Schema.Task);
  <entry>xw
    <title>Meteor - Send Template Emails from the Server with Mailgun</title>
    <link href="http://curtismlarson.com/blog/2015/07/30/meteor-send-template-emails-from-server-mailgun/"/>
-   <updated>2015-07-30T00:00:00-04:00</updated>
+   <updated>2015-07-30T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/07/30/meteor-send-template-emails-from-server-mailgun</id>
    <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
@@ -938,7 +1007,7 @@ meteorhacks:ssr
  <entry>xw
    <title>Meteor - Windows update cannot convert null to object</title>
    <link href="http://curtismlarson.com/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object/"/>
-   <updated>2015-07-23T00:00:00-04:00</updated>
+   <updated>2015-07-23T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/07/23/windows-meteor-update-cannot-convert-null-to-object</id>
    <content type="html">&lt;h2 id=&quot;cannot-convert-null-to-object&quot;&gt;Cannot Convert Null To Object&lt;/h2&gt;
 
@@ -957,7 +1026,7 @@ meteorhacks:ssr
  <entry>xw
    <title>Meteor - How to use iron:router waitOn with an Async Server Call</title>
    <link href="http://curtismlarson.com/blog/2015/05/04/meteor-ironrouter-waitOn-server/"/>
-   <updated>2015-05-04T00:00:00-04:00</updated>
+   <updated>2015-05-04T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/05/04/meteor-ironrouter-waitOn-server</id>
    <content type="html">&lt;h2 id=&quot;how-to-use-ironrouter-waiton-with-an-async-server-call&quot;&gt;How to use iron:router waitOn with an Async Server Call&lt;/h2&gt;
 
@@ -988,7 +1057,7 @@ meteorhacks:ssr
  <entry>xw
    <title>Meteor - How to Trigger a Function when a Session Value Changes</title>
    <link href="http://curtismlarson.com/blog/2015/04/27/meteor-trigger-function-with-session-variable/"/>
-   <updated>2015-04-27T00:00:00-04:00</updated>
+   <updated>2015-04-27T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/27/meteor-trigger-function-with-session-variable</id>
    <content type="html">&lt;h2 id=&quot;how-to-trigger-a-function-when-a-session-value-changes&quot;&gt;How to Trigger a Function when a Session Value Changes&lt;/h2&gt;
 
@@ -1024,7 +1093,7 @@ var anotherFunction = function() {
  <entry>xw
    <title>How to point a domain on Google Domains to GitHub pages</title>
    <link href="http://curtismlarson.com/blog/2015/04/12/github-pages-google-domains/"/>
-   <updated>2015-04-12T00:00:00-04:00</updated>
+   <updated>2015-04-12T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/12/github-pages-google-domains</id>
    <content type="html">&lt;h1 id=&quot;table-of-contents&quot;&gt;Table of Contents&lt;/h1&gt;
 
@@ -1074,7 +1143,7 @@ var anotherFunction = function() {
  <entry>xw
    <title>Introduction</title>
    <link href="http://curtismlarson.com/blog/2015/04/11/introduction/"/>
-   <updated>2015-04-11T00:00:00-04:00</updated>
+   <updated>2015-04-11T00:00:00-07:00</updated>
    <id>http://curtismlarson.com/blog/2015/04/11/introduction</id>
    <content type="html">&lt;p&gt;I’ll be using this site to talk about Software Development and what projects I’m working on. More to come!&lt;/p&gt;
 </content>

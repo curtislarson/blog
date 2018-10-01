@@ -73,20 +73,96 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/11/19/mobile-video-downloader/">
-        MobileVideoDownloader.com built in Meteor
+      <a href="/blog/2015/11/20/meteor-wrap-publish-npm-package/">
+        Meteor - Wrap and Publish a NPM package
       </a>
     </h1>
 
-    <time datetime="2015-11-19T00:00:00-05:00" class="post-date">19 Nov 2015</time>
+    <time datetime="2015-11-20T00:00:00-08:00" class="post-date">20 Nov 2015</time>
 
-    <h2 id="mobile-video-downloader">Mobile Video Downloader</h2>
+    <h2 id="introduction">Introduction</h2>
 
-<p>Just finished the first round of another simple website <a href="http://www.mobilevideodownloader.com">Mobile Video Downloader</a>. It’s just a basic video downloader (with search) that is optimized for mobile devices. Building it in Meteor enabled me to finish this site ultra fast.</p>
+<p>Building off of my previous tutorial on <a href="www.curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package/">how to create a package in Meteor</a> I decided to create another tutorial on how to wrap and publish a NPM package. There are thousands of useful npm packages that can be used through <code>meteorhacks:npm</code>, but sometimes it’s nice to create a meteor smart package and add some extra functionality to make it even easier to include in your project.</p>
 
-<h2 id="the-code">The Code</h2>
+<p>For this tutorial I will be wrapping the <a href="https://github.com/t3chnoboy/amazon-product-api">Amazon Product Api</a> Node.js client. The full source code for the Meteor package is available on my GitHub <a href="https://github.com/quackware/meteor-amazon-product-api">here</a>.</p>
 
-<p>The entire website is open source and available on my github <a href="https://github.com/quackware/mobilevideodownloader">here</a>. Make sure to leave any comments or suggestions you have!</p>
+<h2 id="the-steps">The Steps</h2>
+
+<h3 id="create-a-package">1. Create a package</h3>
+
+<p>Similar to the <a href="www.curtismlarson.com/blog/2015/11/19/meteor-how-to-create-package/">how to create a package</a> tutorial, we need to create a new package.</p>
+
+<pre><code>meteor create --package atmosphereusername:packagename
+</code></pre>
+
+<h3 id="edit-the-packagejs-file">2. Edit the package.js file</h3>
+
+<p>Now we need to make some edits to the <code>package.js</code> file to specify our Npm dependency and point the package to our server file where we will be making some Meteor specific customizations. First we add the following Npm dependency</p>
+
+<pre><code>Npm.depends({
+  "amazon-product-api": "0.3.5"
+});
+</code></pre>
+
+<p>And we also need to add an export in the <code>Package.onUse</code> block, we’re going to choose <code>AmazonProductApi</code> as our export.</p>
+
+<pre><code>Package.onUse(function(api) {
+  api.versionsFrom('1.2.1');
+  api.export("AmazonProductApi");
+});
+</code></pre>
+
+<p>Finally we need to reference the javascript file in <code>package.js</code> that will glue together the Npm package with Meteor.</p>
+
+<pre><code>Package.onUse(function(api) {
+  api.versionsFrom('1.2.1');
+  api.export("AmazonProductApi");
+  api.addFiles(["server/amazon-product-api.js"], "server");
+});
+</code></pre>
+
+<h3 id="the-glue-file">3. The Glue File</h3>
+
+<p>Go ahead and create the <code>amazon-product-api.js</code> file.</p>
+
+<pre><code>mkdir server
+touch server/amazon-product-api.js
+</code></pre>
+
+<p>In this file we can add our <code>Npm.require</code> and setup the object we need to export.</p>
+
+<pre><code>var amazon = Npm.require("amazon-product-api");
+
+AmazonProductApi = {};
+</code></pre>
+
+<p>Now the amazon product api package has three functions: <code>itemSearch</code>, <code>itemLookup</code>, and <code>browseNode</code> that are exposed in the <code>createClient</code> function. These functions have a future usage and a callback usage. Let’s go ahead and add a syncronous usage to better use it in our Meteor projects. To do this we just need to add the <code>createClient</code> function to our exported object and wrap the functions using <code>Meteor.wrapAsync</code>. Below is the full code:</p>
+
+<pre><code>var amazon = Npm.require("amazon-product-api");
+
+AmazonProductApi = {};
+
+AmazonProductApi.createClient = function(credentials) {
+  var client = amazon.createClient(credentials);
+  client.itemSearchSync = Meteor.wrapAsync(client.itemSearch);
+  client.itemLookupSync = Meteor.wrapAsync(client.itemLookup);
+  client.browseNodeSync = Meteor.wrapAsync(client.browseNode);
+  return client;
+};
+</code></pre>
+
+<h3 id="publishing-to-atmosphere">4. Publishing to Atmosphere</h3>
+
+<p>Now that our package is complete, we can publish it to atmosphere so that other people can use it. Make sure you are in your package directory and type the following command:</p>
+
+<pre><code>meteor publish --create
+</code></pre>
+
+<p>Your package should now be built and uploaded to atmosphere.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>That’s it! Now whenever someone wants to use the awesome <a href="https://github.com/t3chnoboy/amazon-product-api">Amazon Product Api</a> npm package, they can just type <code>meteor add quackware:amazon-product-api</code>. They can also take advantage of our new syncronous functions we added. Again, the full source code for the Meteor package is available on my GitHub <a href="https://github.com/quackware/meteor-amazon-product-api">here</a>. Leave a message if you have any questions or comments!</p>
 
     
     <hr/>
@@ -124,7 +200,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2016-07-06T14:05:28-04:00">2016</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2018-10-01T09:00:13-07:00">2018</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
