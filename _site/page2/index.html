@@ -73,34 +73,80 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2016/07/06/webpack-heroku-build-fails-no-error/">
-        Webpack & Heroku - Build failure with no error message
+      <a href="/blog/2018/10/01/remote-software-developer-freelance-site-list/">
+        Remote Software Developer Freelance Sites
       </a>
     </h1>
 
-    <time datetime="2016-07-06T00:00:00-07:00" class="post-date">06 Jul 2016</time>
+    <time datetime="2018-10-01T00:00:00-07:00" class="post-date">01 Oct 2018</time>
 
-    <h2 id="the-error">The error</h2>
+    <h2 id="introduction">Introduction</h2>
 
-<p>Another fix for a webpack build error here! This one took a little while to figure out, and is directly related to the heroku deploy system. The symptoms are an unexpected failure in the heroku build process, often with the last log message being something like:</p>
+<p>Periodically I find that my normal freelance client sourcing techniques have run dry. Whenever that happens I usually turn to one of the many freelance job boards or agencies that are available online. This is an easy way to add a supplemental stream of work during slow periods. I decided to collect my entire list here both as a reference for myself and as a helpful guide for others that want to know the various sites that are out there. I will periodically update this page when I find more resources.</p>
 
-<pre><code> 68% 834/858 buil
-</code></pre>
+<h2 id="the-sites">The sites</h2>
 
-<h2 id="the-fix">The Fix</h2>
+<h3 id="online-freelancing-platforms">Online Freelancing Platforms</h3>
 
-<p>In my <code>webpack.config</code> I had my <code>deploy</code> script as follows:</p>
+<p>These freelancing platforms are websites where you have to go through some sort of interview process in order to be accepted into their platform. Often times they market themselves as “Top N%” or “Elite Freelancers” who can command a higher rate. I’ve found this to be generally true although if you work for them you do not capture your full effective rate, as they often take a significant cut from your hourly rate. Nevertheless if you’re efficient enough it’s a great way to find work.</p>
 
-<pre><code>"webpack --config --progress webpack.production.config.js"
-</code></pre>
+<h4 id="gigsterhttpsgigstercom">1. <a href="https://gigster.com/">Gigster</a></h4>
 
-<p>Removing the <code>--progress</code> flag ended up fixing the problem. The underlying issue was that the large amount of log / print statements that <code>--progress</code> was generating was causing the build process to crash on heroku (but not locally). I hope this saves time for anyone else with this issue!</p>
+<p>Gigster has marketed itself as an invite-only network of world class developers, designers, and product managers. The interview process is known to be pretty thorough and extensive, but once you’re in you have access to a large amount of projects. Personally the best part of this platform is the other people you work with. Often times you are paired with a Product Manager and/or a Designer so you can focus solely on the development work and maximize your hourly rate. Gigster is currently transitioning into more of an “AI” based freelancing platform, using technologies that their internal developers create to better match freelancers with projects.</p>
+
+<h4 id="toptalhttpswwwtoptalcom">2. <a href="https://www.toptal.com/">Toptal</a></h4>
+
+<p>Similar to Gigster, Toptal markets itself as an exclusive network of the top freelance software developers, designers, finance experts, and project managers in the world. They proudly say they only hire the top 3% of freelance talent, although whether that is due to the skill barrier or the extensive interview process is unknown. Developers are expected to go through multiple levels of code interviews and sample projects before they are accepted into the platform. All projects are 1099, and they are hourly, part-time (20 hrs/week), and full-time (40 hours/week). They can range anywhere from a few months long to 1+ years.</p>
+
+<h4 id="moonlightworkhttpswwwmoonlightworkcom">3. <a href="https://www.moonlightwork.com/">MoonlightWork</a></h4>
+
+<p>This is a newer freelancing platform with a much lower bar for entry. You are vetted by the website owners but do not have to go through any sort of formal interview process. Once you are accepted you setup your profile and submit applications to various job postings based on your skill set. After applying the clients will reach out for further information/vetting. The amount of jobs on this platform is much less than the other platforms mentioned, most likely due ot it’s newer presence.</p>
+
+<h3 id="online-bidding-freelance-platforms">Online Bidding Freelance Platforms</h3>
+
+<p>I think of these platforms as more of a “Race to the bottom” mentality as you’re often competing with thousands of other developers who will likely offer to work for much less than your hourly rate. These platforms can be a good way to get some initial work and build up your experience, but unless you have a ton of completed projects on them it often is a waste of time. If you do end up using these platforms, I suggest finding a solid client and attempting to move them off the platform in order for you to secure a better hourly rate.</p>
+
+<h4 id="upworkhttpswwwupworkcom"><a href="https://www.upwork.com/">Upwork</a></h4>
+
+<p>Upwork is perhaps the best known of the online freelance bidding platforms. With it’s popularity comes a caveat that there is a large amount of underqualified freelancers that will often underbid you for projects. Starting out with no rating or feedback from clients will often make it difficult to find your first client who is willing to take a chance on you. It’s usually recommended to lower your rates originally to attract a client and then continuously raise them until you are able to have a steady flow of work at the rate that you want. Another thing to mention is that Upwork may charge upwards of a 20% on any payment you receive from clients. That’s quite a large fee to just act as the intermediary between you and a client, which is why it’s often recommended to get steady clients off of the platform as quickly as possible.</p>
+
+<h4 id="freelancercomhttpswwwfreelancercom"><a href="https://www.freelancer.com/">Freelancer.com</a></h4>
+
+<p>Freelancer.com is another popular freelance platform similar to Upwork. The fee structure is similar, ranging from 10-20% depending on the type of project. One limiting factor is that freelancers can only submit a max of 8 proposals before they have to upgrade to a paid account. This monthly fee is not very common on these online platforms and freelancer.com seems to sneak in other fees like “inactive” fees and currency conversion fees. All this adds up and has created quite a lot of negative reviews for the platform.</p>
+
+<h4 id="fiverrhttpswwwfiverrcom"><a href="https://www.fiverr.com/">Fiverr</a></h4>
+
+<p>Yet another online bidding platform that markets itself more for quick $5 jobs. However $5 jobs doesn’t lend itself well to software development and creates a “race to the bottom” mentality. The ease of creating a free account with no membership fees just exacerbates this issue. There have also been many reports of fiverr taking the side of companies rather than freelancers on disputes. I’d recommend sticking to one of the more software development friendly platforms as the time investment here is most likely not going to be worth it.</p>
+
+<h3 id="online-job-boards">Online Job Boards</h3>
+
+<p>Online job boards allow a client to post an opening for a freelance position that you can apply to directly. The quality is often less than a freelancing platform but if you’re able to find a good client the payoff may be much greater in the end as you can negotiate your rate to whatever you want.</p>
+
+<h4 id="reddit-rforhirehttpswwwredditcomrforhire">1. <a href="https://www.reddit.com/r/forhire/">Reddit /r/forhire</a></h4>
+
+<p>Reddit is an amazing collection of thousands of sub-communities based on any interest you might have. The /r/forhire board is a constantly updating place where people can create either [Hiring] or [For Hire] postings. Alongside the /r/jobbit subreddit, this is a great place to post your portfolio every once and awhile which should yield some responses along with checking daily for new postings. The demand for work seems to outpace the demand for freelancers though, so make sure you reply quickly or else you may miss out on many opportunities.</p>
+
+<h4 id="craigslisthttpscraigslistorg">2. <a href="https://craigslist.org">Craigslist</a></h4>
+
+<p>The Craigslist computer gigs section is more often than not a wasteland of people paying next to nothing or not knowing what they are looking for in a freelance developer. It’s worth a quick scan every now and again to maybe find the diamond in the rough, but most of the time it’s not worth the effort.</p>
+
+<h4 id="we-work-remotelyhttpsweworkremotelycomcategoriesremote-programming-jobs">3. <a href="https://weworkremotely.com/categories/remote-programming-jobs">We Work Remotely</a></h4>
+
+<p>We Work Remotely is the largest community on the web to find and list jobs that aren’t restricted by commutes or a specific location. Companies will post full time or freelance jobs that are fully remote across many different skill sets. The quality of job postings is often quite high, as a company needs to pay $299 a month to have a job posted. The subscription function makes it easy to have new jobs delivered to your inbox daily.</p>
+
+<h4 id="we-work-meteorhttpswwwweworkmeteorcom">4. <a href="https://www.weworkmeteor.com/">We Work Meteor</a></h4>
+
+<p>Similar to We Work Remotely, We Work Meteor is a job posting board that is specific to the Meteor programming language. It used to be quite popular in the past but has slowly been dying out as Meteor loses its popularity.</p>
+
+<h4 id="freelancermaphttpswwwfreelancermapcom">5. <a href="https://www.freelancermap.com/">Freelancermap</a></h4>
+
+<p>Freelancer map allows you to sign up, create a profile, and apply to programming jobs all in one place. With the ability to filter based on remote positions, keywords, and type of work and have jobs delivered to your email daily using their “Project Agents”, it’s another good website to sign up for and forget.</p>
 
     
     <hr/>
     
     <span>
-      <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> is a NYC based freelance software developer. <a href="https://twitter.com/quackware" target="_blank">Follow him on Twitter</a> or <a href="mailto:curtis@curtismlarson.com" target="_blank">send him an email</a> if your looking for a talented developer.
+      <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> is a LA based freelance software developer. <a href="https://twitter.com/quackware" target="_blank">Follow him on Twitter</a> or <a href="mailto:curtis@curtismlarson.com" target="_blank">send him an email</a> if your looking for a talented developer.
     </span>
     
     <div id="mc_embed_signup">
@@ -132,7 +178,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2018-10-01T09:00:13-07:00">2018</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2018-10-03T08:50:26-07:00">2018</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

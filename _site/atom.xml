@@ -4,13 +4,130 @@
  <title>Curtis Larson's Blog</title>
  <link href="http://curtismlarson.com/blog/atom.xml" rel="self"/>
  <link href="http://curtismlarson.com/blog"/>
- <updated>2018-10-01T09:00:13-07:00</updated>
+ <updated>2018-10-03T08:50:26-07:00</updated>
  <id>http://curtismlarson.com/blog</id>
  <author>
    <name></name>
    <email></email>
  </author>
 
+ 
+ <entry>xw
+   <title>How to Read, Write, and Update XML with Node.js</title>
+   <link href="http://curtismlarson.com/blog/2018/10/03/edit-xml-node-js/"/>
+   <updated>2018-10-03T00:00:00-07:00</updated>
+   <id>http://curtismlarson.com/blog/2018/10/03/edit-xml-node-js</id>
+   <content type="html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Often times I have to make small edits to XML files provided by clients due to various errors that are in the file or updates that need to be made to the data. Rather than manually edit potentially thousands of lines of XML I usually write a quick script to do the changes automatically. I’ll show you how to easily read, write, and update xml using Node.js and a useful npm package.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;First off you need to create a directory, run &lt;code&gt;npm init&lt;/code&gt; and then run &lt;code&gt;npm install --save xml2json&lt;/code&gt; to install the &lt;a href=&quot;https://www.npmjs.com/package/xml2json&quot;&gt;xml2json&lt;/a&gt; package which will be doing the bulk of the work. Make sure to also create a main JavaScript file (like &lt;code&gt;index.js&lt;/code&gt;) and have your &lt;code&gt;package.json&lt;/code&gt; point to it correctly. Here’s an example of an xml file that needs to be edited:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;Survey&amp;gt;
+  &amp;lt;!-- QUESTION 1 --&amp;gt;
+  &amp;lt;Question QuestionId='1'&amp;gt;
+    &amp;lt;QuestionText&amp;gt;What is the air speed velocity of an unladen swallow?&amp;lt;/QuestionText&amp;gt;
+  &amp;lt;/Question&amp;gt;
+
+    &amp;lt;!-- ANSWER 1 --&amp;gt;
+  &amp;lt;Answer QuestionId='1' AnswerTypeId='1' DisplayOrder='1' AnswerId='286'&amp;gt;
+    &amp;lt;AnswerText&amp;gt;12?&amp;lt;/AnswerText&amp;gt;
+  &amp;lt;/Answer&amp;gt;
+
+    &amp;lt;!-- ANSWER 2 --&amp;gt;
+  &amp;lt;Answer QuestionId='1' AnswerTypeId='1' DisplayOrder='2' AnswerId='286'&amp;gt;
+    &amp;lt;AnswerText&amp;gt;African or European&amp;lt;/AnswerText&amp;gt;
+  &amp;lt;/Answer&amp;gt;
+
+    &amp;lt;!-- ANSWER 3 --&amp;gt;
+  &amp;lt;Answer QuestionId='1' AnswerTypeId='1' DisplayOrder='3' AnswerId='286'&amp;gt;
+    &amp;lt;AnswerText&amp;gt;11 meters per second.&amp;lt;/AnswerText&amp;gt;
+  &amp;lt;/Answer&amp;gt;
+
+    &amp;lt;!-- ANSWER 4 --&amp;gt;
+  &amp;lt;Answer QuestionId='1' AnswerTypeId='1' DisplayOrder='4' AnswerId='286'&amp;gt;
+    &amp;lt;AnswerText&amp;gt;I don’t know.&amp;lt;/AnswerText&amp;gt;
+  &amp;lt;/Answer&amp;gt;
+&amp;lt;/Survey&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see in the XML file the &lt;code&gt;AnswerId&lt;/code&gt; property is repeated for each answer. This was causing problems with the import script that needed to generate a survey from the XML.&lt;/p&gt;
+
+&lt;h2 id=&quot;reading-and-parsing-the-xml&quot;&gt;Reading and Parsing the XML&lt;/h2&gt;
+
+&lt;p&gt;The first step was reading the xml file, which I dropped into the same folder as my main JavaScript file and aptly named it &lt;code&gt;survey.xml&lt;/code&gt;. Reading the xml file is as easy as importing the &lt;code&gt;fs&lt;/code&gt; package and using the &lt;code&gt;readFile&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var fs = require('fs');
+
+fs.readFile( './survey.xml', function(err, data) {
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now that we have access to the raw xml data we can throw it into the &lt;code&gt;xml2json&lt;/code&gt; parser:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var fs = require('fs');
+var parser = require('xml2json');
+
+fs.readFile( './survey.xml', function(err, data) {
+  var json = JSON.parse(parser.toJson(data, {reversible: true}));
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using the &lt;code&gt;toJson&lt;/code&gt; function allows us to convert a raw XML string into a stringified JSON object. Using &lt;code&gt;JSON.parse&lt;/code&gt; will convert that string into a JavaScript object that we can manipulate. Notice the option of &lt;code&gt;{reversible: true}&lt;/code&gt; that I passed into the &lt;code&gt;toJson&lt;/code&gt; function. This allows us to convert the JSON we manipulate back to conformant XML.&lt;/p&gt;
+
+&lt;h2 id=&quot;editing-the-xml&quot;&gt;Editing the XML&lt;/h2&gt;
+
+&lt;p&gt;As mentioned above, we want to make sure that the &lt;code&gt;AnswerId&lt;/code&gt; property is unique for each &lt;code&gt;Answer&lt;/code&gt;. We can do this by looping through each of the answers and setting it’s &lt;code&gt;AnswerId&lt;/code&gt; property to the index of the loop as so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var fs = require('fs');
+var parser = require('xml2json');
+
+fs.readFile( './survey.xml', function(err, data) {
+  var json = JSON.parse(parser.toJson(data, {reversible: true}));
+  var answers = json[&quot;Survey&quot;][&quot;Answer&quot;];
+  for (var i = 0; i &amp;lt; answers.length; i++) {
+    var answer = answers[i];
+    answer.AnswerId = i;
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice that I accessed &lt;code&gt;json[&quot;Survey&quot;][&quot;Answer&quot;]&lt;/code&gt; and it returned an array of objects. The JSON object is structured so that each XML element is nested inside it’s parent element as an object property. Elements that are at the same level are just added to an array rather than as separate properties. This allows us to access all Answers at once that are a child of the &lt;code&gt;Survey&lt;/code&gt; element.&lt;/p&gt;
+
+&lt;h2 id=&quot;converting-back-to-xml-and-writing&quot;&gt;Converting back to XML and Writing&lt;/h2&gt;
+
+&lt;p&gt;Now that we have made the necessary change we can use &lt;code&gt;xml2json.toXml&lt;/code&gt; to convert the modified JSON back into xml which we can write back to a file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fs = require('fs');
+var parser = require('xml2json');
+
+fs.readFile( './survey.xml', function(err, data) {
+  var json = JSON.parse(parser.toJson(data, {reversible: true}));
+  var answers = json[&quot;Survey&quot;][&quot;Answer&quot;];
+  for (var i = 0; i &amp;lt; answers.length; i++) {
+    var answer = answers[i];
+    answer.AnswerId = i;
+  }
+
+  var stringified = JSON.stringify(json);
+  var xml = parser.toXml(stringified);
+  fs.writeFile('survey-fixed.xml', xml, function(err, data) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log('updated!');
+    }
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We need to make sure to call &lt;code&gt;JSON.stringify&lt;/code&gt; on the JavaScript object before we pass it to the &lt;code&gt;toXML&lt;/code&gt; function (which expects a string). Since we used the &lt;code&gt;reversible&lt;/code&gt; property we should now have a fully compliant XML file that has fixed &lt;code&gt;AnswerId&lt;/code&gt; properties. That’s all you need to know for reading, updating, then writing back an XML file with Node.js. Feel free to leave a comment or ask any questions!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>xw
    <title>Remote Software Developer Freelance Sites</title>

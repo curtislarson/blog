@@ -73,69 +73,34 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2016/05/31/meteor-connect-to-redis/">
-        Meteor 1.3+ - Connect to Redis on the Server
+      <a href="/blog/2016/07/06/webpack-heroku-build-fails-no-error/">
+        Webpack & Heroku - Build failure with no error message
       </a>
     </h1>
 
-    <time datetime="2016-05-31T00:00:00-07:00" class="post-date">31 May 2016</time>
+    <time datetime="2016-07-06T00:00:00-07:00" class="post-date">06 Jul 2016</time>
 
-    <h2 id="introduction">Introduction</h2>
+    <h2 id="the-error">The error</h2>
 
-<p>While doing research on backend connectors for the new <a href="http://www.apollostack.com">Apollo Stack</a> by the Meteor team I wanted to easily connect to a redis server from my own Meteor server. The following is a writeup of the steps to set this up. As always the full source code for this tutorial is available on <a href="https://github.com/quackware/meteor-redis-tutorial">my GitHub</a>.</p>
+<p>Another fix for a webpack build error here! This one took a little while to figure out, and is directly related to the heroku deploy system. The symptoms are an unexpected failure in the heroku build process, often with the last log message being something like:</p>
 
-<h2 id="install-redis">Install Redis</h2>
-
-<p>We can download redis onto your computer from their <a href="http://redis.io/download">download page</a>. Mac users that have homebrew can also easily install it via <code>brew install redis</code>. The rest of this tutorial will assume you are running redis on a Mac.</p>
-
-<p>Once redis is installed you can start it by just typing <code>redis-server</code> which should give you the following prompt:</p>
-
-<p><img src="http://i.imgur.com/KvxiYaw.png" alt="Redis Prompt" /></p>
-
-<p>Notice that it is using the default port of <code>6379</code>. If you want to change this port from the default you will also need to change the way your redis package connects to the server. You can also play around with the server by typing <code>redis-cli</code> and manually enter in commands in the cli.</p>
-
-<h2 id="install-packages">Install Packages</h2>
-
-<p>We also need to install the following packages to get redis setup. The most notable is <a href="https://github.com/NodeRedis/node_redis">node_redis</a> which allows us to communicate with the redis server we installed in the previous step.</p>
-
-<pre><code>meteor npm install --save redis
-meteor npm install --save hiredis
+<pre><code> 68% 834/858 buil
 </code></pre>
 
-<h2 id="server-side-redis">Server Side Redis</h2>
+<h2 id="the-fix">The Fix</h2>
 
-<p>Setting up redis on the server is fairly simple, as you just need the following code:</p>
+<p>In my <code>webpack.config</code> I had my <code>deploy</code> script as follows:</p>
 
-<script src="https://gist.github.com/quackware/2b06110fa475ac6080a3f5f1c69e7789.js"></script>
+<pre><code>"webpack --config --progress webpack.production.config.js"
+</code></pre>
 
-<p>We require the redis package, create a client from it, and wrap the <code>get</code> and <code>set</code> functions so that they can easily be used with <code>Meteor.methods</code>. We then export the client so it can be used in any other modules by just calling <code>require("redis.js")</code>. If you want to change the default port you can pass in additional options to <code>createClient</code>. A full overview of the api is available on the <a href="https://github.com/NodeRedis/node_redis">node_redis GitHub page</a>.</p>
-
-<h2 id="meteor-methods">Meteor Methods</h2>
-
-<p>The meteor methods are very basic for testing purposes. We just have a simple <code>setRedis</code> and <code>getRedis</code> method that use our wrapped redis functions. This allows us to test the redis functionality from the client.</p>
-
-<script src="https://gist.github.com/quackware/42058d667822fcd7cf4e5c39ddafcf45.js"></script>
-
-<h2 id="client-side-code">Client Side Code</h2>
-
-<p>The client side code is composed of a few input fields and buttons that are hooked up to <code>Meteor.call</code> code. This allows us to test our simple <code>get</code> and <code>set</code> functions.</p>
-
-<script src="https://gist.github.com/quackware/2b9919c242942ee71af74e6f312e8a41.js"></script>
-
-<script src="https://gist.github.com/quackware/4b3ba350013f346fddd38460a3db8f5f.js"></script>
-
-<p>Clicking <code>set</code> will add the key/value pair to the redis server. You can then retrieve the value by clicking <code>get</code> which will populate the <code>Get Value</code> label.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>That’s it for this short tutorial with the bulk of the content being installing and setting up redis on the server. As you can see it’s very straightforward to add data stores other than MongoDB to your Meteor application, all thanks to the new npm support provided in Meteor 1.3+. As always the full source code for this tutorial is available on <a href="https://github.com/quackware/meteor-redis-tutorial">my GitHub</a>.</p>
-
+<p>Removing the <code>--progress</code> flag ended up fixing the problem. The underlying issue was that the large amount of log / print statements that <code>--progress</code> was generating was causing the build process to crash on heroku (but not locally). I hope this saves time for anyone else with this issue!</p>
 
     
     <hr/>
     
     <span>
-      <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> is a NYC based freelance software developer. <a href="https://twitter.com/quackware" target="_blank">Follow him on Twitter</a> or <a href="mailto:curtis@curtismlarson.com" target="_blank">send him an email</a> if your looking for a talented developer.
+      <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> is a LA based freelance software developer. <a href="https://twitter.com/quackware" target="_blank">Follow him on Twitter</a> or <a href="mailto:curtis@curtismlarson.com" target="_blank">send him an email</a> if your looking for a talented developer.
     </span>
     
     <div id="mc_embed_signup">
@@ -167,7 +132,7 @@ meteor npm install --save hiredis
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2018-10-01T09:00:13-07:00">2018</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2018-10-03T08:50:26-07:00">2018</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>

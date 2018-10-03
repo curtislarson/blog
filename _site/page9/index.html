@@ -73,26 +73,64 @@
   
   <article class="post">
     <h1 class="post-title">
-      <a href="/blog/2015/12/03/meteor-video-tutorial-reddit-clone/">
-        Meteor - Video Tutorial - Build a Reddit Clone
+      <a href="/blog/2015/12/06/meteor-send-ical-email-invitation/">
+        Meteor - How to Create and Send an iCal Invitation Email
       </a>
     </h1>
 
-    <time datetime="2015-12-03T00:00:00-08:00" class="post-date">03 Dec 2015</time>
+    <time datetime="2015-12-06T00:00:00-08:00" class="post-date">06 Dec 2015</time>
 
-    <h2 id="tutorial">Tutorial</h2>
+    <h2 id="introduction">Introduction</h2>
 
-<p>I just published my first Meteor video class on the Udemy platform! Pretty excited about it since I put a lot of work into it. The tutorial is a beginner level tutorial on how to build a Reddit Clone and runs about 3 hours. If you interested you can check out the tutorial below:</p>
+<p>In this tutorial I will show you how to send an iCal invitation email using basic Meteor packages and an iCal generator smart package. iCal files are useful because they allow the email recipient to instantly add the invitation or event to their calendar program directly form their email client. If you send emails with any sort of event information you should be sending an iCal file! The full source code for this tutorial is available on my <a href="https://github.com/quackware/meteor-send-invitation">GitHub page</a>.</p>
 
-<p><a href="https://www.udemy.com/beginner-meteor-development-build-a-basic-reddit-clone/learn">https://www.udemy.com/beginner-meteor-development-build-a-basic-reddit-clone/learn</a></p>
+<h2 id="setup">Setup</h2>
 
-<p>Use coupon code ‘website’ for 20% off!</p>
+<p>There are a few packages you need to get started</p>
+
+<pre><code>meteor add email
+meteor add quackware:ical-generator
+</code></pre>
+
+<p>The email package is pretty straightforward, it’s the basic email package provided by Meteor. The ical-generator is the npm package <a href="https://www.npmjs.com/package/ical-generator">ical-generator</a> that has been <a href="http://www.curtismlarson.com/blog/2015/11/20/meteor-wrap-publish-npm-package/">wrapped as a meteor smart package</a>. You can check out the source code of the smart package <a href="https://github.com/quackware/meteor-ical-generator">here</a>.</p>
+
+<p>You also need to sign up for some sort of 3rd party email service (sendgrid, mandrill, etc) so that you can set your <code>MAIL_URL</code> variable in the server, allowing you to send emails. For this tutorial I used a mandrill account, but they are all very similar to use.</p>
+
+<h2 id="client-side">Client Side</h2>
+
+<p>The client side code for this tutorial is very basic. We just need to have a few fields in a form that we can submit to the server. You can see the <code>send-invitation.html</code> and <code>send-invitation.js</code> files below:</p>
+
+<script src="https://gist.github.com/quackware/bdb509817ef76af80efa.js"></script>
+
+<script src="https://gist.github.com/quackware/de8d369ff3f979989573.js"></script>
+
+<p>These fields are just a sample of what you can include in an ical file. You can check out the documentation for ical-generator <a href="https://www.npmjs.com/package/ical-generator">here</a> which should give you a good idea of additional fields you might want to add.</p>
+
+<h2 id="server-side">Server Side</h2>
+
+<p>The first part of the server side code is setting up the <code>MAIL_URL</code> variable. I am setting it based on the user and password variables I have stored in my <code>settings.json</code> file:</p>
+
+<script src="https://gist.github.com/quackware/30ce2c9b9a96440098a3.js"></script>
+
+<p>You can read a more in depth discussion of setting up the <code>MAIL_URL</code> variable and the <code>settings.json</code> file in my <a href="http://www.curtismlarson.com/blog/2015/07/30/meteor-send-template-emails-from-server-mailgun/">send template emails from the server tutorial</a>. That tutorial uses mailgun, but mandrill works the exact same way.</p>
+
+<p>We also need to implement the <code>sendInvitation</code> Meteor method we referenced in the client side code. This code uses our <code>quackware:ical-generator</code> package we already added.</p>
+
+<script src="https://gist.github.com/quackware/34c8c0dab4d4de680ecd.js"></script>
+
+<p>As you can see we create an empty ical object and then add an event to the calendar object populated with the data from the client side. We can then use <code>cal.toString()</code> to attach the ical file as an attachment using the built in <code>Email.send</code> function provided by Meteor. That’s it! Once you test it out and send an email you should see an email similar to the one below:</p>
+
+<p><img src="http://i.imgur.com/s4uACyM.png" alt="Example Ical Email" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Thats it! Meteor makes it very easy to both send emails and include additional packages like the ical-generator to add additional functionality to our application. Again the full source code for this tutorial is available on my <a href="https://github.com/quackware/meteor-send-invitation">GitHub page</a>. If you have any improvements or suggestions make sure to leave a comment!</p>
 
     
     <hr/>
     
     <span>
-      <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> is a NYC based freelance software developer. <a href="https://twitter.com/quackware" target="_blank">Follow him on Twitter</a> or <a href="mailto:curtis@curtismlarson.com" target="_blank">send him an email</a> if your looking for a talented developer.
+      <a href="http://www.curtismlarson.com" target="_blank">Curtis Larson</a> is a LA based freelance software developer. <a href="https://twitter.com/quackware" target="_blank">Follow him on Twitter</a> or <a href="mailto:curtis@curtismlarson.com" target="_blank">send him an email</a> if your looking for a talented developer.
     </span>
     
     <div id="mc_embed_signup">
@@ -124,7 +162,7 @@
       </main>
       <footer class="footer">
         <small>
-          &copy; <time datetime="2018-10-01T09:00:13-07:00">2018</time> Curtis Larson. All rights reserved.
+          &copy; <time datetime="2018-10-03T08:50:26-07:00">2018</time> Curtis Larson. All rights reserved.
         </small>
       </footer>
     </div>
