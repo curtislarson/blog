@@ -2,7 +2,7 @@
 layout: post
 title: Remote Software Developer Freelance Sites
 description: An extensive list of websites where one can find software development freelance work.
-keywords: freelance, software developer, freelance software developer, upwork, gigster, craigslist, javascript, remote, freelance remote, remote software developer, remote freelancer, freelancer
+keywords: freelance, software developer, freelance software developer, upwork, gigster, craigslist, javascript, remote, freelance remote, remote software developer, remote freelancer, freelancer, agency, product manager
 author: curtis_larson
 comments: true
 ---
@@ -25,9 +25,14 @@ Gigster has marketed itself as an invite-only network of world class developers,
 
 Similar to Gigster, Toptal markets itself as an exclusive network of the top freelance software developers, designers, finance experts, and project managers in the world. They proudly say they only hire the top 3% of freelance talent, although whether that is due to the skill barrier or the extensive interview process is unknown. Developers are expected to go through multiple levels of code interviews and sample projects before they are accepted into the platform. All projects are 1099, and they are hourly, part-time (20 hrs/week), and full-time (40 hours/week). They can range anywhere from a few months long to 1+ years.
 
-#### 3. [MoonlightWork](https://www.moonlightwork.com/)
+#### 3. [MoonlightWork](https://www.moonlightwork.com/r/5640)
 
 This is a newer freelancing platform with a much lower bar for entry. You are vetted by the website owners but do not have to go through any sort of formal interview process. Once you are accepted you setup your profile and submit applications to various job postings based on your skill set. After applying the clients will reach out for further information/vetting. The amount of jobs on this platform is much less than the other platforms mentioned, most likely due ot it's newer presence.
+
+#### 4. [Gun.io](https://gun.io)
+
+Gun.io is a high quality freelancing platform that's focused on not only developers, but product managers, designers, UX professionals etc. There are two levels of Gun.io: The first one being a public slack channel where you can apply for newly posted jobs and share both work and apply for work posted by other community members. Once an application to a specific Gun.io job gets the attention of a team member, you go through an application process and are linked up with the client. From then on you are a "vetted" member of the community that gives you better access to clients and the ability to be payed directly through the Gun.io platform.
+
 
 ### Online Bidding Freelance Platforms
 
@@ -70,3 +75,5 @@ Similar to We Work Remotely, We Work Meteor is a job posting board that is speci
 #### 5. [Freelancermap](https://www.freelancermap.com/)
 
 Freelancer map allows you to sign up, create a profile, and apply to programming jobs all in one place. With the ability to filter based on remote positions, keywords, and type of work and have jobs delivered to your email daily using their "Project Agents", it's another good website to sign up for and forget.
+
+##### Last updated 2/14/2019 to include gun.io
