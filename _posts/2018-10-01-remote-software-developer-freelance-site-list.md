@@ -29,7 +29,7 @@ Similar to Gigster, Toptal markets itself as an exclusive network of the top fre
 
 This is a newer freelancing platform with a much lower bar for entry. You are vetted by the website owners but do not have to go through any sort of formal interview process. Once you are accepted you setup your profile and submit applications to various job postings based on your skill set. After applying the clients will reach out for further information/vetting. The amount of jobs on this platform is much less than the other platforms mentioned, most likely due ot it's newer presence.
 
-#### 4. [Gun.io](https://gun.io)
+#### 4. [Gun.io](https://gunio.referralrock.com/l/1CURTISLARS56/)
 
 Gun.io is a high quality freelancing platform that's focused on not only developers, but product managers, designers, UX professionals etc. There are two levels of Gun.io: The first one being a public slack channel where you can apply for newly posted jobs and share both work and apply for work posted by other community members. Once an application to a specific Gun.io job gets the attention of a team member, you go through an application process and are linked up with the client. From then on you are a "vetted" member of the community that gives you better access to clients and the ability to be payed directly through the Gun.io platform.
 
