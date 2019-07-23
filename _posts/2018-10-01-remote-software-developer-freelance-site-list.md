@@ -11,6 +11,8 @@ comments: true
 
 Periodically I find that my normal freelance client sourcing techniques have run dry. Whenever that happens I usually turn to one of the many freelance job boards or agencies that are available online. This is an easy way to add a supplemental stream of work during slow periods. I decided to collect my entire list here both as a reference for myself and as a helpful guide for others that want to know the various sites that are out there. I will periodically update this page when I find more resources.
 
+Also I am looking to subcontract designers and software developers. If interested please contact me at contract@curtismlarson.com with the subject line "Freelancer"
+
 ## The sites
 
 ### Online Freelancing Platforms
@@ -76,4 +78,4 @@ Similar to We Work Remotely, We Work Meteor is a job posting board that is speci
 
 Freelancer map allows you to sign up, create a profile, and apply to programming jobs all in one place. With the ability to filter based on remote positions, keywords, and type of work and have jobs delivered to your email daily using their "Project Agents", it's another good website to sign up for and forget.
 
-##### Last updated 2/14/2019 to include gun.io
+##### Last updated 7/23/2019 to include gun.io
